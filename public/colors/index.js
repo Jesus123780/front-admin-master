@@ -5,6 +5,9 @@ export const PVColor = '#0375fb'
 export const SEGColor = '#1f1c2f'
 export const SVColor = '#edf2f9'
 
+export const DarkSilver = '#717171'
+
+
 /** Colores de fuente */
 
 export const SFColor = '#272323'

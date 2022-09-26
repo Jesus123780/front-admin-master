@@ -1,4 +1,4 @@
-import { BGColor } from 'public/colors';
+import { BGColor, DarkSilver } from 'public/colors';
 import styled, { css } from 'styled-components';
 // import { BGColor, PColor } from '../../../../public/colors';
 
@@ -70,6 +70,6 @@ export const Text = styled.h2`
 }
     font-size: 1rem;
     font-weight: initial;
-    color: #717171;
+    color: ${DarkSilver};
     margin: 0 0 22px;
 `
