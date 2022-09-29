@@ -3,7 +3,11 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react'
 import { CategoriesStoreComponent } from '../../../components/Update/CategoriesStore';
 import moment from 'moment';
-import { CREATE_CAT_STORE, GET_ALL_CAT_STORE, SET_DES_CAT } from 'gql/catStore';
+import {
+    CREATE_CAT_STORE, 
+    GET_ALL_CAT_STORE, 
+    SET_DES_CAT 
+} from 'gql/catStore';
 import { Context } from 'context/Context';
 
 export const CategoriesStore = () => {
@@ -12,7 +16,7 @@ export const CategoriesStore = () => {
     const [values, setValues] = useState({})
     //-----------QUERIES ------------
     const [registerCategoryStore] = useMutation(CREATE_CAT_STORE)
-    const { data, loading, error } = useQuery(GET_ALL_CAT_STORE)
+    const { data } = useQuery(GET_ALL_CAT_STORE)
     const { setAlertBox } = useContext(Context)
     const [desCategoryStore] = useMutation(SET_DES_CAT)
     // ------------ HANDLES ------------
