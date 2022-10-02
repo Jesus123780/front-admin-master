@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "Anauthorized",
+        "deepmerge",
+        "Eliminado",
+        "Pedido"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports": true
+    }
+}
