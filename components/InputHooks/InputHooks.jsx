@@ -1,25 +1,28 @@
 /* eslint-disable react/prop-types */
 /* eslint no-console: "error" */
 /* eslint no-console: ["error", { allow: ["warn"] }] */
-import React, { useEffect, useReducer, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
-import { BoxInput, InputV, LabelInput, ShowPass, Tooltip, TextAreaInput, Listbox, List } from './styled'
-import { IconNoShow, IconShowEye } from '../../public/icons'
-import { SFVColor } from '../../public/colors'
-import {  isEmail, isNull, isPassword, onlyLetters, passwordConfirm, rangeLength } from '../../utils'
 import { useKeyPress } from 'hooks/useKeypress'
-
-const InputHooks = ({
-  reference,
-  title,
-  disabled,
-  onBlur,
-  fontSize,
-  paddingInput,
-  width,
-  minWidth,
-  display,
-  maxWidth,
+import {
+  useEffect,
+  useReducer,
+  useRef,
+  useState
+} from 'react'
+import { SFVColor } from '../../public/colors'
+import { IconNoShow, IconShowEye } from '../../public/icons'
+import {
+  isEmail,
+  isNull,
+  isPassword,
+  onlyLetters,
+  passwordConfirm,
+  rangeLength
+} from '../../utils'
+import {
+  BoxInput,
+  InputV,
+  LabelInput, List, Listbox, ShowPass, TextAreaInput, Tooltip
+} from './styled'
   TypeTextarea,
   padding,
   radius,
