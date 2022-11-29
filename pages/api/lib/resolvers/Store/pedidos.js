@@ -38,7 +38,6 @@ export const createOnePedidoStore = async (_, { input }, ctx) => {
 }
 const changePPStatePPedido = async (_, { pPStateP, pCodeRef }, ctx) => {
     try {
-        console.log(pPStateP, pCodeRef)
         const data = await StatusPedidosModel.update({ pSState: pPStateP }, { where: { pCodeRef: pCodeRef } })
         return {
             success: true,
@@ -62,8 +61,8 @@ const createMultipleOrderStore = async (_, { input }, ctx) => {
     try {
         await StatusPedidosModel.create({ id: deCode(ctx.User.id), locationUser, idStore: deCode(setInput[0].idStore), pSState: 0, pCodeRef: pCodeRef, change: change, payMethodPState: payMethodPState, pickUp, totalProductsPrice })
         if (setInput) {
-            for (let i = 0; i < setInput.length; i++) {
-                const { ShoppingCard, idStore } = setInput[i]
+            for (const element of setInput) {
+                const { ShoppingCard, idStore } = element
                 if (ShoppingCard) {
                     await deleteOneItem(null, { ShoppingCard, cState: 1 })
                 }

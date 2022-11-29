@@ -23,7 +23,8 @@ import {
   InputV,
   LabelInput, List, Listbox, ShowPass, TextAreaInput, Tooltip
 } from './styled'
-  TypeTextarea,
+ const InputHooks = ({
+ TypeTextarea,
   padding,
   radius,
   margin,
@@ -35,9 +36,19 @@ import {
   name,
   required,
   numeric,
+  minWidth ,
+  reference,
   border,
   checked,
+  width,
+  maxWidth,
   letters,
+  fontSize,
+  title,
+  onBlur,
+  disabled,
+  paddingInput,
+  display,
   range,
   email,
   pass,
@@ -228,9 +239,9 @@ import {
   }
   return (
     <BoxInput width={width} maxWidth={maxWidth} padding={padding} minWidth={minWidth}>
-      {pass && <ShowPass type='button' onClick={() => setIsPasswordShown(!isPasswordShown)}>
+      {/* {pass && <ShowPass type='button' onClick={() => setIsPasswordShown(!isPasswordShown)}>
         {isPasswordShown ? <IconNoShow size='20px' /> : <IconShowEye size='20px' />}
-      </ShowPass>}
+      </ShowPass>} */}
       {!TypeTextarea
         ? <div>
           <InputV
