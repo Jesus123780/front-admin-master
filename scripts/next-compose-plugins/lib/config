@@ -1,0 +1,12 @@
+const withPlugins = require('../lib')
+const withCSS = require('@zeit/next-css')
+
+const nextConfig = {
+  images: {
+    domains: ['sd.domain.com'] // your domain
+  }
+}
+
+module.exports = withPlugins([
+  [withCSS]
+], nextConfig)
