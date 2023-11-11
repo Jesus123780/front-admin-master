@@ -1,12 +1,15 @@
-import React, { useContext } from 'react'
-import { CREATE_NOTIFICATION } from './queries'
 import { useMutation } from '@apollo/client'
-import { Context } from 'context/Context'
-import { RippleButton } from 'components/Ripple'
-import InputHooks from 'components/InputHooks/InputHooks'
 import { useFormTools } from 'components/BaseForm'
-import { Container } from 'components/common/Reusable'
-import { Column, Row, Text } from 'components/common/Atoms'
+import { Context } from 'context/Context'
+import {
+  Column,
+  InputHooks,
+  RippleButton,
+  Row,
+  Text
+} from 'pkg-components'
+import { useContext } from 'react'
+import { CREATE_NOTIFICATION } from './queries'
 
 export const Notification = () => {
   const { Location, setAlertBox } = useContext(Context)

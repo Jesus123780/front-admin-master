@@ -1,8 +1,7 @@
 import { useStoreAdmin } from '@/hooks/useStoreAdmin'
 import { useUserAdmin } from '@/hooks/useUserAmin'
-import { Column, Row, Text } from 'components/common/Atoms'
 import { Loading } from 'components/Loading'
-import React from 'react'
+import { Column, Row, Text } from 'pkg-components'
 
 export const Activity = () => {
   const [dataStoreReport, { loading }] = useStoreAdmin()

@@ -1,12 +1,11 @@
+import { Column, RippleButton, Row } from 'pkg-components'
+import { useState } from 'react'
+import styled, { css, keyframes } from 'styled-components'
+import { Location as LocationAll } from '../Location/All/container'
 import { Departments } from '../Location/Departments'
 import { Municipalities } from '../Location/Municipalities'
-import { Location as LocationAll } from '../Location/All/container'
 import { Countries } from './Countries'
-import { useState } from 'react'
-import { RippleButton } from 'components/Ripple'
 import { TypeRoad } from './Road'
-import { Column, Row } from 'components/common/Atoms'
-import styled, { css, keyframes } from 'styled-components'
 
 export const Location = () => {
   const [active, setActive] = useState(1)

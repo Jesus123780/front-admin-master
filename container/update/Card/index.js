@@ -1,11 +1,9 @@
-import { useQuery, useMutation } from '@apollo/client'
-import { DELETE_CARDS_TYPES, GET_ALL_CARDS_TYPES, REGISTER_CARDS_TYPES } from 'gql/Admin/cardTypes'
-import InputHooks from 'components/InputHooks/InputHooks'
+import { useMutation, useQuery } from '@apollo/client'
 import { useFormTools } from 'components/BaseForm'
-import { Button, Column, Row } from 'components/common/Atoms'
-import { RippleButton } from 'components/Ripple'
-import { IconDelete } from 'public/icons'
+import { DELETE_CARDS_TYPES, GET_ALL_CARDS_TYPES, REGISTER_CARDS_TYPES } from 'gql/Admin/cardTypes'
+import { Button, Column, InputHooks, RippleButton, Row } from 'pkg-components'
 import { PColor } from 'public/colors'
+import { IconDelete } from 'public/icons'
 
 export const Card = () => {
   // STATE

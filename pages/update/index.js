@@ -1,6 +1,5 @@
-import Column from 'components/common/Atoms/Column'
-import Row from 'components/common/Atoms/Row'
 import { Context } from 'context/Context'
+import { Column, Row } from 'pkg-components'
 import { IconHome } from 'public/icons'
 import { useContext } from 'react'
 
