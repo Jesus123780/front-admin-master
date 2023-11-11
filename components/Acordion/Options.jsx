@@ -3,6 +3,7 @@ import { Row } from 'pkg-components'
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import { MenuLeft, OptionMenu, Span } from './Styled'
+
 const Options = ({ index, active, children, label, path, handleClick, icon }) => {
 
   const [height, setHeight] = useState(0)
