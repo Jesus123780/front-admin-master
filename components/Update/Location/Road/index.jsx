@@ -1,18 +1,14 @@
-import React, { useContext, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
+import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { PColor } from '../../../../public/colors'
+import { IconDelete, IconDost, IconEdit } from '../../../../public/icons'
+import { validationSubmitHooks } from '../../../../utils'
 import InputHooks from '../../../InputHooks/InputHooks'
 import { LoadEllipsis } from '../../../LoadingButton'
 import { RippleButton } from '../../../Ripple'
-import { validationSubmitHooks } from '../../../../utils'
-import { Context } from '../../../../context/Context'
-import { GET_TYPE_ROAD, UPDATE_ROAD } from './queries'
 import { EditForm } from './EditForm'
-// import { PColor } from '../../../../assets/colors'
-// import { IconEdit, IconDost, IconDelete } from '../../../../assets/icons/icons'
-import { Container, Form, Card, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
-import { PColor } from '../../../../public/colors'
-import { IconEdit, IconDost, IconDelete } from '../../../../public/icons'
+import { Button, Card, Container, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const TypeRoad = () => {
   const [createRoadMutation, { loading }] = useMutation(UPDATE_ROAD)
@@ -94,11 +90,8 @@ export const TypeRoad = () => {
             <OptionsFunction show={show === index}>
               <Button><IconDelete size={30} /></Button>
               <Button onClick={() => {return setEdit({ id: index.rId, value: index.rName })}} ><IconEdit size={30} /></Button>
-              {/* Todo Success */}
             </OptionsFunction>
-            {/* Tareas */}
             <ListTask show={show === index}>
-              {/* eslint-disable-next-line */}
                             {index.rName}
             </ListTask>
             <div style={{ display: 'contents' }}><Button onClick={() => {return setShow(index === show ? false : index)}}><IconDost color={show === index ? PColor : '#CCC'} size={30} /></Button></div>

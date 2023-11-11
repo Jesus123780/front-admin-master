@@ -1,5 +1,5 @@
 export const TemplateConfirm = ({ username, code, CodeInfo }) => {
-    return `
+  return `
     <!DOCTYPE html>
   <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
   <head>
@@ -210,7 +210,7 @@ export const TemplateConfirm = ({ username, code, CodeInfo }) => {
     `
 }
 export const TemplateLeaveComp = ({ username, company }) => {
-    return `
+  return `
     <!DOCTYPE html>
   <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
   <head>
@@ -419,7 +419,7 @@ export const TemplateLeaveComp = ({ username, company }) => {
     `
 }
 export const TemplateSendCodeAccess = ({ username, code }) => {
-    return `
+  return `
       <!DOCTYPE html>
     <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
     <head>

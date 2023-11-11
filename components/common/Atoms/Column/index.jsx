@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
 export const Column = ({ children, ...props }) => {
-    return (
-        <View {...props}>
-            {children}
-        </View>
-    )
+  return (
+    <View {...props}>
+      {children}
+    </View>
+  )
 }
 
 Column.propTypes = {}

@@ -11,33 +11,33 @@ import { deCode, enCode, getAttributes } from '../../utils/util'
 import { Op } from 'sequelize'
 // store
 export const getAllPedidoStoreFinal = async (_, args, ctx, info) => {
-    const { idStore } = args || {}
-    try {
-        const attributes = getAttributes(StatusPedidosModel, info)
-        const data = await StatusPedidosModel.findAll({
-            attributes,
-            where: {
-                [Op.or]: [
-                    {
-                        // ID STORE
-                        idStore: idStore ? deCode(idStore) : deCode(ctx.restaurant),
-                    }
-                ]
-            }
-        })
-        return data
-    } catch (error) {
-        return error
-    }
+  const { idStore } = args || {}
+  try {
+    const attributes = getAttributes(StatusPedidosModel, info)
+    const data = await StatusPedidosModel.findAll({
+      attributes,
+      where: {
+        [Op.or]: [
+          {
+            // ID STORE
+            idStore: idStore ? deCode(idStore) : deCode(ctx.restaurant)
+          }
+        ]
+      }
+    })
+    return data
+  } catch (error) {
+    return error
+  }
 }
 
 
 export default {
-    TYPES: {
-    },
-    QUERIES: {
+  TYPES: {
+  },
+  QUERIES: {
        
-    },
-    MUTATIONS: {
-    }
+  },
+  MUTATIONS: {
+  }
 }

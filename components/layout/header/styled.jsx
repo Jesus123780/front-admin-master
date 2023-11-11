@@ -1,5 +1,5 @@
-import { BColor, BGColor, PColor } from "public/colors";
-import styled, { css } from "styled-components";
+import { BColor, BGColor, PColor } from 'public/colors'
+import styled, { css } from 'styled-components'
 
 export const ActionContent = styled.div`
         width: min-content;
@@ -57,19 +57,19 @@ export const SwitchOption = styled.div`
         right: 0;
         margin: auto;
     }
-    ${({ show }) => show
-        ? css`
+    ${({ show }) => {return show
+    ? css`
             visibility: visible;
             opacity: 1;
             transform: translateY(0);
                 `
-        : css`
+    : css`
                 
             margin: 0;
             visibility: hidden;
             opacity: 0;
             transform: translateY(-50px);
-    `}
+    `}}
 `
 export const ButtonGlobalCreate = styled.button`
     border-radius: 20px;

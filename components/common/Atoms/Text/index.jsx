@@ -2,18 +2,18 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-export  const Text = ({ text, size, align, lineHeight, padding, margin, color, font, weight, textAlign, ...props }) => {
+export const Text = ({ text, size, align, lineHeight, padding, margin, color, font, weight, textAlign, ...props }) => {
   return <TextView
-  align={align}
-  color={color}
-  font={font}
-  lineHeight={lineHeight}
-  margin={margin}
-  padding={padding}
-  size={size}
-  weight={weight}
-  textAlign={textAlign}
-  {...props}
+    align={align}
+    color={color}
+    font={font}
+    lineHeight={lineHeight}
+    margin={margin}
+    padding={padding}
+    size={size}
+    textAlign={textAlign}
+    weight={weight}
+    {...props}
   // style={{...props}}
   >
     {text}

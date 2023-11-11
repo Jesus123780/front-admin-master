@@ -67,6 +67,9 @@ module.exports = async (phase) => {
 
   const nextConfig = {
     env,
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
     images,
     reactStrictMode: true,
     headers,

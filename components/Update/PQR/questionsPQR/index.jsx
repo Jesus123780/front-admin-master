@@ -11,103 +11,118 @@ import NewSelect from '../../../NewSelectHooks/NewSelect'
 import { validationSubmitHooks } from '../../../../utils'
 import { icons } from '../StorePqr/codeIcon'
 export const Questions = () => {
-    const { data, loading, error: errorC } = useQuery(GET_TYPE_PQR)
+  const { data, loading, error: errorC } = useQuery(GET_TYPE_PQR)
 
-    const [values, setValues] = useState({})
-    const [errors, setErrors] = useState({})
-    const handleChange = (e, error) => {
-        setValues({ ...values, [e.target.name]: e.target.value })
-        setErrors({ ...errors, [e.target.name]: error })
+  const [values, setValues] = useState({})
+  const [errors, setErrors] = useState({})
+  const handleChange = (e, error) => {
+    setValues({ ...values, [e.target.name]: e.target.value })
+    setErrors({ ...errors, [e.target.name]: error })
+  }
+  const handleRegister = async e => {
+    e.preventDefault()
+    // Declarando variables
+    let errorSubmit = false
+    for (const x in errors) {
+      if (errors[x]) errorSubmit = true
     }
-    const handleRegister = async e => {
-        e.preventDefault()
-        // Declarando variables
-        let errorSubmit = false
-        for (const x in errors) {
-            if (errors[x]) errorSubmit = true
-        }
-        // Validando todos los campos que no sean nulos
-        const errorForm = validationSubmitHooks(e.target.elements)
-        for (const x in errorForm) {
-            if (errorForm[x]) errorSubmit = true
-        }
-        setErrors({ ...errorForm })
-        if (errorSubmit) {
-            return alert('Por favor, verifique que los Campos estén correctos.')
-        }
-        const { username, name, email, password, ConfirmPassword } = values
-        if (ConfirmPassword !== password) {
-            alert('Las contraseñas no coinciden')
-        }
-        try {
-            if (!errorSubmit) {
-                const results = await null({
-                    variables: {
-                        input: {
-                            username,
-                            email,
-                            password,
-                            name,
-                        }
-                    }
-
-                })
-                setValues({})
-                setErrors({} || [])
+    // Validando todos los campos que no sean nulos
+    const errorForm = validationSubmitHooks(e.target.elements)
+    for (const x in errorForm) {
+      if (errorForm[x]) errorSubmit = true
+    }
+    setErrors({ ...errorForm })
+    if (errorSubmit) {
+      return alert('Por favor, verifique que los Campos estén correctos.')
+    }
+    const { username, name, email, password, ConfirmPassword } = values
+    if (ConfirmPassword !== password) {
+      alert('Las contraseñas no coinciden')
+    }
+    try {
+      if (!errorSubmit) {
+        const results = await null({
+          variables: {
+            input: {
+              username,
+              email,
+              password,
+              name
             }
-        } catch (error) {
-        }
-    }
-    if (errorC) return <>Ocurrió un error interno</>
-    return (<>
-        {loading && <i>Cargando datos</i>}
-        <Container>
-            <Content>
-                {!loading &&
-                    <CardWrapper>
-                        <Form onSubmit={handleRegister}>
-                            <NewSelect search disabled={!data?.typopqr} options={data?.typopqr?.filter(x => x?.thpName === x?.thpName) || []} id='thpId' name='thpId' value={values?.thpId || ''} optionName='thpName' title='Categoría Pregunta' onChange={handleChange} margin='10px' />
-                            <InputHooks
-                                title='Pregunta'
-                                required
-                                type="text"
-                                errors={values?.hpqrQuestion}
-                                value={values?.hpqrQuestion}
-                                onChange={handleChange}
-                                name='hpqrQuestion'
-                            />
-                            <div style={{ position: 'relative' }}>
-                                <TextArea name='hpqrAnswer' onChange={handleChange} type='text' />
-                                <LabelInput>Escribe tu respuesta</LabelInput>
-                            </div>
-                            <RippleButton bgColor='#ebebeb' label='Publicar' />
-                        </Form>
-                    </CardWrapper>
-                }
-                <CardWrapper>
-                    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column ', boxShadow: '0 1px 2px 0 rgb(0 0 0 / 12%)' }}>
-                        {/* eslint-disable-next-line */}
-                        {!!data?.typopqr && data.typopqr.map(x => <QuestionsList title={x.thpName} icon={icons.find(j => j.index == x.thpIcon)?.icon} iconArrow={<IconArrowRight color='red' size='10px' />} />)}
-                    </div>
-                </CardWrapper>
+          }
 
-            </Content>
-        </Container>
-    </>
-    )
+        })
+        setValues({})
+        setErrors({} || [])
+      }
+    } catch (error) {
+    }
+  }
+  if (errorC) return <>Ocurrió un error interno</>
+  return (<>
+    {loading && <i>Cargando datos</i>}
+    <Container>
+      <Content>
+        {!loading &&
+                    <CardWrapper>
+                      <Form onSubmit={handleRegister}>
+                        <NewSelect
+                          disabled={!data?.typopqr}
+                          id='thpId'
+                          margin='10px'
+                          name='thpId'
+                          onChange={handleChange}
+                          optionName='thpName'
+                          options={data?.typopqr?.filter(x => {return x?.thpName === x?.thpName}) || []}
+                          search
+                          title='Categoría Pregunta'
+                          value={values?.thpId || ''}
+                        />
+                        <InputHooks
+                          errors={values?.hpqrQuestion}
+                          name='hpqrQuestion'
+                          onChange={handleChange}
+                          required
+                          title='Pregunta'
+                          type='text'
+                          value={values?.hpqrQuestion}
+                        />
+                        <div style={{ position: 'relative' }}>
+                          <TextArea
+                            name='hpqrAnswer'
+                            onChange={handleChange}
+                            type='text'
+                          />
+                          <LabelInput>Escribe tu respuesta</LabelInput>
+                        </div>
+                        <RippleButton bgColor='#ebebeb' label='Publicar' />
+                      </Form>
+                    </CardWrapper>
+        }
+        <CardWrapper>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column ', boxShadow: '0 1px 2px 0 rgb(0 0 0 / 12%)' }}>
+            {/* eslint-disable-next-line */}
+                        {!!data?.typopqr && data.typopqr.map(x => <QuestionsList title={x.thpName} icon={icons.find(j => j.index == x.thpIcon)?.icon} iconArrow={<IconArrowRight color='red' size='10px' />} />)}
+          </div>
+        </CardWrapper>
+
+      </Content>
+    </Container>
+  </>
+  )
 }
 const QuestionsList = ({ icon, title, iconArrow }) => {
-    return (
-        <ContainerQuestion>
-            <AndesListItem>
-                <ItemFirstColumn>
-                    <>{icon}</>
-                    <ItemPrimary>{title}</ItemPrimary>
-                </ItemFirstColumn>
-                <span>{iconArrow}</span>
-            </AndesListItem>
-        </ContainerQuestion>
-    )
+  return (
+    <ContainerQuestion>
+      <AndesListItem>
+        <ItemFirstColumn>
+          <>{icon}</>
+          <ItemPrimary>{title}</ItemPrimary>
+        </ItemFirstColumn>
+        <span>{iconArrow}</span>
+      </AndesListItem>
+    </ContainerQuestion>
+  )
 }
 // Questions List
 const ContainerQuestion = styled.div`
@@ -199,18 +214,18 @@ const Form = styled.form`
 `
 export const LabelInput = styled.span`
     position: absolute;
-    font-size: ${ ({ value }) => value ? '11px' : '13px' };
-    top: ${ ({ value }) => value ? '-17px' : '10px' };
-    left: ${ ({ left }) => left ? left : '10px' };
-    color: ${ ({ value }) => value ? SFColor : SFVColor };
+    font-size: ${ ({ value }) => {return value ? '11px' : '13px'} };
+    top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
+    left: ${ ({ left }) => {return left ? left : '10px'} };
+    color: ${ ({ value }) => {return value ? SFColor : SFVColor} };
     transition: .3s;
     pointer-events: none;
-    font-weight: ${ ({ value }) => value ? 600 : 400 };
+    font-weight: ${ ({ value }) => {return value ? 600 : 400} };
 `
 
 export const TextArea = styled.textarea`
     width: 100%;
-    height: ${ ({ height }) => height ? height : '0' };
+    height: ${ ({ height }) => {return height ? height : '0'} };
     font-size: 15px;
     padding: 15px;
     outline: none;
@@ -223,7 +238,7 @@ export const TextArea = styled.textarea`
         font-size: 15px;
     }
     & ~ ${ LabelInput } {
-        top: ${ ({ value }) => value ? '-17px' : '10px' };
+        top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
         font-size: 13px;
     }
 `

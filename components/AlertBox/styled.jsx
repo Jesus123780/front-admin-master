@@ -50,14 +50,14 @@ const bounceOutUp = keyframes`
     }
 `
 export const Container = styled.div`
-    animation: ${ ({ error, closed }) => error && (closed ? bounceOutUp : bounceInDown) } 1s forwards;
-    padding: ${ props => props.error ? '10px' : 0 };
+    animation: ${ ({ error, closed }) => {return error && (closed ? bounceOutUp : bounceInDown)} } 1s forwards;
+    padding: ${ props => {return props.error ? '10px' : 0} };
     top: 0;
     position: fixed;
     margin: auto;
     text-align: center;
     width: 100%;
-    background-color: ${ props => props.color || PColor };
+    background-color: ${ props => {return props.color || PColor} };
     color: #fff;
     font-size: 18px;
     z-index: 99999;

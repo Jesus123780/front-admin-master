@@ -10,37 +10,37 @@ import { deCode, enCode, getAttributes } from '../../utils/util'
 import { Op } from 'sequelize'
 
 export const getAllMasterBanners = async (_, { min, max, search }, ctx, info) => {
-    const attributes = getAttributes(banners, info)
-    const data = await banners.findAll({
-        attributes,
-        where: {
-            [Op.or]: [
-                {
-                    BannersState: { [Op.gt]: 0 }
-                }
-            ]
-        }, limit: [min || 0, max || 100], order: [['BannersState', 'ASC']]
-    })
-    return data
+  const attributes = getAttributes(banners, info)
+  const data = await banners.findAll({
+    attributes,
+    where: {
+      [Op.or]: [
+        {
+          BannersState: { [Op.gt]: 0 }
+        }
+      ]
+    }, limit: [min || 0, max || 100], order: [['BannersState', 'ASC']]
+  })
+  return data
 }
 export const setBanners = async (_, { input }, ctx) => {
-    const { path, description, BannersState } = input
-    console.log(input)
-    const data = await banners.create({
-        ...input,
-    })
-    // return data
-    return input
+  const { path, description, BannersState } = input
+  console.log(input)
+  const data = await banners.create({
+    ...input
+  })
+  // return data
+  return input
 
 
 }
 export default {
-    TYPES: {
-    },
-    QUERIES: {
-        getAllMasterBanners,
-    },
-    MUTATIONS: {
-        setBanners,
-    }
+  TYPES: {
+  },
+  QUERIES: {
+    getAllMasterBanners
+  },
+  MUTATIONS: {
+    setBanners
+  }
 }

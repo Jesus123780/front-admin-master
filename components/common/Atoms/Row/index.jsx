@@ -2,16 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-export  const Row = ({ children, as='div', ...props }) => {
-    return (
-        <View as={as} {...props}>
-            {children}
-        </View>
-    )
+export const Row = ({ children, as='div', ...props }) => {
+  return (
+    <View as={as} {...props}>
+      {children}
+    </View>
+  )
 }
 
 Row.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node
 }
 
 export const View = styled.div`

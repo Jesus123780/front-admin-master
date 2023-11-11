@@ -1,22 +1,22 @@
-import { useSetState } from '../../hooks/useState';
+import { useSetState } from '../../hooks/useState'
 
-import { Container } from './styled';
-import Component from './landing';
-import useHover from '../../hooks/useHover';
-import { useScrollRotate } from '../../hooks/useScroll';
+import { Container } from './styled'
+import Component from './landing'
+import useHover from '../../hooks/useHover'
+import { useScrollRotate } from '../../hooks/useScroll'
 import { ReactComponent as Logo } from '../../../assets/img/logo.svg'
-import { TextAnimation } from '../../animations/TextAnimation';
-import { AnimatedText } from '../../animations/MouseHover';
-import { usePosition } from '../../hooks/usePosition';
-import styled from 'styled-components';
-import { useRef, useState } from 'react';
-import Square from '../../common/square';
-import { BColor } from 'public/colors';
+import { TextAnimation } from '../../animations/TextAnimation'
+import { AnimatedText } from '../../animations/MouseHover'
+import { usePosition } from '../../hooks/usePosition'
+import styled from 'styled-components'
+import { useRef, useState } from 'react'
+import Square from '../../common/square'
+import { BColor } from 'public/colors'
 
 export const Banner = ({ watch, settings }) => {
   const { state, increase, decrease, reset, changeState } = useSetState(0)
-  const [hoverRef, isHovered] = useHover();
-  const { position } = useScrollRotate();
+  const [hoverRef, isHovered] = useHover()
+  const { position } = useScrollRotate()
   const {
     latitude,
     longitude,
@@ -24,14 +24,14 @@ export const Banner = ({ watch, settings }) => {
     accuracy,
     speed,
     error
-  } = usePosition(watch, settings);
+  } = usePosition(watch, settings)
   const loader =
     !latitude && !error ? (
       <>
         <div>Trying to fetch location...</div>
         <br />
       </>
-    ) : null;
+    ) : null
   const fileInputRef = useRef(null)
   const [images, setImages] = useState([])
   const [previewImg, setPreviewImg] = useState(false)
@@ -49,7 +49,7 @@ export const Banner = ({ watch, settings }) => {
 
       <TextAnimation />
       {/* <TextHook /> */}
-      <AnimatedText textColor={BColor} overlayColor="#fdc52c">
+      <AnimatedText overlayColor='#fdc52c' textColor={BColor}>
         React
       </AnimatedText>
       <>
@@ -97,12 +97,13 @@ export const Banner = ({ watch, settings }) => {
       </div>
       <ContainerUpload>
         <InputFile
-          accept=".jpg, .png"
+          accept='.jpg, .png'
+          id='iFile'
           onChange={onFileInputChange}
           ref={fileInputRef}
-          id='iFile' type='file'
+          type='file'
         />
-        <ButtonStatus type='button' onClick={onTargetClick}>Subir</ButtonStatus>
+        <ButtonStatus onClick={onTargetClick} type='button'>Subir</ButtonStatus>
         <Img src={previewImg} />
         <br />
       </ContainerUpload>
@@ -128,7 +129,7 @@ export const ButtonStatus = styled.button`
     margin-bottom: 10px;
     padding:10px 15px;
     font-weight: 600;
-    font-size: ${({ fSize }) => fSize ? fSize : '13px'};
+    font-size: ${({ fSize }) => {return fSize ? fSize : '13px'}};
     min-width: 120px;
     width: 150px;
     border-radius: 50px;

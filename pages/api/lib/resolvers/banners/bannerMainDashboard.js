@@ -20,7 +20,7 @@ export const getPromoStoreAdmin = async (_, { min, max, search }, ctx, info) => 
 export const createAPromoBanner = async (_, { input }, ctx) => {
   try {
     await promosStoreAdmin.create({
-      ...input,
+      ...input
     })
     return { success: true, message: 'Banner creado' }
 
@@ -32,9 +32,9 @@ export default {
   TYPES: {
   },
   QUERIES: {
-    getPromoStoreAdmin,
+    getPromoStoreAdmin
   },
   MUTATIONS: {
-    createAPromoBanner,
+    createAPromoBanner
   }
 }

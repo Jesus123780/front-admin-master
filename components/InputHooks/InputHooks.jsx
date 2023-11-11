@@ -23,8 +23,8 @@ import {
   InputV,
   LabelInput, List, Listbox, ShowPass, TextAreaInput, Tooltip
 } from './styled'
- const InputHooks = ({
- TypeTextarea,
+const InputHooks = ({
+  TypeTextarea,
   padding,
   radius,
   margin,
@@ -100,10 +100,10 @@ import {
     if (emailDomain !== undefined) {
       if (emailDomain === '') {
         suggestionList = topLevelEmailDomainList?.map(
-          domain => emailUsername + '@' + domain
+          domain => {return emailUsername + '@' + domain}
         )
       } else {
-        suggestionList = otherLevelEmailDomainList.filter(domain => domain.startsWith(emailDomain)).map(domain => emailUsername + '@' + domain)
+        suggestionList = otherLevelEmailDomainList.filter(domain => {return domain.startsWith(emailDomain)}).map(domain => {return emailUsername + '@' + domain})
       }
     }
     return suggestionList
@@ -183,15 +183,15 @@ import {
     // setValue(e.target.value)
     // Valida que el campo no sea nulo
     if (required) {
-      if (isNull(e.target.value)) { return errorFunc(e, true, '') } else errorFunc(e, false, '')
+      if (isNull(e.target.value)) { return errorFunc(e, true, '') } errorFunc(e, false, '')
     }
     // Valida que el campo sea tipo numérico
     if (numeric) {
-      if (isNaN(e.target.value)) { return errorFunc(e, true, 'El campo debe ser numérico') } else errorFunc(e, false, '')
+      if (isNaN(e.target.value)) { return errorFunc(e, true, 'El campo debe ser numérico') } errorFunc(e, false, '')
     }
     // Valida que el campo sea solo letras
     if (letters) {
-      if (onlyLetters(e.target.value)) { return errorFunc(e, true, 'El campo debe contener solo letras') } else errorFunc(e, false, '')
+      if (onlyLetters(e.target.value)) { return errorFunc(e, true, 'El campo debe contener solo letras') } errorFunc(e, false, '')
     }
     // Valida que el campo esté en el rango correcto
     if (range) {
@@ -201,19 +201,19 @@ import {
           true,
           `El rango de carácteres es de ${range.min} a ${range.max}`
         )
-      } else errorFunc(e, false, '')
+      } errorFunc(e, false, '')
     }
     // Valida si el campo tiene un formato de email correcto
     if (email) {
-      if (isEmail(e.target.value)) { return errorFunc(e, true, 'Email Address must be valid') } else errorFunc(e, false, '')
+      if (isEmail(e.target.value)) { return errorFunc(e, true, 'Email Address must be valid') } errorFunc(e, false, '')
     }
     // Valida si el campo tiene un formato de contraseña correcto
     if (pass) {
-      if (isPassword(e.target.value)) { return errorFunc(e, true, 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula. Puede tener otros símbolos.') } else errorFunc(e, false, '')
+      if (isPassword(e.target.value)) { return errorFunc(e, true, 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula. Puede tener otros símbolos.') } errorFunc(e, false, '')
     }
     // Valida que las contraseñas coincidan
     if (passConfirm?.validate) {
-      if (passwordConfirm(e.target.value, passConfirm?.passValue)) { return errorFunc(e, true, 'Las contraseñas no coinciden.') } else errorFunc(e, false, '')
+      if (passwordConfirm(e.target.value, passConfirm?.passValue)) { return errorFunc(e, true, 'Las contraseñas no coinciden.') } errorFunc(e, false, '')
     }
   }
   const simpleVerifyEmail = (email) => {
@@ -238,69 +238,86 @@ import {
     // setTimeout(() => setShowSuggestions(!showSuggestions))
   }
   return (
-    <BoxInput width={width} maxWidth={maxWidth} padding={padding} minWidth={minWidth}>
+    <BoxInput
+      maxWidth={maxWidth}
+      minWidth={minWidth}
+      padding={padding}
+      width={width}
+    >
       {/* {pass && <ShowPass type='button' onClick={() => setIsPasswordShown(!isPasswordShown)}>
         {isPasswordShown ? <IconNoShow size='20px' /> : <IconShowEye size='20px' />}
       </ShowPass>} */}
       {!TypeTextarea
         ? <div>
           <InputV
-            value={value || ''}
-            ref={email ? refInput : reference}
-            onChange={validations}
-            name={name}
-            margin={margin}
-            display={display}
-            disabled={disabled}
-            checked={checked}
-            onBlur={onBlur || handleBlur}
-            size={fontSize}
-            radius={radius}
+            autoComplete={type === 'password' ? 'current-password' : email ? 'off' : 'true'}
             border={border}
+            checked={checked}
+            disabled={disabled}
+            display={display}
             error={errors}
             focus={onFocus}
-            placeholder={placeholder}
-            type={isPasswordShown ? 'text' : type}
-            autoComplete={type === 'password' ? 'current-password' : email ? 'off' : 'true'}
+            margin={margin}
+            name={name}
+            onBlur={onBlur || handleBlur}
+            onChange={validations}
             paddingInput={paddingInput}
+            placeholder={placeholder}
+            radius={radius}
+            ref={email ? refInput : reference}
+            size={fontSize}
+            type={isPasswordShown ? 'text' : type}
+            value={value || ''}
           />
           {(email && !!showSuggestions) && (
             <div>
-              <Listbox role="listbox" >
-                {suggestionList.map((suggestion, index) => (
-                  <List onClick={() => { dispatch({ type: 'select', payload: index }); handleSuggestionOnClick(suggestion) }} style={{ cursor: 'pointer', backgroundColor: index === state.selectedIndex ? `${SFVColor}2e` : 'transparent' }} aria-pressed={index === state.selectedIndex} tabIndex={0}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      dispatch({ type: 'select', payload: index })
-                      e.target.blur()
-                    }
-                  }}
-                  key={index} >
+              <Listbox role='listbox' >
+                {suggestionList.map((suggestion, index) => {return (
+                  <List
+                    aria-pressed={index === state.selectedIndex}
+                    key={index}
+                    onClick={() => { dispatch({ type: 'select', payload: index }); handleSuggestionOnClick(suggestion) }}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        dispatch({ type: 'select', payload: index })
+                        e.target.blur()
+                      }
+                    }}
+                    style={{ cursor: 'pointer', backgroundColor: index === state.selectedIndex ? `${SFVColor}2e` : 'transparent' }}
+                    tabIndex={0}
+                  >
                     {suggestion}
                   </List>
-                ))}
+                )})}
               </Listbox>
             </div>
           )}
         </div>
         : <TextAreaInput
-          ref={reference}
-          value={value || ''}
-          onChange={validations}
-          name={name}
-          disabled={disabled}
-          width={width} maxWidth={maxWidth} minWidth={minWidth}
-          onBlur={onBlur}
           border={border}
-          size={fontSize}
-          padding={padding}
-          radius={radius}
+          disabled={disabled}
           error={errors}
-          placeholder={placeholder}
+          maxWidth={maxWidth}
+          minWidth={minWidth}
+          name={name}
+          onBlur={onBlur}
+          onChange={validations}
+          padding={padding}
           paddingInput={paddingInput}
+          placeholder={placeholder}
+          radius={radius}
+          ref={reference}
+          size={fontSize}
+          value={value || ''}
+          width={width}
         />}
 
-      {<LabelInput value={value} type={type} labelColor={labelColor} error={error}>{title}</LabelInput>}
+      {<LabelInput
+        error={error}
+        labelColor={labelColor}
+        type={type}
+        value={value}
+      >{title}</LabelInput>}
       {errors && <Tooltip>{message}</Tooltip>}
     </BoxInput>
   )

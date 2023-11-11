@@ -3,16 +3,18 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
 export const Input = ({ children, ...props }) => {
-    return (
-        <InputView {...props}
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.onChange} />
-    )
+  return (
+    <InputView
+      {...props}
+      onChange={props.onChange}
+      placeholder={props.placeholder}
+      value={props.value}
+    />
+  )
 }
 
 Input.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node
 }
 
 
