@@ -1,10 +1,7 @@
 import { ApolloError } from 'apollo-server-micro'
-import CatStore from '../../models/information/CategorieStore'
-import ScheduleStore from '../../models/Store/ScheduleStore'
-import Store from '../../models/Store/Store'
-import { LoginEmail } from '../../templates/LoginEmail'
-import { deCode, filterKeyObject, getAttributes } from '../../utils/util'
 import { Op } from 'sequelize'
+import ScheduleStore from '../../models/Store/scheduleStore'
+import { deCode } from '../../utils/util'
 
 export const updateStoreSchedule = async (_root, { input }) => {
   try {
