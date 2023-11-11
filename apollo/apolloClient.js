@@ -1,5 +1,4 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, split } from '@apollo/client'
-import { onError } from '@apollo/client/link/error'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { concatPagination, getMainDefinition } from '@apollo/client/utilities'
 import { createUploadLink } from 'apollo-upload-client'
@@ -8,11 +7,9 @@ import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
 import { URL_ADMIN, URL_ADMIN_SERVER, URL_BASE } from './urls'
 
-
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
 let apolloClient
-let userAgent
 export const getDeviceId = async () => {
     return 32432
 }
@@ -37,25 +34,6 @@ const authLink = async (_) => {
     }
 }
 
-
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors)
-        graphQLErrors.map(({ message, locations, path }) => {
-            console.log(
-                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-            )
-        })
-    //
-    graphQLErrors?.length && graphQLErrors.forEach(err => {
-        const { code } = err.extensions
-        if (code === 'UNAUTHENTICATED' || code === 'FORBIDDEN') console.log('Papuuuuuuuu')
-        else if (code === 403) {
-            console.log('Papuuuuuuuu')
-        }
-    })
-    if (networkError) console.log(`[Network error]: ${networkError}`)
-})
-
 // Create Second Link
 const wsLink = process.browser ? new WebSocketLink({
     uri: process.env.NODE_ENV === 'development' ? 'ws://localhost:4000/graphql' : 'ws://server-image-food.herokuapp.com/graphql',
@@ -73,7 +51,6 @@ const wsLink = process.browser ? new WebSocketLink({
 const getLink = async (operation) => {
     // await splitLink({ query: operation.query })
     const headers = await authLink()
-    const definition = getMainDefinition(operation.query);
     const service = operation.getContext().clientName
     let uri = `${process.env.URL_BASE}/api/graphql`
     if (service === 'subscriptions') uri = 'http://localhost:4000/graphql'
@@ -95,7 +72,6 @@ const httpLink = createUploadLink({
     credentials: 'same-origin'
 })
 
-// split based on operation type 
 const Link = typeof window !== "undefined" ? split(
     (operation) => {
         const url = `${URL_BASE}graphql`
@@ -107,24 +83,6 @@ const Link = typeof window !== "undefined" ? split(
     wsLink,
     httpLink,
 ) : httpLink;
-
-
-// const [ createPerson ] = useMutation(CREATE PERSON, (
-//     onError: (error) » {
-//       notifyError(error.graphQLErrors[0].message)
-//     },
-//     update: (store, response) {
-//       const dataInStore = store.readQuery({ query: ALL_PERSONS })
-//       store.writeQuery({
-//         query: ALL PERSONS,
-//         data: {
-
-//            ... dataInStore,
-//           allPersons:[
-//                dataInStore.allPersons, ...
-//             response.data.addPerson
-//       })
-//   })
 
 const defaultOptions = {
     watchQuery: {
@@ -145,35 +103,14 @@ function createApolloClient() {
             return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
         },
             wsLink,
-            ApolloLink.split(() => true, operation => getLink(operation)),
-            // errorLink,
+            ApolloLink.split(() => true, operation => getLink(operation))
 
         )
         : ApolloLink.split(() => true, operation => getLink(operation))
     return new ApolloClient({
-        // defaultOptions,
         connectToDevTools: true,
         ssrMode: typeof window === 'undefined',
         link,
-        // link: ApolloLink.from([
-        //     onError(({
-        //         graphQLErrors,
-        //         networkError
-        //     }) => {
-        //         if (graphQLErrors) {
-        //             graphQLErrors.map(({ message, locations, path
-        //             }) =>
-        //                 console.log(
-        //                     `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        //                 )
-        //             );
-        //         }
-        //         if (networkError) {
-        //             console.log(`[Network error]: ${networkError}`);
-        //         }
-        //     }),
-        //     link
-        // ]),
         cache: new InMemoryCache({
             typePolicies: {
                 Query: {
@@ -186,7 +123,7 @@ function createApolloClient() {
     })
 }
 
-export function initializeApollo(initialState = null, ctx) {
+export function initializeApollo(initialState = null, _ctx) {
     const _apolloClient = apolloClient ?? createApolloClient()
     // If your page has Next.js data fetching methods that use Apollo Client, the initial state
     // gets hydrated here
