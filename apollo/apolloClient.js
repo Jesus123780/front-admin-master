@@ -75,12 +75,12 @@ const getLink = async (operation) => {
     const headers = await authLink()
     const definition = getMainDefinition(operation.query);
     const service = operation.getContext().clientName
-    let uri = `${URL_BASE}graphql`
+    let uri = `${process.env.URL_BASE}/api/graphql`
     if (service === 'subscriptions') uri = 'http://localhost:4000/graphql'
-    if (service === 'main') uri = 'http://localhost:3000/api/graphql'
+    if (service === 'main') uri = `${process.env.URL_BASE}/api/graphql`
     if (service === 'admin') uri = `${URL_ADMIN}graphql`
     if (service === 'admin-server') uri = `${URL_ADMIN_SERVER}graphql`
-    if (service === 'admin-store') uri = `http://localhost:3001/app/api/graphql`
+    if (service === 'admin-store') uri = `${process.env.URL_BASE}/api/graphql`
     const link = new HttpLink({
         uri,
         credentials: 'same-origin',
