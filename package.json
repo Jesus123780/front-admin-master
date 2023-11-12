@@ -22,6 +22,7 @@
     "apollo-upload-client": "^17.0.0",
     "axios": "^0.26.1",
     "deepmerge": "^4.2.2",
+    "face-api.js": "^0.22.2",
     "googleapis": "^95.0.0",
     "graphql": "^16.3.0",
     "graphql-fields": "^2.0.3",
