@@ -52,6 +52,7 @@ export const KeyCodeContainer = () => {
   useEffect(() => {
     let activeStream
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      if (!videoRef) return
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream) => {
@@ -74,6 +75,7 @@ export const KeyCodeContainer = () => {
 
   const captureImage = async () => {
     try {
+      if (!videoRef) return
         setLoading(true)
         const canvas = canvasRef.current
         const video = videoRef.current
