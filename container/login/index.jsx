@@ -46,6 +46,7 @@ export const Login = (props) => {
         return fetchJson(`${process.env.URL_BASE}/api/auth`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify(body)
         }).then(res => {
             if (res.success === true) {
