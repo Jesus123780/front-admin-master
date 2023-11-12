@@ -1,12 +1,12 @@
-import { Container } from './styled'
+import { Location as LocationAll } from '../Location/All/container'
 import { Departments } from '../Location/Departments'
 import { Municipalities } from '../Location/Municipalities'
-import { Location as LocationAll } from '../Location/All/container'
 import { Countries } from './Countries'
+import { Container } from './styled'
 
 import { useState } from 'react'
-import { RippleButton } from '../../Ripple'
 import styled, { css, keyframes } from 'styled-components'
+import { RippleButton } from '../../Ripple'
 import { TypeRoad } from './Road'
 
 export const Location = () => {
@@ -14,15 +14,16 @@ export const Location = () => {
   const handleClick = index => {
     setActive(index === active ? true : index)
   }
+  const tabWidth = 100 / 5; // Cambia 5 al número total de botones
+
   return (
     <Container>
-             
       <ContentButton>
         <RippleButton
           active={active === 1}
           bgColor='#9797971a'
           color='red'
-          label='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;País &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+          label='País'
           margin='0px 5px'
           onClick={() => {return active !== 1 && handleClick(1)}}
           padding='10px'
@@ -69,6 +70,12 @@ export const Location = () => {
           style={{ borderRadius: '0px' }}
         />
       </ContentButton>
+      <span
+          style={{
+            left: `${active * tabWidth}%`,
+            width: `${tabWidth}%`,
+          }}
+        />
       {
         active === 1 ?
           <ContainerAnimation><Countries /></ContainerAnimation> : active === 2 ? <ContainerAnimationTow><Departments /></ContainerAnimationTow> : active === 3 ? <ContainerAnimationThree><Municipalities /></ContainerAnimationThree>: active === 4 ?<ContainerAnimationFour><TypeRoad /></ContainerAnimationFour> : active === 5 ? <ContainerAnimationFive><LocationAll /></ContainerAnimationFive> : <h1>Donde te sentaste amigo???</h1>
@@ -118,6 +125,10 @@ ${ props=> {return props.active === 5 && css`animation: ${ AnimationLeft } 200ms
 
 `
 const ContentButton = styled.div`
-    width: 90%;
-    margin: 0px 40px 30px auto;
+  display: flex;
+  gap: 5px;
+  overflow: hidden;
+  background: linear-gradient(to right, red, red) no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.3s;
 `

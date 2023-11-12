@@ -15,7 +15,6 @@ query getAllStoreAdmin($search: String, $min: Int, $max: Int, $dId: ID, $ctId: I
     storePhone
     Image
     banner
-    createAt
     uPhoNum
     ULocation
     pais{

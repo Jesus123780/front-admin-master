@@ -1,7 +1,7 @@
 import {
-    ApolloClient,
-    ApolloLink,
-    split
+  ApolloClient,
+  ApolloLink,
+  split
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { WebSocketLink } from '@apollo/client/link/ws'
@@ -128,7 +128,7 @@ function createApolloClient() {
     if (service === 'main') uri = `${process.env.URL_BACK_SERVER}/graphql`
     if (service === 'admin-store') uri = `${URL_ADMIN}graphql`
     if (service === 'admin') uri = `${URL_BASE_ADMIN_MASTER}graphql`
-    if (service === 'admin-server') uri = `${process.env.URL_ADMIN_SERVER_SOCKET_HTTPS}`
+    if (service === 'admin-server') uri = `${process.env.URL_ADMIN_SERVER_SOCKET_HTTPS}/graphql`
     const token = Cookies.get('session')
     const context = operation.getContext()
     const { headers: ctx } = context || {}

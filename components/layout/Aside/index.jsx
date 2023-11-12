@@ -2,11 +2,11 @@ import { useApolloClient } from '@apollo/client'
 import { URL_BASE } from 'apollo/urls'
 import Options from 'components/Acordion/Options'
 import { useRouter } from 'next/router'
+import { ActiveLink } from 'pkg-components'
 import PropTypes from 'prop-types'
 import React, { useCallback, useState } from 'react'
 import { PColor } from '../../../public/colors'
 import { IconLogout, IconShopping } from '../../../public/icons'
-import ActiveLink from '../../common/Link'
 import {
   Anchor,
   AnchorRouter,

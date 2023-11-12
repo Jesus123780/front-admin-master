@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 export const useStoreAdmin = () => {
   const { data, loading, error } = useQuery(GET_ALL_STORE_REPORT, {
-    context: { clientName: "admin-store" }
   })
   const [stores, setStore] = useState(data)
   useEffect(() => {

@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { PColor, SEGColor, BColor, SECColor } from 'public/colors'
 import Link from 'next/link'
+import { BColor, PColor, SECColor, SEGColor } from 'public/colors'
+import styled from 'styled-components'
 
 export const Span = styled.span`
     color: ${ props => {return props.active ? PColor : BColor} };
@@ -59,6 +59,8 @@ export const MenuLeft = styled.button`
     font-family: Poppins;
     background-color: transparent;
     background: #f2f2f2;
+    margin: 10px 0;
+    padding: 10px 0;
     background-image: ${ props => {return !!props.active && `linear-gradient(125deg, #ffffff, #7878783b)`} };
     align-self: ${ ({ alignSelf }) => {return alignSelf || 'auto'} };
     & > div:first-child { pointer-events: none; }
@@ -93,7 +95,7 @@ export const OptionMenu = styled.div`
     width: 100%;
     transform: translateY(${ ({ height }) => {return height} }px);
     overflow: hidden;
-    padding: 5px 0;
+    padding: 30px 0;
 `
 export const Box = styled.div`
 

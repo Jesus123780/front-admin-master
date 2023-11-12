@@ -1,4 +1,13 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react'
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useReducer,
+    useState
+} from 'react'
+
 import { useRouter } from 'next/router'
 export const Context = createContext()
 const Provider = ({ children }) => {
@@ -187,3 +196,4 @@ const Provider = ({ children }) => {
 const useAuth = () => useContext(Context)
 
 export { Provider as default, useAuth }
+

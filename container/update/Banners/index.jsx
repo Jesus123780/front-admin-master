@@ -1,16 +1,16 @@
+import { useMutation, useQuery } from '@apollo/client'
 import { AwesomeModal } from 'components/AwesomeModal'
-import { useFormTools } from 'components/BaseForm'
-import { Container } from 'components/common/Reusable'
 import { InputFiles } from 'components/InputFilesPrev'
-import { useQuery, useMutation } from '@apollo/client'
 import InputHooks from 'components/InputHooks/InputHooks'
 import { RippleButton } from 'components/Ripple'
+import { Container } from 'components/common/Reusable'
 import { CREATE_BANNER_MAIN, CREATE_BANNER_PROMO } from 'container/dashboard/queries'
-import React, { useState } from 'react'
-import { GET_ALL_BANNERS, GET_ALL_RESTAURANT } from './queries'
 import { PromoBannerStores, PromosBanner } from 'container/update/PromosBanner'
 import { GET_ALL_BANNERS_PROMO } from 'gql/getBanners'
+import { useFormTools } from 'npm-pkg-hook'
+import { useState } from 'react'
 import { updateCache } from 'utils'
+import { GET_ALL_BANNERS, GET_ALL_RESTAURANT } from './queries'
 
 export const Banners = () => {
   const [open, setOpen] = useState(false)
@@ -20,13 +20,10 @@ export const Banners = () => {
   const [reset, setReset] = useState(false)
   const [handleChange, handleSubmit, setDataValue, { dataForm, errorForm, setForcedError }] = useFormTools()
   const [setBanners, { error: Error }] = useMutation(CREATE_BANNER_MAIN, {
-    context: { clientName: "admin-server" }
   })
   const [setPromoBanners] = useMutation(CREATE_BANNER_PROMO, {
-    context: { clientName: "admin-server" }
   })
   const { data, loading } = useQuery(GET_ALL_BANNERS, {
-    context: { clientName: "admin-server" }
   })
   const { data: dataListStore, fetchMore } = useQuery(GET_ALL_RESTAURANT, {
     fetchPolicy: 'cache-and-network',
@@ -82,7 +79,6 @@ export const Banners = () => {
           })
         }).then(res => {
           if (res) {
-            // window.localStorage.setItem('restaurant', res?.idStore)
           }
         }).catch(e => {
         })
@@ -112,7 +108,6 @@ export const Banners = () => {
       <AwesomeModal zIndex='99390' padding='20px' show={open} onHide={() => handleReset} onCancel={() => false} size='medium' btnCancel={true} btnConfirm={false} header={true} footer={false} >
         Banners
         <form onSubmit={(e) => handleForm(e)}>
-          {/* <InputFiles Disable={false} onChange={handleFileChange} reset={reset} /> */}
           <InputHooks
             title='Nombre del banner'
             required

@@ -25,6 +25,7 @@ export const Departments = () => {
   // Query para traer a todos los departamentos
   const { data: dataCountries } = useQuery(GET_COUNTRY)
   const { data } = useQuery(GET_DEPARTMENT_ALL)
+  console.log("🚀 ~ file: index.jsx:29 ~ Departments ~ data:", data)
   const handleRegister = async e => {
     e.preventDefault()
     // Declarando variables

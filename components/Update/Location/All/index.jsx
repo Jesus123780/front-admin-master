@@ -1,9 +1,9 @@
-import React from 'react'
-import { Content } from './styled'
-import { ButtonSubmit } from './styled'
+import NewSelect from 'components/NewSelectHooks/NewSelect'
+import PropTypes from "prop-types"
 import { BGColor } from '../../../../public/colors'
 import { LoadEllipsis } from '../../../LoadingButton'
-import NewSelect from 'components/NewSelectHooks/NewSelect'
+import { ButtonSubmit, Content } from './styled'
+
 export const Location = ({ handleChange, onChangeSearch, countries, cities, departments, road, valuesForm, errorForm, loading }) => {
   return (
     <h1>
@@ -56,4 +56,25 @@ export const Location = ({ handleChange, onChangeSearch, countries, cities, depa
       </Content>
     </h1>
   )
+}
+Location.propTypes = {
+  cities: PropTypes.any,
+  countries: PropTypes.any,
+  departments: PropTypes.any,
+  errorForm: PropTypes.shape({
+    countryId: PropTypes.any,
+    ctId: PropTypes.any,
+    dId: PropTypes.any,
+    rId: PropTypes.any
+  }),
+  handleChange: PropTypes.any,
+  loading: PropTypes.any,
+  onChangeSearch: PropTypes.any,
+  road: PropTypes.any,
+  valuesForm: PropTypes.shape({
+    countryId: PropTypes.any,
+    ctId: PropTypes.any,
+    dId: PropTypes.any,
+    rId: PropTypes.any
+  })
 }

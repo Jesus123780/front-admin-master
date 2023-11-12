@@ -10,11 +10,8 @@ export const DELETE_BANNERS = gql`
 }
 `
 export const DELETE_BANNERS_MASTER = gql`
-  mutation deleteOneBannerMaster($BannerId: ID, $BannersState: Int, $path: String) {
-  deleteOneBannerMaster(BannerId: $BannerId, BannersState: $BannersState, path: $path){
-    success
-    message
-    
-  }
+mutation deleteOneBannerMaster($id: ID!) {
+  deleteOneBannerMaster(id: $id)
 }
+
 `

@@ -1,14 +1,27 @@
 import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client'
-import NewSelect from 'components/NewSelectHooks/NewSelect'
 import { Context } from 'context/Context'
 import { GET_ALL_CITIES, GET_ALL_COUNTRIES, GET_ALL_DEPARTMENTS, GET_ONE_COUNTRY } from 'gql/Location'
 import { useStoreAdmin } from 'hooks/useStoreAdmin'
 import { useRouter } from 'next/router'
+import { NewSelect } from 'pkg-components'
 import { BColor, PColor } from 'public/colors'
 import { IconArrowLeft, IconLogo, IconLogout } from 'public/icons'
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import { URL_BASE } from '../../../apollo/urls'
-import { ActionContent, Button, ButtonGlobalCreate, ContainerHeader, CtnSwitch, SwitchOption } from './styled'
+import {
+  ActionContent,
+  Button,
+  ButtonGlobalCreate,
+  ContainerHeader,
+  CtnSwitch,
+  SwitchOption
+} from './styled'
 
 export const Header = () => {
   const Router = useRouter()

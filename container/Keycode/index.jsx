@@ -66,7 +66,6 @@ export const KeyCodeContainer = () => {
         })
     }
   }, [])
-  
 
   const captureImage = async () => {
     try {

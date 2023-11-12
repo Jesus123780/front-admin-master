@@ -5,7 +5,6 @@ import {
   Kit,
   Location,
   Notification,
-  Offers,
   Pqr,
   PromoBannerDashboard,
   PromosBanner,
@@ -28,7 +27,6 @@ export default function Login ({ ...args }) {
     stores: <Stores {...props} />,
     Pqr: <Pqr {...props} />,
     categories: <CategoriesStore {...props} />,
-    offers: <Offers {...props} />,
     kit: <Kit {...props} />,
     card: <Card {...props} />,
     'promos-dashboard': <PromoBannerDashboard {...props} />

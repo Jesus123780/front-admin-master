@@ -1,18 +1,20 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { CHANGE_STATE, GET_ALL_RESTAURANT } from './queries'
 import { useLazyQuery, useMutation } from '@apollo/client'
-import { updateCache } from 'utils'
 import { Section } from 'components/Table/styled'
-import { Table } from 'components/Table'
-import Link from 'next/link'
-import { Button, Item, ItemStatus, Select } from './styled'
-import { CLIENT_URL_BASE } from 'apollo/urls'
+import { Container, Form } from 'components/common/Reusable'
 import { Context } from 'context/Context'
-import { RippleButton } from 'components/Ripple'
-import InputHooks from 'components/InputHooks/InputHooks'
-import { useFormTools } from 'components/BaseForm'
-import { Form, Container } from 'components/common/Reusable'
-import { AwesomeModal } from 'components/AwesomeModal'
+import Link from 'next/link'
+import { useFormTools } from 'npm-pkg-hook'
+import {
+  AwesomeModal,
+  Button,
+  InputHooks,
+  RippleButton,
+  Table
+} from 'pkg-components'
+import { useCallback, useContext, useEffect, useState } from 'react'
+import { updateCache } from 'utils'
+import { CHANGE_STATE, GET_ALL_RESTAURANT } from './queries'
+import { Item, ItemStatus, Select } from './styled'
 
 export const Stores = () => {
   const { Location, setAlertBox } = useContext(Context)
@@ -21,15 +23,14 @@ export const Stores = () => {
   const [setChangeStatus] = useMutation(CHANGE_STATE)
   const [getAllStoreAdmin, { data: dataRestaurant, fetchMore, loading }] = useLazyQuery(GET_ALL_RESTAURANT, {
     fetchPolicy: 'cache-and-network',
-    // context: { clientName: "main" }
     notifyOnNetworkStatusChange: true,
     nextFetchPolicy: 'cache-first',
     refetchWritePolicy: 'merge',
-    // variables: {
-    //   cId: Location.countryId,
-    //   dId: Location.department,
-    //   ctId: Location.city
-    // }
+    variables: {
+      cId: Location.countryId,
+      dId: Location.department,
+      ctId: Location.city
+    }
   })
   useEffect(() => {
     dataRestaurant?.getAllStoreAdmin && setData([...dataRestaurant?.getAllStoreAdmin])
@@ -49,7 +50,7 @@ export const Stores = () => {
   const [openModal, setOpenModal] = useState(false)
   // console.log(parseInt(select))
   const HandleSearch = useCallback(() => {
-    getAllStoreAdmin({ variables: { search: dataForm.search, uState: parseInt(select) } })
+    getAllStoreAdmin({ variables: { search: dataForm.search } })
   }, [select, dataForm, dataRestaurant])
   const handleState = async ({ idStore, uState }) => {
     setChangeStatus({
@@ -96,7 +97,7 @@ export const Stores = () => {
         data={dataRestaurant?.getAllStoreAdmin || []}
         renderBody={(dataB, titles) => dataB?.map((x, i) => <Section odd padding='10px 0' columnWidth={titles} key={i}>
           <Item>
-            <span> R {x.storeName}</span>{console.log(x)}
+            <span> {x.storeName}</span>{console.log(x)}
           </Item>
           <Item>
             <span>{x.storePhone}</span>
@@ -124,7 +125,7 @@ export const Stores = () => {
           </Item>
           <Item>
             <Button disabled={x.uState == 1}>
-              <Link href={x.uState == 2 ? { pathname: `${CLIENT_URL_BASE}delivery/${x?.city?.cName?.toLocaleLowerCase()}-${x?.department?.dName?.toLocaleLowerCase()}/${x.storeName.replace(/\s/g, '-').toLocaleLowerCase()}/${x.idStore}` } : '/update/stores'}>
+              <Link href={x.uState == 2 ? { pathname: `${process.env.MAIN_URL_BASE}/delivery/${x?.city?.cName?.toLocaleLowerCase()}-${x?.department?.dName?.toLocaleLowerCase()}/${x.storeName.replace(/\s/g, '-').toLocaleLowerCase()}/${x.idStore}` } : '/update/stores'}>
                 <a target={x.uState == 2 && "_blank"}>
                   Ver detalles
                 </a>

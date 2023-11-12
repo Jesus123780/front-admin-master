@@ -1,5 +1,5 @@
 import { Column, RippleButton, Row } from "pkg-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Location as LocationAll } from "../Location/All/container";
 import { Departments } from "../Location/Departments";
@@ -45,12 +45,46 @@ export const Location = () => {
     { id: 2, label: "Departamentos" },
     { id: 3, label: "Ciudades" },
     { id: 4, label: "tipo de via" },
-    { id: 5, label: "Todo" }
+    { id: 5, label: "Todo" },
   ];
+  const [backgroundPosition, setBackgroundPosition] = useState(0);
 
+  useEffect(() => {
+    const contentButton = document.querySelector('.content-button');
+
+    const handleMouseMove = (e) => {
+      const buttons = contentButton.children;
+      const buttonWidth = buttons[0].offsetWidth;
+      const mouseX = e.clientX - contentButton.getBoundingClientRect().left;
+      const newIndex = Math.floor(mouseX / buttonWidth) + 1;
+
+      if (newIndex !== active) {
+        setActive(newIndex);
+      }
+
+      const newPosition = (newIndex - 1) * buttonWidth;
+      setBackgroundPosition(newPosition + 'px');
+    };
+
+    contentButton.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      contentButton.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [active]);
+  
   return (
-    <Column>
-      <Row margin="auto" width="50%">
+    <Column style={{ with: "80%" }}>
+      <Row
+        width="100%"
+        style={{
+          flexWrap: "wrap",
+          width: "90%",
+          margin: "20px auto",
+          justifyContent: "center",
+        }}
+      >
+        <ContentButton className="content-button" style={{ backgroundPosition }}>
         {buttonProps.map(({ id, label }) => (
           <RippleButton
             key={id}
@@ -67,9 +101,11 @@ export const Location = () => {
             widthButton="200px"
           ></RippleButton>
         ))}
+        </ContentButton>
       </Row>
-
-      {componentsMap[active] || <h1>Donde te sentaste amigo???</h1>}
+      <div style={{ margin: "0 auto", width: "90%" }}>
+        {componentsMap[active] || componentsMap[5]}
+      </div>
     </Column>
   );
 };
@@ -143,4 +179,14 @@ const ContainerAnimationFive = styled.div`
       `
     );
   }}
+`;
+
+const ContentButton = styled.div`
+  display: flex;
+  gap: 5px;
+  overflow: hidden;
+  background: linear-gradient(to right, red, red) no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.3s;
+  padding: 10px; /* Agrega margen interno para separar los botones */
 `;

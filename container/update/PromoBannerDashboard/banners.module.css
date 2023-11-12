@@ -1,0 +1,62 @@
+
+.wrapperContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+.container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    overflow: hidden;
+    max-width: 300px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+  }
+  
+  .comments {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-overflow: clip;
+
+  }
+  
+  .metaTags {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+    text-overflow: clip;
+
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    text-overflow: clip;
+
+  }
+  
+  .editButton,
+  .deleteButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .deleteButton {
+    background-color: #ff0000;
+  }
+  
+  .deleteButton:hover {
+    background-color: #cc0000;
+  }
+  

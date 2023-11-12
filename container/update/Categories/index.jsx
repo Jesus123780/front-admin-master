@@ -1,6 +1,6 @@
 import { useLazyQuery, useMutation } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react'
-import { Categories } from '../../../components/Update/Categories'
+import { useEffect, useState } from 'react';
+import { Categories } from '../../../components/Update/Categories';
 import { useCategories } from '../../../components/hooks/useCategories';
 import { UPDATE_CATEGORIES } from './queries';
 
@@ -91,12 +91,8 @@ export const CategoriesC = () => {
             rating={rating}
             setRating={setRating}
             handleChangeFilter={handleChangeFilter}
-            // Datos de filtro
             handleDelete={handleDelete}
             setShowMore={setShowMore}
-            // Slider
-            // Datos del areas
-
         />
     )
 }

@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types'
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react'
-import { CategoriesStoreComponent } from '../../../components/Update/CategoriesStore';
-import moment from 'moment';
+import { useMutation, useQuery } from '@apollo/client'
+import { Context } from 'context/Context'
 import {
-    CREATE_CAT_STORE, 
-    GET_ALL_CAT_STORE, 
-    SET_DES_CAT 
-} from 'gql/catStore';
-import { Context } from 'context/Context';
+    CREATE_CAT_STORE,
+    GET_ALL_CAT_STORE,
+    SET_DES_CAT
+} from 'gql/catStore'
+import { useContext, useState } from 'react'
+import { CategoriesStoreComponent } from '../../../components/Update/CategoriesStore'
 
 export const CategoriesStore = () => {
     // ------------ ESTADOS ------------
@@ -29,7 +27,7 @@ export const CategoriesStore = () => {
         e.preventDefault()
         const { csDescription, cName } = values
         try {
-            registerCategoryStore({
+            return registerCategoryStore({
                 variables: {
                     input: { cState: 1, cName: cName, csDescription: csDescription }
                 }, update(cache) {
@@ -96,7 +94,4 @@ export const CategoriesStore = () => {
     )
 }
 CategoriesStore.propTypes = {
-    handleChangeClick: PropTypes.func,
-    filterState: PropTypes.object,
-    handleChange: PropTypes.func
 }

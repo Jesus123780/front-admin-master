@@ -14,6 +14,7 @@ const withPWA = require('next-pwa')({
 /** @type {import('next').NextConfig} */
 module.exports = async (phase) => {
   const env = {
+    URL_ADMIN_SERVER_SOCKET_HTTPS: process.env.URL_ADMIN_SERVER_SOCKET_HTTPS,
     BUSINESS_TITLE: process.env.BUSINESS_TITLE,
     LOCAL_SALES_STORE: process.env.LOCAL_SALES_STORE,
     IMAGE_FACE_KEY: process.env.IMAGE_FACE_KEY,
