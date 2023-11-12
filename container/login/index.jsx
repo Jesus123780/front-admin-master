@@ -1,4 +1,3 @@
-import { URL_BASE } from 'apollo/urls';
 import { useFormTools } from 'components/BaseForm';
 import { RippleButton } from 'components/Ripple';
 import fetchJson from 'hooks/fetchJson';
@@ -42,25 +41,12 @@ export const Login = (props) => {
         useragent: 'window.navigator.userAgent',
         deviceid: '23423423432',
     }
-    const handleSubmit = () => {
-        return fetchJson(`${process.env.URL_BASE}/api/auth`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify(body)
-        }).then(res => {
-            if (res.success === true) {
-                window.localStorage.setItem('restaurant', res?.idStore)
-                router.push('/dashboard')
-            }
-        }).catch(e => {
-        })
-    }
     const handleForm = (e) => handleSubmitMain({
         event: e,
         action: () => {
-            return fetchJson(`${URL_BASE}auth`, {
+            return fetchJson(`${process.env.URL_BASE}/api/auth`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             }).then(res => {
@@ -74,20 +60,6 @@ export const Login = (props) => {
     })
     return (
         <div>
-            {/* <form ref={formRef}>
-                <button type="button" onClick={onClickHandler}>
-                    {props.label}
-                </button>
-                <input
-                    accept={props.acceptedFileTypes}
-                    multiple={props.allowMultipleFiles}
-                    name={props.uploadFileName}
-                    onChange={onChangeHandler}
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    type="file"
-                />
-            </form> */}
             <Container>
                 <ContainerLeft>
                     <ContentImage>
@@ -102,7 +74,7 @@ export const Login = (props) => {
                     </ContentImage>
                 </ContainerLeft>
                 <Form onSubmit={(e) => handleForm(e)}>
-                    <RippleButton widthButton='100%' margin='20px auto' onClick={() => handleSubmit()}>Login</RippleButton>
+                    <RippleButton widthButton='100%' margin='20px auto' type='submit'>Login</RippleButton>
                 </Form>
             </Container>
         </div>
