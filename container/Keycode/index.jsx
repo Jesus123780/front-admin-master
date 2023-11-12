@@ -57,7 +57,7 @@ export const KeyCodeContainer = () => {
         .then((stream) => {
           activeStream = stream
           setCameraStream(stream)
-          videoRef.current.srcObject = stream
+          .current.srcObject = stream
           videoRef.current.play()
         })
         .catch((error) => {
@@ -141,10 +141,10 @@ export const KeyCodeContainer = () => {
           </ContentImage>
         </ContainerLeft>
         <Form>
-        {cameraStream && <video
+        <video
           ref={videoRef}
           style={{ width: "100%", height: "100%" }}
-        />}
+        />
         <RippleButton
           widthButton="100%"
           margin="0"
