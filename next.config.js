@@ -16,6 +16,7 @@ module.exports = async (phase) => {
   const env = {
     BUSINESS_TITLE: process.env.BUSINESS_TITLE,
     LOCAL_SALES_STORE: process.env.LOCAL_SALES_STORE,
+    IMAGE_FACE_KEY: process.env.IMAGE_FACE_KEY,
     SESSION_NAME: process.env.SESSION_NAME,
     SECRET_CLIENT_ID_LOGIN_GOOGLE: process.env.SECRET_CLIENT_ID_LOGIN_GOOGLE,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
