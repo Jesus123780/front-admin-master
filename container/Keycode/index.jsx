@@ -48,30 +48,25 @@ export const KeyCodeContainer = () => {
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
   const [capturedImage, setCapturedImage] = useState(null)
-
   useEffect(() => {
     let activeStream
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      if (!videoRef) return
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream) => {
           activeStream = stream
           setCameraStream(stream)
-          .current.srcObject = stream
-          videoRef.current.play()
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream
+            videoRef.current.play()
+          }
         })
         .catch((error) => {
           console.error("Error accessing the camera:", error)
         })
     }
-    // Limpieza: detener la cámara cuando el componente se desmonte
-    return () => {
-      if (activeStream) {
-        activeStream.getTracks().forEach((track) => track.stop())
-      }
-    }
   }, [])
+  
 
   const captureImage = async () => {
     try {
