@@ -14,7 +14,7 @@ import { Cookies } from 'npm-pkg-hook'
 import { useMemo } from 'react'
 import { cache, isLoggedVar } from './cache'
 import { typeDefs } from './schema'
-import { URL_ADMIN, URL_BASE_ADMIN_MASTER } from './urls'
+import { URL_ADMIN } from './urls'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
@@ -127,7 +127,6 @@ function createApolloClient() {
     let uri = `${process.env.URL_BACK_SERVER}/graphql`
     if (service === 'main') uri = `${process.env.URL_BACK_SERVER}/graphql`
     if (service === 'admin-store') uri = `${URL_ADMIN}graphql`
-    if (service === 'admin') uri = `${URL_BASE_ADMIN_MASTER}graphql`
     if (service === 'admin-server') uri = `${process.env.URL_ADMIN_SERVER_SOCKET_HTTPS}/graphql`
     const token = Cookies.get('session')
     const context = operation.getContext()
