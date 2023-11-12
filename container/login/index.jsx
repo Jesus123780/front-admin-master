@@ -1,12 +1,11 @@
 import { URL_BASE } from 'apollo/urls';
-import React from 'react'
-import fetchJson from 'hooks/fetchJson'
-import { useRouter } from 'next/router'
-import { Container, ContainerLeft, ContentImage, Form } from './styled';
-import Image from 'next/image'
 import { useFormTools } from 'components/BaseForm';
-import InputHooks from 'components/InputHooks/InputHooks';
 import { RippleButton } from 'components/Ripple';
+import fetchJson from 'hooks/fetchJson';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { Container, ContainerLeft, ContentImage, Form } from './styled';
 
 export const Login = (props) => {
     // STATES
@@ -44,7 +43,7 @@ export const Login = (props) => {
         deviceid: '23423423432',
     }
     const handleSubmit = () => {
-        return fetchJson(`${URL_BASE}auth`, {
+        return fetchJson(`${process.env.URL_BASE}/api/auth`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
@@ -92,9 +91,7 @@ export const Login = (props) => {
                 <ContainerLeft>
                     <ContentImage>
                         <Image
-                            // width={1000}
                             objectFit='cover'
-                            // height={1500}
                             layout='fill'
                             src={'/images/sign-in_3f701ac0c6.png'}
                             alt={"Picture of the author"}
@@ -104,8 +101,6 @@ export const Login = (props) => {
                     </ContentImage>
                 </ContainerLeft>
                 <Form onSubmit={(e) => handleForm(e)}>
-                    <InputHooks title='Correo' width='100%' required error={errorForm?.correo} value={dataForm?.correo} onChange={handleChange} name='correo' />
-                    <InputHooks title='pass' width='100%' required error={errorForm?.pass} value={dataForm?.pass} onChange={handleChange} name='pass' />
                     <RippleButton widthButton='100%' margin='20px auto' onClick={() => handleSubmit()}>Login</RippleButton>
                 </Form>
             </Container>
