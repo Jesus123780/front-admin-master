@@ -12,25 +12,6 @@ export const Login = (props) => {
     const fileInputRef = React.useRef(null);
     const formRef = React.useRef(null);
     const router = useRouter()
-    // setDataValue({...dataForm})
-    // HANDLES
-    const onClickHandler = () => {
-        fileInputRef.current?.click();
-    };
-    const onChangeHandler = (event) => {
-        if (!event.target.files?.length) {
-            return;
-        }
-        const formData = new FormData();
-
-        Array.from(event.target.files).forEach((file) => {
-            formData.append(event.target.name, file);
-        });
-
-        props.onChange(formData);
-
-        formRef.current?.reset();
-    };
     const body = {
         name: 'juvinaojesusd@gmail.com',
         username: 'juvinaojesusd@gmail.com',
@@ -41,6 +22,7 @@ export const Login = (props) => {
         useragent: 'window.navigator.userAgent',
         deviceid: '23423423432',
     }
+
     const handleForm = (e) => handleSubmitMain({
         event: e,
         action: () => {
@@ -50,7 +32,7 @@ export const Login = (props) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             }).then(res => {
-                if (res.success === true) {
+                if (res.success) {
                     window.localStorage.setItem('restaurant', res?.idStore)
                     router.push('/dashboard')
                 }
