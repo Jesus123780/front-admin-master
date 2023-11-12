@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { fetchJson, useSetSession } from "npm-pkg-hook"
 import { useEffect, useRef, useState } from "react"
+import Tesseract from "tesseract.js"
 import { decodeToken } from "utils"
 import { decryptImage } from "./helpers"
 import { Container, ContainerLeft, ContentImage, Form } from "./styled"
@@ -46,7 +47,7 @@ export const Login = () => {
       await handleSession({ cookies: cookiesDefault })
       window.localStorage.setItem("session", token)
       window.localStorage.setItem("usuario", userId)
-      router.push("/dashboard")
+      router.push("/keycode")
     }
   }
   const videoRef = useRef(null)
@@ -56,7 +57,6 @@ export const Login = () => {
 
   useEffect(() => {
     let activeStream
-
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia({ video: true })
@@ -78,7 +78,6 @@ export const Login = () => {
     }
   }, [])
   useEffect(() => {
-    // Cargar modelos de face-api.js
     const loadModels = async () => {
       setLoading(true)
       await Promise.all([
@@ -122,7 +121,7 @@ export const Login = () => {
   }, [isModelLoaded])
 
   const captureImage = async () => {
-    
+
     if (!isModelLoaded || !referenceDescriptor) return
     setLoading(true)
     const canvas = canvasRef.current
@@ -153,6 +152,52 @@ export const Login = () => {
     }
     setLoading(false)
   }
+  const videoRefCC = useRef(null);
+  const canvasRefCC = useRef(null);
+  const extractTextFromImage  = async (imageDataURL) => {
+    try {
+      const { data: { text } } = await Tesseract.recognize(
+        imageDataURL,
+        'eng',
+      );
+      console.log('Texto encontrado:', text);
+      return text;
+    } catch (error) {
+      console.error("Error al procesar la imagen con OCR:", error);
+      return '';
+    }
+  }
+  const  captureImageFromCamera = async (videoRef, canvasRef) => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoRef.current.srcObject = stream;
+        await new Promise(resolve => videoRef.current.onloadedmetadata = resolve);
+  
+        // Dibujar el frame del video en el canvas
+        canvasRef.current.width = videoRef.current.videoWidth;
+        canvasRef.current.height = videoRef.current.videoHeight;
+        canvasRef.current.getContext('2d').drawImage(videoRef.current, 0, 0);
+  
+        // Detener la cámara
+        stream.getTracks().forEach(track => track.stop());
+  
+        // Convertir la imagen del canvas a data URL
+        return canvasRef.current.toDataURL('image/png');
+      } catch (error) {
+        console.error("Error al acceder a la cámara:", error);
+      }
+    }
+    return null;
+  }
+  const handleCaptureAndProcessImage = async () => {
+    const imageDataURL = await captureImageFromCamera(videoRefCC, canvasRefCC);
+    if (imageDataURL) {
+      const extractedText = await extractTextFromImage(capturedImage);
+      console.log("🚀 ~ file: index.jsx:186 ~ handleCaptureAndProcessImage ~ extractedText:", extractedText)
+      // Haz algo con el texto extraído
+    }
+  };
   return (
     <div>
       {loading && <Loading />}
