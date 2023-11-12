@@ -2,7 +2,8 @@ import { RippleButton } from "components/Ripple";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {
-    useSetSession
+    fetchJson,
+    useSetSession,
 } from 'npm-pkg-hook';
 
 import { decodeToken } from "utils";
@@ -26,7 +27,7 @@ export const Login = (props) => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${process.env.URL_BACK_SERVER}/api/auth`, {
+    const res = await fetchJson(`${process.env.URL_BACK_SERVER}/api/auth`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
