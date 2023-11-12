@@ -202,6 +202,7 @@ export const Login = () => {
     <div>
       {loading && <Loading />}
       <AwesomeModal
+        size="small"
         title="Reconocimiento Facial"
         show={openModal}
         onCancel={() => {

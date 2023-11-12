@@ -101,22 +101,26 @@ export const KeyCodeContainer = () => {
     }
   }
   const handleCaptureAndProcessImage = async () => {
-    const imageDataURL = await captureImage();
-    if (imageDataURL) {
-      const extractedText = await extractTextFromImage(capturedImage);
-      const isMatch = Boolean(extractedText.match(
-        /MENU|JESUS|VALERIA/i
-      ))
-      if (!isMatch) {
-        console.log('No hay coincidencias')
-      }
-      if (isMatch) {
-        handleForm()
-        if (cameraStream) {
-          cameraStream.getTracks().forEach((track) => track.stop())
+    try {
+      const imageDataURL = await captureImage();
+      if (imageDataURL) {
+        const extractedText = await extractTextFromImage(capturedImage);
+        const isMatch = Boolean(extractedText.match(
+          /MENU|JESUS|VALERIA/i
+        ))
+        if (!isMatch) {
+          console.log('No hay coincidencias')
         }
+        if (isMatch) {
+          handleForm()
+          if (cameraStream) {
+            cameraStream.getTracks().forEach((track) => track.stop())
+          }
+        }
+        // Haz algo con el texto extraído
       }
-      // Haz algo con el texto extraído
+    } catch (error) {
+      console.log(error)
     }
   };
   return (
