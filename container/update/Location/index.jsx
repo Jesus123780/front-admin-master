@@ -1,4 +1,4 @@
-import { Column, RippleButton, Row } from "pkg-components";
+import { Button, Column, Row } from "pkg-components";
 import { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { Location as LocationAll } from "../Location/All/container";
@@ -52,7 +52,7 @@ export const Location = () => {
     <Column>
       <Row margin="auto" width="50%">
         {buttonProps.map(({ id, label }) => (
-          <RippleButton
+          <Button
             key={id}
             active={active === id}
             bgColor="#9797971a"
@@ -65,7 +65,7 @@ export const Location = () => {
             padding="10px"
             style={{ borderRadius: "0px" }}
             widthButton="200px"
-          />
+          ></Button>
         ))}
       </Row>
 

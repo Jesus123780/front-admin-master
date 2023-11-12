@@ -1,20 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import styled, { keyframes } from 'styled-components'
-import { DELETE_ONE_COUNTRIES, GET_COUNTRY, UPDATE_COUNTRIES } from './queries'
-import { icons } from './codeCountries'
-import { EditForm } from './EditForm'
-import { Container, Form, Card, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
-import { PColor, SFColor, SFVColor } from 'public/colors'
-import { IconEdit, IconDost, IconDelete } from 'public/icons'
 import InputHooks from 'components/InputHooks/InputHooks'
 import { LoadEllipsis } from 'components/LoadingButton'
 import { RippleButton } from 'components/Ripple'
+import { Context } from 'context/Context'
+import { PColor, SFColor, SFVColor } from 'public/colors'
+import { IconDelete, IconDost, IconEdit } from 'public/icons'
+import React, { useContext, useEffect, useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { validationSubmitHooks } from 'utils'
+import { EditForm } from './EditForm'
+import { icons } from './codeCountries'
+import { DELETE_ONE_COUNTRIES, GET_COUNTRY, UPDATE_COUNTRIES } from './queries'
+import { Button, Card, Container, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const Countries = () => {
     const [createCountry, { loading }] = useMutation(UPDATE_COUNTRIES)
-  //  const { setAlertBox } = useContext(Context)
+   const { setAlertBox } = useContext(Context)
     const [values, setValues] = useState({})
     const [errors, setErrors] = useState({})
     const handleChange = (e, error) => {
@@ -103,7 +104,7 @@ export const Countries = () => {
         })
         if (results) setAlertBox({ message: 'País Eliminado con éxito', duration: 5000, color: 'success' })
     }
-    return (<>
+    return (
         <Container>
             <Form onSubmit={handleRegister}>
                 <InputHooks
@@ -145,7 +146,6 @@ export const Countries = () => {
                 )) : <i>No hay ningún país en base de datos</i>}
             </Card>
         </Container>
-    </>
     )
 }
 

@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client'
 import InputHooks from 'components/InputHooks/InputHooks'
+import { LoadEllipsis } from 'components/LoadingButton'
 import NewSelect from 'components/NewSelectHooks/NewSelect'
 import { RippleButton } from 'components/Ripple'
 import { PColor } from 'public/colors'
@@ -72,7 +73,7 @@ export const Departments = () => {
   if (edit.id) {
     return <EditForm edit={edit} onSubmit={submitUpdate} />
   }
-  return (<>
+  return (
     <Container>
       <Form onSubmit={handleRegister}>
         <NewSelect
@@ -113,7 +114,6 @@ export const Departments = () => {
         )}) : <i>No hay ningún Departamento en base de datos</i>}
       </Card>
     </Container>
-  </>
   )
 }
 
