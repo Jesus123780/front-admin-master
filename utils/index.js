@@ -1,11 +1,6 @@
-/* eslint-disable no-shadow */
-/* eslint-disable valid-jsdoc */
-
-// import nodemailer from 'nodemailer'
-import moment from 'moment'
-import jwtDecode from 'jwt-decode'
-import { useEffect } from 'react'
 import jwt, { decode } from 'jsonwebtoken'
+import moment from 'moment'
+import { useEffect } from 'react'
 
 moment.locale('es')
 

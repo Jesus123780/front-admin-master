@@ -1,10 +1,14 @@
-import React, { useCallback, useState } from 'react'
 import { useApolloClient } from '@apollo/client'
+import { URL_BASE } from 'apollo/urls'
+import Options from 'components/Acordion/Options'
+import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
+import React, { useCallback, useState } from 'react'
 import { PColor } from '../../../public/colors'
 import { IconLogout, IconShopping } from '../../../public/icons'
 import ActiveLink from '../../common/Link'
-import { Anchor,
+import {
+  Anchor,
   AnchorRouter,
   ButtonGlobalCreate,
   ButtonOption,
@@ -15,9 +19,6 @@ import { Anchor,
   OptionButton,
   Router
 } from './styled'
-import { useRouter } from 'next/router'
-import { URL_BASE } from 'apollo/urls'
-import Options from 'components/Acordion/Options'
 
 const Aside = () => {
   const { client } = useApolloClient()
