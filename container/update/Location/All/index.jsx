@@ -1,9 +1,7 @@
-import React from 'react'
-import { Content } from './styled'
-import { ButtonSubmit } from './styled'
+import { LoadEllipsis } from 'components/LoadingButton'
 import NewSelect from 'components/NewSelectHooks/NewSelect'
 import { BGColor } from 'public/colors'
-import { LoadEllipsis } from 'components/LoadingButton'
+import { ButtonSubmit, Content } from './styled'
 export const Location = ({ handleChange, onChangeSearch, countries, cities, departments, road, valuesForm, errorForm, loading }) => {
     return (
         <h1>

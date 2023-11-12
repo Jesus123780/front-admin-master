@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import styled, { keyframes } from 'styled-components'
 import InputHooks from 'components/InputHooks/InputHooks'
 import { LoadEllipsis } from 'components/LoadingButton'
 import { RippleButton } from 'components/Ripple'
-import { validationSubmitHooks } from 'utils'
-import { GET_TYPE_ROAD, UPDATE_ROAD } from './queries'
-import { EditForm } from './EditForm'
-import { Container, Form, Card, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
 import { PColor } from 'public/colors'
-import { IconEdit, IconDost, IconDelete } from 'public/icons'
+import { IconDelete, IconDost, IconEdit } from 'public/icons'
+import { useState } from 'react'
+import styled, { keyframes } from 'styled-components'
+import { validationSubmitHooks } from 'utils'
+import { EditForm } from './EditForm'
+import { GET_TYPE_ROAD, UPDATE_ROAD } from './queries'
+import { Button, Card, Container, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const TypeRoad = () => {
   const [createRoadMutation, { loading }] = useMutation(UPDATE_ROAD)
