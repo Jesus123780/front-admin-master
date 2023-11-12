@@ -69,12 +69,6 @@ export const Login = () => {
           console.error("Error accessing the camera:", error)
         })
     }
-    // Limpieza: detener la cámara cuando el componente se desmonte
-    return () => {
-      if (activeStream) {
-        activeStream.getTracks().forEach((track) => track.stop())
-      }
-    }
   }, [])
   useEffect(() => {
     const loadModels = async () => {
