@@ -12,11 +12,11 @@ import { decodeToken } from "utils";
 import { Container, ContainerLeft, ContentImage, Form } from "./styled";
 
 export const Login = (props) => {
-    const [handleSession] = useSetSession()
-    const [referenceDescriptor, setReferenceDescriptor] = useState(null);
-    const [openModal, setOpenModal] = useState(false)
-    const [loading, setLoading] = useState(false)
-  const router = useRouter();
+  const [handleSession] = useSetSession()
+  const [referenceDescriptor, setReferenceDescriptor] = useState(null);
+  const [openModal, setOpenModal] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const body = {
     name: "juvinaojesusd@gmail.com",
     username: "juvinaojesusd@gmail.com",
@@ -104,9 +104,9 @@ export const Login = (props) => {
     setCapturedImage(canvas.toDataURL('image/png'));
     const detections = await faceapi.detectAllFaces(canvas).withFaceLandmarks().withFaceDescriptors();
     if (detections.length > 0) {
-      const faceDescriptor = detections[0].descriptor; // Asumiendo que hay un solo rostro
+      const faceDescriptor = detections[0].descriptor
       const distance = faceapi.euclideanDistance(faceDescriptor, referenceDescriptor);
-      if (distance < 0.6) { // Umbral, puede necesitar ajustes
+      if (distance < 0.6) {
         console.log('Las imágenes son del mismo rostro');
         handleForm()
       } else {
@@ -119,6 +119,12 @@ export const Login = (props) => {
       <AwesomeModal
         title="Reconocimiento Facial"
         show={openModal}
+        onCancel={() => {
+          return setOpenModal(false)
+        }}
+        onHide={() => {
+          return setOpenModal(false)
+        }}
         footer={false}
       >
       <video ref={videoRef} width="720" height="560"  style={{ width: '100%', height: '100%' }} />
