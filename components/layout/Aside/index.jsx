@@ -236,7 +236,6 @@ const Aside = () => {
             </OptionButton>
           </Router>
         </Card>
-
       </ContainerAside>
     </>
   )

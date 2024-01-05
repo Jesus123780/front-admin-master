@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import { useApollo } from '../apollo/apolloClient'
 import '../styles/globals.css'
+import '../public/styles/tokens.css'
 
 function MyApp({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps)

@@ -6,17 +6,17 @@ import {
     SET_DES_CAT
 } from 'gql/catStore'
 import { useContext, useState } from 'react'
-import { CategoriesStoreComponent } from '../../../components/Update/CategoriesStore'
-
+import { CategoriesStoreComponent } from 'components/Update/CategoriesStore'
+import { Loading } from 'pkg-components'
 export const CategoriesStore = () => {
     // ------------ ESTADOS ------------
     const [errors, setErrors] = useState({})
     const [values, setValues] = useState({})
     //-----------QUERIES ------------
-    const [registerCategoryStore] = useMutation(CREATE_CAT_STORE)
+    const [registerCategoryStore, { loading }] = useMutation(CREATE_CAT_STORE)
     const { data } = useQuery(GET_ALL_CAT_STORE)
     const { setAlertBox } = useContext(Context)
-    const [desCategoryStore] = useMutation(SET_DES_CAT)
+    const [desCategoryStore, { loading: loadingDes }] = useMutation(SET_DES_CAT)
     // ------------ HANDLES ------------
     const handleChange = (e, error) => {
         setValues({ ...values, [e.target.name]: e.target.value })
@@ -26,10 +26,18 @@ export const CategoriesStore = () => {
     const handleRegister = async e => {
         e.preventDefault()
         const { csDescription, cName } = values
+        if (!csDescription ||  !cName)  {
+            setErrors({ csDescription: true, cName: true })
+            return setAlertBox({ message: 'complete el formulario' })
+        }
         try {
             return registerCategoryStore({
                 variables: {
-                    input: { cState: 1, cName: cName, csDescription: csDescription }
+                    input: { 
+                        cState: 1, 
+                        cName: cName,
+                        csDescription: csDescription
+                    }
                 }, update(cache) {
                     cache.modify({
                         fields: {
@@ -38,7 +46,6 @@ export const CategoriesStore = () => {
                             }
                         }
                     })
-                            ({ message: 'subido con éxito', color: 'success', duration: 7000 })
                 }
             }).catch(err => setAlertBox({ message: `${err}`, duration: 7000 }))
         }
@@ -46,51 +53,60 @@ export const CategoriesStore = () => {
             setAlertBox({ message: `${error.message}`, duration: 7000 })
         }
     }
-    const handleDelete = pId => {
-        const value = finalData?.getAllCatStore?.filter(x => (x.pId === pId))
-        const pState = value[0]?.pState
-        registerCategoryStore({
-            variables: {
-                input: {
-                    pId,
-                    pState
-                }
-            }, update(cache) {
-                cache.modify({
-                    fields: {
-                        getAllCatStore(dataOld = []) {
-                            return cache.writeQuery({ query: GET_ALL_CAT_STORE, data: dataOld })
-                        }
-                    }
-                })
-                setAlertBox({ message: `El producto ${value[0].pName} ha sido eliminado`, color: 'error', duration: 7000 })
-            }
-        }).catch(err => setAlertBox({ message: `${err}`, duration: 7000 }))
+    const handleDelete = cat => {
+        if (!cat) return setAlertBox({ message: 'No pudo ser eliminado, intenta nuevamente' })
+        const { catStore } = cat || {}
+        const category = data?.getAllCatStore?.find(x => (x.catStore === catStore))
+        if (!category) return setAlertBox({ message: 'No pudo ser eliminado, intenta nuevamente' })
+        const cState = category.cState
+        return setAlertBox({ message: `${cState}` })
+
     }
     const handleToggle = (e, catStore) => {
-        const { checked } = e.target
-        desCategoryStore({
-            variables: { catStore: catStore, cState: checked ? 0 : 1, /* aDateConf: moment().valueOf() */ }, update(cache) {
-                cache.modify({
-                    fields: {
-                        getAllCatStore(dataOld = []) {
-                            return cache.writeQuery({ query: GET_ALL_CAT_STORE, data: dataOld })
+        try {
+            const { checked } = e.target
+            desCategoryStore({
+                variables: { 
+                    catStore: catStore, 
+                    cState: checked ? 0 : 1
+                 }, update(cache) {
+                    cache.modify({
+                        fields: {
+                            getAllCatStore(dataOld = []) {
+                                const newCatStore = dataOld.map((cate) => {
+                                    if (cate.catStore === catStore) {
+                                        return {
+                                            ...cate,
+                                            cState: checked ? 1 : 0
+                                        }
+                                    } else {
+                                        return { ...cate }
+                                    }
+                                })
+                                return newCatStore
+                            }
                         }
-                    }
-                })
-            }
-        }).catch(err => console.log(err))
+                    })
+                }
+            }).catch(err => console.log(err))
+        } catch (error) {
+            setAlertBox({ message: 'Ha ocurrido un error, intenta de nuevo' })
+        }
     }
     return (
-        <CategoriesStoreComponent
-            handleChange={handleChange}
-            handleRegister={handleRegister}
-            handleToggle={handleToggle}
-            values={values}
-            errors={errors}
-            handleDelete={handleDelete}
-            data={data?.getAllCatStore || []}
-        />
+        <>
+        {loadingDes && <Loading /> }
+            <CategoriesStoreComponent
+                handleChange={handleChange}
+                handleRegister={handleRegister}
+                handleToggle={handleToggle}
+                values={values}
+                loading={loading}
+                errors={errors}
+                handleDelete={handleDelete}
+                data={data?.getAllCatStore || []}
+            />
+        </>
     )
 }
 CategoriesStore.propTypes = {

@@ -17,7 +17,6 @@ export const Form = styled.form`
     flex-direction: column;
     padding: 5px;
     & > button {
-        width: 50%;
         margin: auto;
     }
 `

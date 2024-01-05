@@ -1,14 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import styled, { keyframes } from 'styled-components'
-import InputHooks from 'components/InputHooks/InputHooks'
-import NewSelect from 'components/NewSelectHooks/NewSelect'
 import { LoadEllipsis } from 'components/LoadingButton'
-import { RippleButton } from 'components/Ripple'
+import { RippleButton, InputHooks } from 'pkg-components'
 import { validationSubmitHooks } from 'utils'
 import { GET_MUNICIPALITIES, UPDATE_MUNICIPALITIES } from './queries'
 import { GET_DEPARTMENT } from '../Departments/queries'
 import { EditForm } from './EditForm'
+import { NewSelect } from 'pkg-components'
 import { Container, Form, Card, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
 import { PColor } from 'public/colors'
 import { IconEdit, IconDost, IconDelete } from 'public/icons'
@@ -73,11 +72,12 @@ export const Municipalities = () => {
   if (edit?.id) {
     return <EditForm edit={edit} onSubmit={submitUpdate} />
   }
-  return (<>
+  console.log(data?.department)
+  return (
     <Container>
       <Form onSubmit={handleRegister}>
         <NewSelect
-          disabled={!data?.department[0]?.cId}
+          disabled={!data?.department.length}
           id='dId'
           margin='10px'
           name='dId'
@@ -118,7 +118,6 @@ export const Municipalities = () => {
         )}) : <i>No hay ninguna cuidad en base de datos</i>}
       </Card>
     </Container>
-  </>
   )
 }
 export const LabelInput = styled.span`

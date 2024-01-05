@@ -1,11 +1,18 @@
+import React, { 
+    useContext, 
+    useEffect, 
+    useState
+} from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import InputHooks from 'components/InputHooks/InputHooks'
-import { LoadEllipsis } from 'components/LoadingButton'
-import { RippleButton } from 'components/Ripple'
+import { InputHooks, RippleButton } from 'pkg-components'
 import { Context } from 'context/Context'
+import { LoadEllipsis } from 'components/LoadingButton'
 import { PColor, SFColor, SFVColor } from 'public/colors'
-import { IconDelete, IconDost, IconEdit } from 'public/icons'
-import React, { useContext, useEffect, useState } from 'react'
+import { 
+    IconDelete, 
+    IconDost, 
+    IconEdit
+} from 'public/icons'
 import styled, { keyframes } from 'styled-components'
 import { validationSubmitHooks } from 'utils'
 import { EditForm } from './EditForm'
@@ -15,7 +22,7 @@ import { Button, Card, Container, ContainerTask, Form, ListTask, OptionsFunction
 
 export const Countries = () => {
     const [createCountry, { loading }] = useMutation(UPDATE_COUNTRIES)
-   const { setAlertBox } = useContext(Context)
+    const { setAlertBox } = useContext(Context)
     const [values, setValues] = useState({})
     const [errors, setErrors] = useState({})
     const handleChange = (e, error) => {
@@ -71,6 +78,7 @@ export const Countries = () => {
         return () => body.removeEventListener('keyup', () => setShow)
 
     }, [setShow])
+
     const [edit, setEdit] = useState({
         id: null,
         value: ''
@@ -128,22 +136,26 @@ export const Countries = () => {
                 </RippleButton>
             </Form>
             <Card>
-                {data?.countries ? data?.countries.map(index => (
-                    <ContainerTask show={show === index} key={index.cId}>
-                        <OptionsFunction show={show === index}>
-                            <Button onClick={() => handleUpdate({ ...index, cState: 0 })}><IconDelete size={30} /></Button>
-                            <Button onClick={() => setEdit({ id: index, value: index.cName })} ><IconEdit size={30} /></Button>
-                            {/* Todo Success */}
-                        </OptionsFunction>
-                        {/* Tareas */}
-                        <ListTask show={show === index}>
-                            {/* eslint-disable-next-line */}
-                            <Options icon={icons.find(j => j.cCalCod == index.cCalCod)?.icon} name={icons.find(j => j.cCalCod == index.cCalCod)?.cCalCod}></Options>
-                            {index.cName}
-                        </ListTask>
-                        <div style={{ display: 'contents' }}><Button onClick={() => setShow(index === show ? false : index)}><IconDost size={30} color={show === index ? PColor : '#CCC'} /></Button></div>
-                    </ContainerTask>
-                )) : <i>No hay ningún país en base de datos</i>}
+                {data?.countries ? data?.countries.map(index =>{
+                    const iconMap = icons.reduce((acc, icon) => {
+                        acc[icon.cCalCod] = { icon: icon.icon, name: icon.cCalCod };
+                        return acc;
+                      }, {});
+                      const { icon, name } = iconMap[index?.cCalCod] || {};
+                    return  (
+                        <ContainerTask show={show === index} key={index.cId}>
+                            <OptionsFunction show={show === index}>
+                                <Button onClick={() => handleUpdate({ ...index, cState: 0 })}><IconDelete size={30} /></Button>
+                                <Button onClick={() => setEdit({ id: index, value: index.cName })} ><IconEdit size={30} /></Button>
+                            </OptionsFunction>
+                            <ListTask show={show === index}>
+                            <Options icon={icon} name={name} />
+                                {index.cName}
+                            </ListTask>
+                            <div style={{ display: 'contents' }}><Button onClick={() => setShow(index === show ? false : index)}><IconDost size={30} color={show === index ? PColor : '#CCC'} /></Button></div>
+                        </ContainerTask>
+                    )
+                }) : <i>No hay ningún país en base de datos</i>}
             </Card>
         </Container>
     )

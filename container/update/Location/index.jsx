@@ -1,11 +1,11 @@
-import { Column, RippleButton, Row } from "pkg-components";
-import { useEffect, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
-import { Location as LocationAll } from "../Location/All/container";
-import { Departments } from "../Location/Departments";
-import { Municipalities } from "../Location/Municipalities";
-import { Countries } from "./Countries";
-import { TypeRoad } from "./Road";
+import { Column, RippleButton, Row } from "pkg-components"
+import { useEffect, useState } from "react"
+import styled, { css, keyframes } from "styled-components"
+import { Location as LocationAll } from "../Location/All/container"
+import { Departments } from "../Location/Departments"
+import { Municipalities } from "../Location/Municipalities"
+import { Countries } from "./Countries"
+import { TypeRoad } from "./Road"
 
 export const Location = () => {
   const [active, setActive] = useState(1);

@@ -23,7 +23,6 @@ import {
   ReadMore,
   ContentProducts
 } from './styled'
-import { Skeleton } from '../../Skeleton/SkeletonCard'
 import { IconArrowRight, IconDelete, IconEdit, IconLove } from 'public/icons'
 
 export const Categories = ({
@@ -86,7 +85,7 @@ export const Categories = ({
           />
           <Text size='30px'>Lista de categorías registrados</Text>
           <ContainerCardProduct>
-            {!data?.length ? <SkeletonP /> : data?.map(product => {return (
+            {!data?.length ? <>No hay Datos</> : data?.map(product => {return (
               <CardProduct key={product.caId} >
                 <ButtonCard onClick={() => {return handleDelete(product?.caId)}}>
                   <IconDelete color={PColor} size={20} />
@@ -113,15 +112,4 @@ export const Categories = ({
     </Container>
   </div>
   )
-}
-export const SkeletonP = () => {
-  return <>
-    <>
-      {[1, 2, 3, 4].map((x, i) => {return (
-        <CardProduct key={i + 1}>
-          <Skeleton />
-        </CardProduct>
-      )})}
-    </>
-  </>
 }

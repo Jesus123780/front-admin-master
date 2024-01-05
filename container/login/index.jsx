@@ -1,14 +1,14 @@
-import { AwesomeModal } from "components/AwesomeModal"
-import { Loading } from "components/Loading"
-import { RippleButton } from "components/Ripple"
-import * as faceapi from "face-api.js"
-import Image from "next/image"
-import { useRouter } from "next/router"
-import { fetchJson, useSetSession } from "npm-pkg-hook"
-import { useEffect, useRef, useState } from "react"
-import { decodeToken } from "utils"
-import { decryptImage } from "./helpers"
-import { Container, ContainerLeft, ContentImage, Form } from "./styled"
+import { AwesomeModal } from 'components/AwesomeModal'
+import { Loading } from 'components/Loading'
+import { RippleButton } from 'components/Ripple'
+import * as faceapi from 'face-api.js'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { fetchJson, useSetSession } from 'npm-pkg-hook'
+import { useEffect, useRef, useState } from 'react'
+import { decodeToken } from 'utils'
+import { decryptImage } from './helpers'
+import { Container, ContainerLeft, ContentImage, Form } from './styled'
 
 export const Login = () => {
   const [handleSession] = useSetSession()
@@ -18,35 +18,39 @@ export const Login = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const body = {
-    name: "juvinaojesusd@gmail.com",
-    username: "juvinaojesusd@gmail.com",
-    lastName: "juvinaojesusd@gmail.com",
-    email: "juvinaojesusd@gmail.com",
-    password: "113561675852804771364",
-    locationFormat: " locationFormat[0]?.formatted_address",
-    useragent: "window.navigator.userAgent",
-    deviceid: "23423423432",
+    name: 'juvinaojesusd@gmail.com',
+    username: 'juvinaojesusd@gmail.com',
+    lastName: 'juvinaojesusd@gmail.com',
+    email: 'juvinaojesusd@gmail.com',
+    password: '113561675852804771364',
+    locationFormat: ' locationFormat[0]?.formatted_address',
+    useragent: 'window.navigator.userAgent',
+    deviceid: '23423423432',
   }
 
   const handleForm = async () => {
-    const res = await fetchJson(`${process.env.URL_BACK_SERVER}/api/auth`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-      credentials: "include",
-    })
-    const { userId, token, success, idStore } = res || {}
-    if (success) {
-      const decode = decodeToken(token)
-      const cookiesDefault = [
-        { name: "restaurant", value: idStore },
-        { name: "usuario", value: decode?.id || id },
-        { name: "session", value: token },
-      ]
-      await handleSession({ cookies: cookiesDefault })
-      window.localStorage.setItem("session", token)
-      window.localStorage.setItem("usuario", userId)
-      router.push("/keycode")
+    try {
+      const res = await fetchJson(`${process.env.URL_BACK_SERVER}/api/auth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        credentials: 'include',
+      })
+      const { userId, token, success, idStore } = res || {}
+      if (success) {
+        const decode = decodeToken(token)
+        const cookiesDefault = [
+          { name: 'restaurant', value: idStore },
+          { name: 'usuario', value: decode?.id || id },
+          { name: 'session', value: token },
+        ]
+        await handleSession({ cookies: cookiesDefault })
+        window.localStorage.setItem('session', token)
+        window.localStorage.setItem('usuario', userId)
+        router.push('/keycode')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   const videoRef = useRef(null)
@@ -66,7 +70,7 @@ export const Login = () => {
           videoRef.current.play()
         })
         .catch((error) => {
-          console.error("Error accessing the camera:", error)
+          console.error('Error accessing the camera:', error)
         })
     }
   }, [])
@@ -74,9 +78,9 @@ export const Login = () => {
     const loadModels = async () => {
       setLoading(true)
       await Promise.all([
-        faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
+        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
       ])
       setIsModelLoaded(true)
       setOpenModal(true)
@@ -88,15 +92,15 @@ export const Login = () => {
     const loadReferenceImage = async () => {
       if (!isModelLoaded) return
       try {
-        const response = await fetch("/api/referenceImage")
+        const response = await fetch('/api/referenceImage')
         const { iv, data } = await response.json()
         // Convertir IV y datos de hex a Uint8Array
-        const ivArray = Uint8Array.from(Buffer.from(iv, "hex"))
-        const dataArray = Uint8Array.from(Buffer.from(data, "hex"))
+        const ivArray = Uint8Array.from(Buffer.from(iv, 'hex'))
+        const dataArray = Uint8Array.from(Buffer.from(data, 'hex'))
         // Desencriptar los datos
         const decryptedImage = await decryptImage(dataArray, ivArray)
         // Convertir el ArrayBuffer desencriptado a Blob
-        const blob = new Blob([decryptedImage], { type: "image/png" })
+        const blob = new Blob([decryptedImage], { type: 'image/png' })
         // Convertir Blob a Image para face-api.js
         const referenceImage = await faceapi.bufferToImage(blob)
         const singleResult = await faceapi
@@ -107,7 +111,7 @@ export const Login = () => {
           setReferenceDescriptor(singleResult.descriptor)
         }
       } catch (error) {
-        console.error("Error al cargar y desencriptar la imagen:", error)
+        console.error('Error al cargar y desencriptar la imagen:', error)
       }
     }
     loadReferenceImage()
@@ -121,8 +125,8 @@ export const Login = () => {
     const video = videoRef.current
     canvas.width = video.videoWidth
     canvas.height = video.videoHeight
-    canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height)
-    setCapturedImage(canvas.toDataURL("image/png"))
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+    setCapturedImage(canvas.toDataURL('image/png'))
     const detections = await faceapi
       .detectAllFaces(canvas)
       .withFaceLandmarks()
@@ -134,13 +138,12 @@ export const Login = () => {
         referenceDescriptor
       )
       if (distance < 0.6) {
-        console.log("Las imágenes son del mismo rostro")
-        handleForm()
+        console.log('Las imágenes son del mismo rostro')
         if (cameraStream) {
           cameraStream.getTracks().forEach((track) => track.stop())
         }
       } else {
-        console.log("Las imágenes son de rostros diferentes")
+        console.log('Las imágenes son de rostros diferentes')
       }
     }
     setLoading(false)
@@ -149,8 +152,8 @@ export const Login = () => {
     <div>
       {loading && <Loading />}
       <AwesomeModal
-        size="small"
-        title="Reconocimiento Facial"
+        size='small'
+        title='Reconocimiento Facial'
         show={openModal}
         onCancel={() => {
           return setOpenModal(false)
@@ -162,12 +165,12 @@ export const Login = () => {
       >
         <video
           ref={videoRef}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: '100%', height: '100%' }}
         />
         <RippleButton
-          widthButton="100%"
-          margin="0"
-          type="submit"
+          widthButton='100%'
+          margin='0'
+          type='submit'
           onClick={
             loading
               ? () => {
@@ -178,26 +181,30 @@ export const Login = () => {
         >
           Captura imagen
         </RippleButton>
-        <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+        <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
       </AwesomeModal>
       <Container>
         <ContainerLeft>
           <ContentImage>
             <Image
-              objectFit="cover"
-              layout="fill"
-              src="/images/sign-in_3f701ac0c6.png"
-              alt="Picture of the author"
-              blurDataURL="/images/sign-in_3f701ac0c6.png"
-              placeholder="blur"
+              objectFit='cover'
+              layout='fill'
+              src='/images/sign-in_3f701ac0c6.png'
+              alt='Picture of the author'
+              blurDataURL='/images/sign-in_3f701ac0c6.png'
+              placeholder='blur'
             />
           </ContentImage>
         </ContainerLeft>
+        <>
         <Form>
-          <RippleButton widthButton="100%" margin="20px auto" type="submit">
+          <RippleButton  widthButton='100%' margin='20px auto' type='submit'>
             Login
           </RippleButton>
+
         </Form>
+        <button onClick={handleForm} type='button'>Login false</button>
+        </>
       </Container>
     </div>
   )

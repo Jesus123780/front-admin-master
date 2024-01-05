@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import styled, { keyframes } from 'styled-components'
 import InputHooks from '../../../InputHooks/InputHooks'
@@ -6,7 +6,6 @@ import NewSelect from '../../../NewSelectHooks/NewSelect'
 import { LoadEllipsis } from '../../../LoadingButton'
 import { RippleButton } from '../../../Ripple'
 import { validationSubmitHooks } from '../../../../utils'
-import { Context } from '../../../../context/Context'
 import { GET_MUNICIPALITIES, UPDATE_MUNICIPALITIES } from './queries'
 import { GET_DEPARTMENT } from '../Departments/queries'
 import { EditForm } from './EditForm'
@@ -47,7 +46,7 @@ export const Municipalities = () => {
         createCity({ variables: { input : { dId: values.dId, cName: values.cName } }, update(cache) {
           cache.modify({
             fields: {
-              getCities(dataOld=[]){
+              getCities(dataOld = []){
                 return cache.writeQuery({ query: GET_MUNICIPALITIES, data: dataOld })
               }
             }
@@ -74,7 +73,7 @@ export const Municipalities = () => {
   if (edit?.id) {
     return <EditForm edit={edit} onSubmit={submitUpdate} />
   }
-  return (<>
+  return (
     <Container>
       <Form onSubmit={handleRegister}>
         <NewSelect
@@ -119,14 +118,13 @@ export const Municipalities = () => {
         )}) : <i>No hay ninguna cuidad en base de datos</i>}
       </Card>
     </Container>
-  </>
   )
 }
 export const LabelInput = styled.span`
     position: absolute;
     font-size: ${ ({ value }) => {return value ? '11px' : '13px'} };
     top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
-    left: ${ ({ left }) => {return left ? left : '10px'} };
+    left: ${ ({ left }) => {return left || '10px'} };
     transition: .3s;
     pointer-events: none;
     font-weight: ${ ({ value }) => {return value ? 600 : 400} };
@@ -134,7 +132,7 @@ export const LabelInput = styled.span`
 
 export const TextArea = styled.textarea`
     width: 100%;
-    height: ${ ({ height }) => {return height ? height : '0'} };
+    height: ${ ({ height }) => {return height || '0'} };
     font-size: 15px;
     padding: 15px;
     outline: none;
@@ -152,12 +150,12 @@ export const TextArea = styled.textarea`
     }
 `
 export const AnimationRight = keyframes`
-0% {
-    transform: translateX(50vw);
-    opacity: 0;
-}
-100% {
-    transform: translateY(0);
-    opacity: 1;
-}
+  0% {
+      transform: translateX(50vw);
+      opacity: 0;
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
 `

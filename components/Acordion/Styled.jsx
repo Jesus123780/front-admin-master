@@ -59,14 +59,13 @@ export const MenuLeft = styled.button`
     font-family: Poppins;
     background-color: transparent;
     background: #f2f2f2;
-    margin: 10px 0;
+    margin: 0;
     padding: 10px 0;
     background-image: ${ props => {return !!props.active && `linear-gradient(125deg, #ffffff, #7878783b)`} };
     align-self: ${ ({ alignSelf }) => {return alignSelf || 'auto'} };
     & > div:first-child { pointer-events: none; }
     transition: .4s;
     overflow: hidden;
-    border-bottom: 1px solid ${ SEGColor }32;
     display: flex;
     place-content: center;
     align-items: center;

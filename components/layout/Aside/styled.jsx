@@ -1,9 +1,8 @@
 import link from 'next/link'
 import styled, { css } from 'styled-components'
-import { BColor, BGColor, PColor, PLVColor, SFVColor } from '../../../public/colors'
+import { BColor, BGColor, PColor, PLVColor } from '../../../public/colors'
 
 export const Router = styled.div`
-    background-color: ${`${SFVColor}69`};
     height: 100vw;
     width: 100%;
 
@@ -22,12 +21,11 @@ export const CtnAnchor = styled(link)`
     border: none;
     outline: 0;
     position: relative;
-    font-family: Poppins;
+    font-family: PFont-Light;
     background-color: transparent;
     align-self: auto;
     transition: .4s;
     overflow: hidden;
-    border-bottom: 1px solid #edf2f932;
 `
 export const ContainerAside = styled.div`
     transition: 300ms ease;

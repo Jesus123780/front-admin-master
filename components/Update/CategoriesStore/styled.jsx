@@ -6,9 +6,7 @@ export const Button = styled.button`
     z-index: 9999;
 `
 export const FormProducts = styled.form`
-    height: 100%;
-    min-height: 100vh;
-    max-height: 100vh;
+    height: min-content;
     overflow-y: auto;
     &::-webkit-scrollbar {
     width: 3px;
@@ -18,11 +16,37 @@ export const FormProducts = styled.form`
 `
 
 export const Card = styled.div` 
-    position: relative;
-    padding: 10px;
     background-color: ${ ({ theme }) => {return theme.InvColor} };
+    border-radius: 5px;
     border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
     height: ${({ height }) => {return height || 'auto'}};
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    text-overflow: ellipsis;
+
+    .ellipsis-text {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .card_wraper_text {
+        border-bottom: 1px dotted gray;
+        display: flex;
+        flex-direction: column;
+        height: 40%;
+        max-height: 40%;
+        min-height: 40%;
+        overflow: hidden;
+        padding: 10px;
+    }
 `
 export const Container = styled.div`
     display: flex;
@@ -30,15 +54,19 @@ export const Container = styled.div`
     background-color: ${ ({ theme }) => {return theme.InvColor} };
     transition:  6s ease;
     padding-bottom: 30px;
+    height: 100%;
     padding: 30px;
-    border-bottom: 1px solid rgba(0,0,0,.1);
     .filter{
         display: none !important;
     }
 `
 export const CardOne = styled(Card)` 
     transition:  .6s ease;
-    width: 30%;
+    width: 400px;
+    margin: 0 30px 0 0;
+    height: min-content;
+    position: sticky;
+    top: 0;
 `
 export const ColumnCard = styled.div`
     display: grid;

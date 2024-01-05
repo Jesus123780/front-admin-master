@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const CREATE_CAT_STORE = gql`
 mutation  registerCategoryStore($input: ICatStore){
@@ -12,8 +12,8 @@ mutation  registerCategoryStore($input: ICatStore){
 }
 `
 export const GET_ALL_CAT_STORE = gql`
-query getAllCatStore{
-getAllCatStore{
+query getAllCatStore {
+getAllCatStore {
   catStore
   idUser
   cName

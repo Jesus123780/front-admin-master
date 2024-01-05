@@ -1,9 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client'
-import InputHooks from 'components/InputHooks/InputHooks'
 import { LoadEllipsis } from 'components/LoadingButton'
-import NewSelect from 'components/NewSelectHooks/NewSelect'
-import { RippleButton } from 'components/Ripple'
-import { PColor } from 'public/colors'
+import { PColor, RippleButton, NewSelect, InputHooks } from 'pkg-components'
 import { IconDost, IconEdit } from 'public/icons'
 import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
@@ -97,7 +94,7 @@ export const Departments = () => {
           title='Ingresa un departamento'
           value={values?.dName}
         />
-        <RippleButton>
+        <RippleButton widthButton='100%'>
           {!loading ? 'Subir' : <LoadEllipsis color='#fff' /> }
         </RippleButton>
       </Form>

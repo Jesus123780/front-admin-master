@@ -10,6 +10,7 @@ export const Location = () => {
     const [getCities, { data: dataCities }] = useLazyQuery(GET_ALL_CITIES)
     const [values, setValues] = useState({})
     const [errors, setErrors] = useState({})
+
     const handleChange = (e, error) => {
         setValues({ ...values, [e.target.name]: e.target.value })
         setErrors({ ...errors, [e.target.name]: error })

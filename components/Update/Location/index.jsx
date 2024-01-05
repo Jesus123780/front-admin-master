@@ -6,7 +6,7 @@ import { Container } from './styled'
 
 import { useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import { RippleButton } from '../../Ripple'
+import { RippleButton } from 'pkg-components'
 import { TypeRoad } from './Road'
 
 export const Location = () => {
