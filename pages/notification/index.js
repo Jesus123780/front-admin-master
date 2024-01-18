@@ -1,6 +1,6 @@
 import { Notification } from 'container/update/Notifications'
 import Head from 'next/head'
-export default function Home() {
+export default function Home () {
   return (
     <div >
       <Head>

@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react'
+/* eslint-disable react/prop-types */
+import { useMemo, useState } from 'react'
 import { IconRate } from '../../public/icons'
 import { ContentIcon } from './styled'
 export const Rate = ({ count, rating, color, onRating, size, noHover }) => {
@@ -18,17 +19,19 @@ export const Rate = ({ count, rating, color, onRating, size, noHover }) => {
     return (<ContentIcon>
       {Array(count)
         .fill(0)
-        .map((_, i) => {return i + 1})
-        .map(idx => {return (
-          <div
-            icon='star'
-            key={idx}
-            onClick={() => {return onRating(idx)}}
-            onMouseEnter={() => {return !noHover && setHoverRating(idx)}}
-            onMouseLeave={() => {return setHoverRating(0)}}
-          ><IconRate color={getColor(idx)} size={size} />
-          </div>
-        )})}
+        .map((_, i) => { return i + 1 })
+        .map(idx => {
+          return (
+            <div
+              icon='star'
+              key={idx}
+              onClick={() => { return onRating(idx) }}
+              onMouseEnter={() => { return !noHover && setHoverRating(idx) }}
+              onMouseLeave={() => { return setHoverRating(0) }}
+            ><IconRate color={getColor(idx)} size={size} />
+            </div>
+          )
+        })}
     </ContentIcon>
     )
   }, [count, rating, hoverRating])

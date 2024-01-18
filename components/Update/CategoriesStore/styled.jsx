@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { BGColor, PColor } from '../../../public/colors'
+import { BGColor } from '../../../public/colors'
 
 export const Button = styled.button` 
     position: absolute;
@@ -16,12 +16,12 @@ export const FormProducts = styled.form`
 `
 
 export const Card = styled.div` 
-    background-color: ${ ({ theme }) => {return theme.InvColor} };
+    background-color: ${({ theme }) => { return theme.InvColor }};
     border-radius: 5px;
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    height: ${({ height }) => {return height || 'auto'}};
+    height: ${({ height }) => { return height || 'auto' }};
     justify-content: space-between;
     overflow: hidden;
     padding: 10px;
@@ -51,7 +51,7 @@ export const Card = styled.div`
 export const Container = styled.div`
     display: flex;
     border-radius: 4px;
-    background-color: ${ ({ theme }) => {return theme.InvColor} };
+    background-color: ${({ theme }) => { return theme.InvColor }};
     transition:  6s ease;
     padding-bottom: 30px;
     height: 100%;
@@ -73,7 +73,7 @@ export const ColumnCard = styled.div`
     gap: 10px;
     height: min-content;
     grid-template-columns: 24% repeat(auto-fill, 24%);
-` 
+`
 export const ButtonCard = styled.button` 
     font-size: 12px;
     font-family: PFont-Light;
@@ -85,25 +85,27 @@ export const ButtonCard = styled.button`
     transition: .4s ease;
     width: 50px;
     height: 50px;
-    top: ${ ({ top }) => {return top ? top : '20px'} };
-    transition-delay: ${ ({ delay }) => {return delay ? delay : 'auto'} };
+    top: ${({ top }) => { return top || '20px' }};
+    transition-delay: ${({ delay }) => { return delay || 'auto' }};
     max-height: 50px;
     max-width: 50px;
     border-radius: 50%;
     align-items: center;
     display: grid;
     justify-content: center;
-    background-color: ${ BGColor };
-    ${ props => {return props.grid && css`
-        top: ${ ({ top }) => {return top ? top : '80px'} };
-        `}
+    background-color: ${BGColor};
+    ${props => {
+    return props.grid && css`
+        top: ${({ top }) => { return top || '80px' }};
+        `
+  }
 }
 `
 export const CardProduct = styled.div` 
     flex: 0 1 auto;
     display: flex;
     position: relative;
-    width: ${({ width }) => {return width ? width : '100%'}};
+    width: ${({ width }) => { return width || '100%' }};
     overflow: hidden;
     flex-direction: column;
     margin: 10px;
@@ -111,16 +113,18 @@ export const CardProduct = styled.div`
     background-color: #FFFFFF;
     border: 1px solid rgba(0,0,0,.1);
     height: 450px;
-    &:hover  ${ ButtonCard } {
+    &:hover  ${ButtonCard} {
         right: 15px;
     }
     &#space {
         padding: 30px;
         justify-content: space-between;
     }
-    ${ props => {return props.grid && css`
+    ${props => {
+    return props.grid && css`
     height: min-content;
     flex-direction: row;
 
-`} }
+`
+  }}
 `

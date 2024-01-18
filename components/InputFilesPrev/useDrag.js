@@ -8,9 +8,9 @@ const dragHandler = () => {
   // Closure Magic
   const dragCounter = () => {
     let count = 0
-    const value = () => {return count}
-    const increment = () => {return count++}
-    const decrement = () => {return count--}
+    const value = () => { return count }
+    const increment = () => { return count++ }
+    const decrement = () => { return count-- }
     const reset = () => {
       count = 0
       return count
@@ -81,43 +81,55 @@ const useDropzone = (
   const handle = useMemo(dragHandler, [])
 
   const eventListeners = {
-    dragenter: e => {return handle.dragEnter(e, () => {
-      if (!dragOver) setDragOver(true)
-    })},
-    dragleave: e => {return handle.dragLeave(e, () => {
-      setDragOver(false)
-    })},
+    dragenter: e => {
+      return handle.dragEnter(e, () => {
+        if (!dragOver) setDragOver(true)
+      })
+    },
+    dragleave: e => {
+      return handle.dragLeave(e, () => {
+        setDragOver(false)
+      })
+    },
     dragover: handle.dragBegin,
-    drop: e => {return handle.drop(e, files => {
-      if (typeof onDrop === 'function') onDrop(files, e)
-      setDragOver(false)
-      setDragging(false)
-    })}
+    drop: e => {
+      return handle.drop(e, files => {
+        if (typeof onDrop === 'function') onDrop(files, e)
+        setDragOver(false)
+        setDragging(false)
+      })
+    }
   }
 
   const windowListeners = {
-    dragenter: e => {return handle.body.dragEnter(e, () => {
-      if (!isDragging) setDragging(true)
-    })},
-    dragleave: e => {return handle.body.dragLeave(e, () => {
+    dragenter: e => {
+      return handle.body.dragEnter(e, () => {
+        if (!isDragging) setDragging(true)
+      })
+    },
+    dragleave: e => {
+      return handle.body.dragLeave(e, () => {
       // eslint-disable-next-line
             if (isDragging) setDragging(false)
-    })},
+      })
+    },
     dragend: () => {
       // eslint-disable-next-line
         },
-    drop: e => {return handle.body.drop(e, () => {
-      setDragging(false)
-      setDragOver(false)
-    })}
+    drop: e => {
+      return handle.body.drop(e, () => {
+        setDragging(false)
+        setDragOver(false)
+      })
+    }
   }
 
   useEffect(() => {
     if (ref.current) {
       const { current } = ref
-      Object.keys(eventListeners).forEach(key => {return current.addEventListener(key, eventListeners[key])}
+      Object.keys(eventListeners).forEach(key => { return current.addEventListener(key, eventListeners[key]) }
       )
-      Object.keys(windowListeners).forEach(key => {return window.addEventListener(key, windowListeners[key])}
+      Object.keys(windowListeners).forEach(key => { return window.addEventListener(key, windowListeners[key]) }
       )
       setCleanup(true)
     }
@@ -126,10 +138,10 @@ const useDropzone = (
       if (cleanup) {
         const { current } = ref
         if (current) {
-          Object.keys(eventListeners).forEach(key => {return current.removeEventListener(key, eventListeners[key])}
+          Object.keys(eventListeners).forEach(key => { return current.removeEventListener(key, eventListeners[key]) }
           )
         }
-        Object.keys(windowListeners).forEach(key => {return window.removeEventListener(key, windowListeners[key])}
+        Object.keys(windowListeners).forEach(key => { return window.removeEventListener(key, windowListeners[key]) }
         )
       }
     }

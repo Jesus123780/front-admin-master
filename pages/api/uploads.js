@@ -5,15 +5,15 @@ import multer from 'multer'
 const upload = multer({
   storage: multer.diskStorage({
     destination: './public/uploads',
-    filename: (req, file, cb) => {return cb(null, file.originalname)}
+    filename: (req, file, cb) => { return cb(null, file.originalname) }
   })
 })
 
 const app = nextConnect({
-  onError(error, req, res) {
+  onError (error, req, res) {
     res.status(501).json({ error: `Sorry something Happened! ${error.message}` })
   },
-  onNoMatch(req, res) {
+  onNoMatch (req, res) {
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` })
   }
 })

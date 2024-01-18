@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { Container, Wrapper, Modal, ModalHeader, ModalTitle, BtnClose, ModalBody, ModalFooter, BtnCancel, BtnConfirm } from './styled'
-import { MODAL_SIZES, BUTTONS_TEXT } from './constanst'
+/* eslint-disable consistent-return */
+import PropTypes from 'prop-types'
+import { useCallback, useEffect, useState } from 'react'
 import { IconCancel } from '../../public/icons'
-import { BGColor } from '../../public/colors'
 import { RippleButton } from '../Ripple'
+import { BUTTONS_TEXT, MODAL_SIZES } from './constanst'
+import { BtnClose, Container, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle, Wrapper } from './styled'
 
 export const AwesomeModal = ({
   title,
@@ -31,9 +32,9 @@ export const AwesomeModal = ({
   header = true,
   closeIcon = false,
   borderRadius = '.3rem',
-  onHide = () => {return undefined},
-  onCancel = () => {return undefined},
-  onConfirm = () => {return undefined}
+  onHide = () => { return undefined },
+  onCancel = () => { return undefined },
+  onConfirm = () => { return undefined }
 }) => {
   const [state, setState] = useState(show)
   const [backdropA, setAnimationBackdrop] = useState(false)
@@ -44,8 +45,8 @@ export const AwesomeModal = ({
   }, [onCancel, onHide, timeOut])
   useEffect(() => {
     if (backdrop !== 'static') {
-      if (keyboard && show) window.addEventListener('keyup', e => {return e.code === 'Escape' && hide()})
-      return () => {return keyboard && window.removeEventListener('keyup', () => { return })}
+      if (keyboard && show) window.addEventListener('keyup', e => { return e.code === 'Escape' && hide() })
+      return () => { return keyboard && window.removeEventListener('keyup', () => { }) }
     }
   }, [keyboard, hide, show, backdrop])
   useEffect(() => {
@@ -89,7 +90,7 @@ export const AwesomeModal = ({
           backdropA={backdropA}
           borderRadius={borderRadius}
           height={height}
-          onMouseDown={e => {return e.stopPropagation()}}
+          onMouseDown={e => { return e.stopPropagation() }}
           show={show}
           showLateral={show}
           size={size}
@@ -107,12 +108,14 @@ export const AwesomeModal = ({
           >
             {children}
             {footer && <ModalFooter>
-              {btnCancel ? <RippleButton
-                border
-                disabled={disabled}
-                onClick={clickCancel}
-                type='button'
-              >{BUTTONS_TEXT.cancel}</RippleButton> : <div>as </div>}
+              {btnCancel
+                ? <RippleButton
+                  border
+                  disabled={disabled}
+                  onClick={clickCancel}
+                  type='button'
+                >{BUTTONS_TEXT.cancel}</RippleButton>
+                : <div>as </div>}
               {btnConfirm && <RippleButton
                 border
                 onClick={clickConfirm}
@@ -124,4 +127,35 @@ export const AwesomeModal = ({
       </Wrapper>
     </Container>
   )
+}
+
+AwesomeModal.propTypes = {
+  backdrop: PropTypes.bool,
+  bgColor: PropTypes.any,
+  borderRadius: PropTypes.string,
+  btnCancel: PropTypes.bool,
+  btnConfirm: PropTypes.bool,
+  children: PropTypes.any,
+  closeIcon: PropTypes.bool,
+  disabled: PropTypes.any,
+  display: PropTypes.any,
+  footer: PropTypes.bool,
+  header: PropTypes.bool,
+  height: PropTypes.any,
+  hideOnConfirm: PropTypes.bool,
+  keyboard: PropTypes.bool,
+  onCancel: PropTypes.func,
+  onClickConfirm: PropTypes.any,
+  onConfirm: PropTypes.func,
+  onHide: PropTypes.func,
+  openLateral: PropTypes.any,
+  padding: PropTypes.any,
+  show: PropTypes.any,
+  showLateral: PropTypes.any,
+  size: PropTypes.any,
+  submit: PropTypes.bool,
+  timeOut: PropTypes.number,
+  title: PropTypes.any,
+  useScroll: PropTypes.bool,
+  zIndex: PropTypes.any
 }

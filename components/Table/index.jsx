@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useReducer } from 'react'
+/* eslint-disable no-console */
 import PropTypes from 'prop-types'
-import { BtnIcon, ContainerTable, Content, Section, TableBtn, Text, Title, CheckBoxWrapper, CheckBox, CheckBoxLabel, TableResponsive, StatusC, EntryPerViewC, EntryLabel, EntryInput, EntryPaginationC, EntryButton, CurrentPage, ArrowsCheck, ArrowsLabel, Button } from './styled'
-import { orderColumn } from './orderColumn'
-import { IconArrowBottom, IconArrowTop } from '../../public/icons'
+import React, { useEffect, useReducer, useState } from 'react'
 import { BColor } from '../../public/colors'
+import { IconArrowBottom, IconArrowTop } from '../../public/icons'
+import { orderColumn } from './orderColumn'
+import { ArrowsCheck, ArrowsLabel, BtnIcon, Button, CheckBox, CheckBoxLabel, CheckBoxWrapper, ContainerTable, Content, CurrentPage, EntryButton, EntryInput, EntryLabel, EntryPaginationC, EntryPerViewC, Section, StatusC, TableBtn, TableResponsive, Text, Title } from './styled'
 
 export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entryPerView, handleAdd, buttonAdd, labelBtn }) => {
   const initialState = { selectedIndex: 0 }
-  
+
   function reducer (state, action) {
     switch (action.type) {
       case 'arrowUp':
@@ -29,6 +30,7 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
   const arrowUpPressed = useKeyPress('ArrowUp')
   const arrowDownPressed = useKeyPress('ArrowDown')
   const [state, dispatch] = useReducer(reducer, initialState)
+  console.log('🚀 ~ Table ~ state:', state)
   useEffect(() => {
     if (arrowUpPressed) {
       dispatch({ type: 'arrowUp' })
@@ -55,7 +57,7 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
     const allPages = Math.ceil(data?.length / properties.entriesValue)
     setPages([])
     for (let i = 0; i < allPages; i++) {
-      setPages(s => {return [...s, i]})
+      setPages(s => { return [...s, i] })
     }
     const indexLastElem = properties.currentPage * properties.entriesValue
     const indexFirstElem = indexLastElem - properties.entriesValue
@@ -100,36 +102,40 @@ export const Table = ({ titles = [], bgRow, data, pointer, renderBody = [], entr
       <TableResponsive>
         <ContainerTable>
           <Section bgRow={bgRow} columnWidth={titles || []}>
-            {titles?.map((x, i) => {return <Content justify={x.justify} key={i}>
-              <ArrowsLabel htmlFor={x.key}>
-                <Title onClick={onTargetClick} pointer={pointer}>{x.name}</Title>
-              </ArrowsLabel>
-              {x.arrow && <ArrowsLabel htmlFor={x.key}>
-                <ArrowsCheck
-                  id={x.key}
-                  name={x.key}
-                  onChange={(e) => {return handleColumn(e, x.key)}}
-                  ref={fileInputRef}
-                  type='checkbox'
-                />
-                <Button onClick={onTargetClick} style={{ height: '10px' }}><IconArrowTop color={currentColumn?.[`${x.key}`] === 0 ? BColor : '#d0d7ec'} size='15px' /></Button>
-                <Button onClick={onTargetClick} style={{ height: '10px' }}><IconArrowBottom color={currentColumn?.[`${x.key}`] === 1 ? BColor : '#d0d7ec'} size='15px' /></Button>
-              </ArrowsLabel>}
-            </Content>})}
+            {titles?.map((x, i) => {
+              return <Content justify={x.justify} key={i}>
+                <ArrowsLabel htmlFor={x.key}>
+                  <Title onClick={onTargetClick} pointer={pointer}>{x.name}</Title>
+                </ArrowsLabel>
+                {x.arrow && <ArrowsLabel htmlFor={x.key}>
+                  <ArrowsCheck
+                    id={x.key}
+                    name={x.key}
+                    onChange={(e) => { return handleColumn(e, x.key) }}
+                    ref={fileInputRef}
+                    type='checkbox'
+                  />
+                  <Button onClick={onTargetClick} style={{ height: '10px' }}><IconArrowTop color={currentColumn?.[`${x.key}`] === 0 ? BColor : '#d0d7ec'} size='15px' /></Button>
+                  <Button onClick={onTargetClick} style={{ height: '10px' }}><IconArrowBottom color={currentColumn?.[`${x.key}`] === 1 ? BColor : '#d0d7ec'} size='15px' /></Button>
+                </ArrowsLabel>}
+              </Content>
+            })}
           </Section>
-          {renderBody(data?.filter((x, i) => {return ((i >= properties.indexFirstElem) && i < properties.indexLastElem)})?.sort((prev, post) => {return orderColumn(prev, post, currentColumn)}), titles, properties.indexFirstElem)}
+          {renderBody(data?.filter((x, i) => { return ((i >= properties.indexFirstElem) && i < properties.indexLastElem) })?.sort((prev, post) => { return orderColumn(prev, post, currentColumn) }), titles, properties.indexFirstElem)}
         </ContainerTable>
       </TableResponsive>
       {entryPerView && data?.length > 0 && <EntryPaginationC>
         <Text size='12px'>Show {properties.currentPage} / {pages.length} Pages </Text>
         <div style={{ display: 'flex' }}>
-          <EntryButton onClick={() => {return setProperties(s => {return { ...properties, currentPage: properties.currentPage !== 1 ? s.currentPage - 1 : 1 }})}}>Before</EntryButton>
-          {pages.map(x => {return <CurrentPage
-            current={(x + 1 === properties.currentPage && 'true')}
-            key={x}
-            onClick={() => {return setProperties({ ...properties, currentPage: x + 1 })}}
-          >{x + 1}</CurrentPage>})}
-          <EntryButton onClick={() => {return setProperties(s => {return { ...properties, currentPage: s.currentPage !== pages.length ? s.currentPage + 1 : s.currentPage }})}} >Next</EntryButton>
+          <EntryButton onClick={() => { return setProperties(s => { return { ...properties, currentPage: properties.currentPage !== 1 ? s.currentPage - 1 : 1 } }) }}>Before</EntryButton>
+          {pages.map(x => {
+            return <CurrentPage
+              current={(x + 1 === properties.currentPage && 'true')}
+              key={x}
+              onClick={() => { return setProperties({ ...properties, currentPage: x + 1 }) }}
+            >{x + 1}</CurrentPage>
+          })}
+          <EntryButton onClick={() => { return setProperties(s => { return { ...properties, currentPage: s.currentPage !== pages.length ? s.currentPage + 1 : s.currentPage } }) }} >Next</EntryButton>
         </div>
       </EntryPaginationC>}
     </>

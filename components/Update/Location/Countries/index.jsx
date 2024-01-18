@@ -1,17 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
+/* eslint-disable multiline-ternary */
 import { useMutation, useQuery } from '@apollo/client'
+import PropTypes from 'prop-types'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Context } from '../../../../context/Context'
+import { PColor, SFColor, SFVColor } from '../../../../public/colors'
+import { IconDelete, IconDost, IconEdit } from '../../../../public/icons'
+import { validationSubmitHooks } from '../../../../utils'
 import InputHooks from '../../../InputHooks/InputHooks'
 import { LoadEllipsis } from '../../../LoadingButton'
 import { RippleButton } from '../../../Ripple'
-import { DELETE_ONE_COUNTRIES, GET_COUNTRY, UPDATE_COUNTRIES } from './queries'
-import { validationSubmitHooks } from '../../../../utils'
-import { icons } from './codeCountries'
 import { EditForm } from './EditForm'
-import { Container, Form, Card, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
-import { PColor, SFColor, SFVColor } from '../../../../public/colors'
-import { IconEdit, IconDost, IconDelete } from '../../../../public/icons'
+import { icons } from './codeCountries'
+import { DELETE_ONE_COUNTRIES, GET_COUNTRY, UPDATE_COUNTRIES } from './queries'
+import { Button, Card, Container, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const Countries = () => {
   const [createCountry, { loading }] = useMutation(UPDATE_COUNTRIES)
@@ -45,15 +47,18 @@ export const Countries = () => {
     }
     try {
       if (!errorSubmit) {
-        createCountry({ variables: { input : { cName: values.cName, cCalCod: values.cCalCod } }, update(cache) {
-          cache.modify({
-            fields: {
-              countries(dataOld=[]){
-                return cache.writeQuery({ query: GET_COUNTRY, data: dataOld })
+        createCountry({
+          variables: { input: { cName: values.cName, cCalCod: values.cCalCod } },
+          update (cache) {
+            cache.modify({
+              fields: {
+                countries (dataOld = []) {
+                  return cache.writeQuery({ query: GET_COUNTRY, data: dataOld })
+                }
               }
-            }
-          })
-        } }).catch(err=> {return setAlertBox({ message: `${ err }`, duration: 7000 })})
+            })
+          }
+        }).catch(err => { return setAlertBox({ message: `${err}`, duration: 7000 }) })
       }
     } catch (error) {
       setValues({})
@@ -61,15 +66,13 @@ export const Countries = () => {
       // eslint-disable-next-line
             setAlertBox({ message: `${error}`, duration: 7000 })
       setAlertBox({ message: 'se ha producido un error interno', duration: 7000, color: 'error' })
-
     }
   }
   const [show, setShow] = useState(false)
   useEffect(() => {
     const body = document.body
-    body.addEventListener('keyup', e => {return e.code === 'Escape' && setShow(false)})
-    return () => {return body.removeEventListener('keyup', () => {return setShow})}
-
+    body.addEventListener('keyup', e => { return e.code === 'Escape' && setShow(false) })
+    return () => { return body.removeEventListener('keyup', () => { return setShow }) }
   }, [setShow])
   const [edit, setEdit] = useState({
     id: null,
@@ -90,11 +93,12 @@ export const Countries = () => {
       variables: {
         input: {
           cId
-        }, update(cache) {
+        },
+        update (cache) {
           cache.modify({
             fields: {
-              clients() {
-                const newData = data?.countries.filter(x => {return x.cId !== index.cId}) || []
+              clients () {
+                const newData = data?.countries.filter(x => { return x.cId !== index.cId }) || []
                 return cache.writeQuery({ query: GET_COUNTRY, data: newData })
               }
             }
@@ -128,22 +132,24 @@ export const Countries = () => {
         </RippleButton>
       </Form>
       <Card>
-        {data?.countries ? data?.countries.map(index => {return (
-          <ContainerTask key={index.cId} show={show === index}>
-            <OptionsFunction show={show === index}>
-              <Button onClick={() => {return handleUpdate({ ...index, cState: 0 })}}><IconDelete size={30} /></Button>
-              <Button onClick={() => {return setEdit({ id: index, value: index.cName })}} ><IconEdit size={30} /></Button>
-              {/* Todo Success */}
-            </OptionsFunction>
-            {/* Tareas */}
-            <ListTask show={show === index}>
-              {/* eslint-disable-next-line */}
+        {data?.countries ? data?.countries.map(index => {
+          return (
+            <ContainerTask key={index.cId} show={show === index}>
+              <OptionsFunction show={show === index}>
+                <Button onClick={() => { return handleUpdate({ ...index, cState: 0 }) }}><IconDelete size={30} /></Button>
+                <Button onClick={() => { return setEdit({ id: index, value: index.cName }) }} ><IconEdit size={30} /></Button>
+                {/* Todo Success */}
+              </OptionsFunction>
+              {/* Tareas */}
+              <ListTask show={show === index}>
+                {/* eslint-disable-next-line */}
                             <Options icon={icons.find(j => j.cCalCod == index.cCalCod)?.icon} name={icons.find(j => j.cCalCod == index.cCalCod)?.cCalCod}></Options>
-              {index.cName}
-            </ListTask>
-            <div style={{ display: 'contents' }}><Button onClick={() => {return setShow(index === show ? false : index)}}><IconDost color={show === index ? PColor : '#CCC'} size={30} /></Button></div>
-          </ContainerTask>
-        )}) : <i>No hay ningún país en base de datos</i>}
+                {index.cName}
+              </ListTask>
+              <div style={{ display: 'contents' }}><Button onClick={() => { return setShow(index === show ? false : index) }}><IconDost color={show === index ? PColor : '#CCC'} size={30} /></Button></div>
+            </ContainerTask>
+          )
+        }) : <i>No hay ningún país en base de datos</i>}
       </Card>
     </Container>
   </>
@@ -151,7 +157,6 @@ export const Countries = () => {
 }
 
 const Options = ({ icon, name }) => {
-
   return (
     <React.Fragment>
       <div>
@@ -159,21 +164,26 @@ const Options = ({ icon, name }) => {
       </div>
       <div>
         <Text>
-          {name ? ` + ${ name }` : 'COD'}
+          {name ? ` + ${name}` : 'COD'}
         </Text>
       </div>
     </React.Fragment>
   )
 }
+
+Options.propTypes = {
+  icon: PropTypes.any,
+  name: PropTypes.any
+}
 export const LabelInput = styled.span`
     position: absolute;
-    font-size: ${ ({ value }) => {return value ? '11px' : '13px'} };
-    top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
-    left: ${ ({ left }) => {return left ? left : '10px'} };
-    color: ${ ({ value }) => {return value ? SFColor : SFVColor} };
+    font-size: ${({ value }) => { return value ? '11px' : '13px' }};
+    top: ${({ value }) => { return value ? '-17px' : '10px' }};
+    left: ${({ left }) => { return left || '10px' }};
+    color: ${({ value }) => { return value ? SFColor : SFVColor }};
     transition: .3s;
     pointer-events: none;
-    font-weight: ${ ({ value }) => {return value ? 600 : 400} };
+    font-weight: ${({ value }) => { return value ? 600 : 400 }};
 `
 export const Text = styled.span`
     font-size: 16px !important;
@@ -182,7 +192,7 @@ export const Text = styled.span`
 
 export const TextArea = styled.textarea`
     width: 100%;
-    height: ${ ({ height }) => {return height ? height : '0'} };
+    height: ${({ height }) => { return height || '0' }};
     font-size: 15px;
     padding: 15px;
     outline: none;
@@ -190,12 +200,12 @@ export const TextArea = styled.textarea`
     min-width: 99%;
     min-height: 200px;
     border: 1px solid #cccccc42;
-    &:focus ~ ${ LabelInput } {
+    &:focus ~ ${LabelInput} {
         top: -17px;
         font-size: 15px;
     }
-    & ~ ${ LabelInput } {
-        top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
+    & ~ ${LabelInput} {
+        top: ${({ value }) => { return value ? '-17px' : '10px' }};
         font-size: 13px;
     }
 `

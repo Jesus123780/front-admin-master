@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+/* eslint-disable no-console */
+/* eslint-disable multiline-ternary */
 import { useMutation, useQuery } from '@apollo/client'
+import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import InputHooks from '../../../InputHooks/InputHooks'
-import NewSelect from '../../../NewSelectHooks/NewSelect'
-import { LoadEllipsis } from '../../../LoadingButton'
-import { RippleButton } from '../../../Ripple'
+import { PColor } from '../../../../public/colors'
+import { IconDelete, IconDost, IconEdit } from '../../../../public/icons'
 import { validationSubmitHooks } from '../../../../utils'
-import { GET_MUNICIPALITIES, UPDATE_MUNICIPALITIES } from './queries'
+import InputHooks from '../../../InputHooks/InputHooks'
+import { LoadEllipsis } from '../../../LoadingButton'
+import NewSelect from '../../../NewSelectHooks/NewSelect'
+import { RippleButton } from '../../../Ripple'
 import { GET_DEPARTMENT } from '../Departments/queries'
 import { EditForm } from './EditForm'
-import { Container, Form, Card, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
-import { PColor } from '../../../../public/colors'
-import { IconEdit, IconDost, IconDelete } from '../../../../public/icons'
+import { GET_MUNICIPALITIES, UPDATE_MUNICIPALITIES } from './queries'
+import { Button, Card, Container, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const Municipalities = () => {
   const [createCity, { loading }] = useMutation(UPDATE_MUNICIPALITIES)
@@ -39,24 +41,26 @@ export const Municipalities = () => {
     }
     setErrors({ ...errorForm })
     if (errorSubmit) {
-      setAlertBox({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
+      console.log({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
     }
     try {
       if (!errorSubmit) {
-        createCity({ variables: { input : { dId: values.dId, cName: values.cName } }, update(cache) {
-          cache.modify({
-            fields: {
-              getCities(dataOld = []){
-                return cache.writeQuery({ query: GET_MUNICIPALITIES, data: dataOld })
+        createCity({
+          variables: { input: { dId: values.dId, cName: values.cName } },
+          update (cache) {
+            cache.modify({
+              fields: {
+                getCities (dataOld = []) {
+                  return cache.writeQuery({ query: GET_MUNICIPALITIES, data: dataOld })
+                }
               }
-            }
-          })
-        } }).catch(err=> {return setAlertBox({ message: `${ err }`, duration: 7000 })})
+            })
+          }
+        }).catch(err => { return console.log({ message: `${err}`, duration: 7000 }) })
       }
     } catch (error) {
       setValues({})
       setErrors({})
-      setAlertBox({ message: `${ error }`, duration: 7000 })
     }
   }
   const [show, setShow] = useState(false)
@@ -97,42 +101,43 @@ export const Municipalities = () => {
           value={values?.cName}
         />
         <RippleButton>
-          {!loading ? 'Subir' : <LoadEllipsis color='#fff' /> }
+          {!loading ? 'Subir' : <LoadEllipsis color='#fff' />}
         </RippleButton>
       </Form>
       <Card>
-        {dataMunicipalities?.getCities ? dataMunicipalities?.getCities?.map(index => {return (
-          <ContainerTask key={index.ctId} show={show === index}>
-            <OptionsFunction show={show === index}>
-              <Button><IconDelete size={30} /></Button>
-              <Button onClick={() => {return setEdit({ id: index.ctId, value: index.cName })}} ><IconEdit size={30} /></Button>
-              {/* Todo Success */}
-            </OptionsFunction>
-            {/* Tareas */}
-            <ListTask show={show === index}>
-              {/* eslint-disable-next-line */}
-                            {index.cName}
-            </ListTask>
-            <div style={{ display: 'contents' }}><Button onClick={() => {return setShow(index === show ? false : index)}}><IconDost color={show === index ? PColor : '#CCC'} size={30} /></Button></div>
-          </ContainerTask>
-        )}) : <i>No hay ninguna cuidad en base de datos</i>}
+        {dataMunicipalities?.getCities ? dataMunicipalities?.getCities?.map(index => {
+          return (
+            <ContainerTask key={index.ctId} show={show === index}>
+              <OptionsFunction show={show === index}>
+                <Button><IconDelete size={30} /></Button>
+                <Button onClick={() => { return setEdit({ id: index.ctId, value: index.cName }) }} ><IconEdit size={30} /></Button>
+                {/* Todo Success */}
+              </OptionsFunction>
+              {/* Tareas */}
+              <ListTask show={show === index}>
+                {index.cName}
+              </ListTask>
+              <div style={{ display: 'contents' }}><Button onClick={() => { return setShow(index === show ? false : index) }}><IconDost color={show === index ? PColor : '#CCC'} size={30} /></Button></div>
+            </ContainerTask>
+          )
+        }) : <i>No hay ninguna cuidad en base de datos</i>}
       </Card>
     </Container>
   )
 }
 export const LabelInput = styled.span`
     position: absolute;
-    font-size: ${ ({ value }) => {return value ? '11px' : '13px'} };
-    top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
-    left: ${ ({ left }) => {return left || '10px'} };
+    font-size: ${({ value }) => { return value ? '11px' : '13px' }};
+    top: ${({ value }) => { return value ? '-17px' : '10px' }};
+    left: ${({ left }) => { return left || '10px' }};
     transition: .3s;
     pointer-events: none;
-    font-weight: ${ ({ value }) => {return value ? 600 : 400} };
+    font-weight: ${({ value }) => { return value ? 600 : 400 }};
 `
 
 export const TextArea = styled.textarea`
     width: 100%;
-    height: ${ ({ height }) => {return height || '0'} };
+    height: ${({ height }) => { return height || '0' }};
     font-size: 15px;
     padding: 15px;
     outline: none;
@@ -140,12 +145,12 @@ export const TextArea = styled.textarea`
     min-width: 99%;
     min-height: 200px;
     border: 1px solid #cccccc42;
-    &:focus ~ ${ LabelInput } {
+    &:focus ~ ${LabelInput} {
         top: -17px;
         font-size: 15px;
     }
-    & ~ ${ LabelInput } {
-        top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
+    & ~ ${LabelInput} {
+        top: ${({ value }) => { return value ? '-17px' : '10px' }};
         font-size: 13px;
     }
 `

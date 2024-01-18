@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { BoxInput, Input, LabelInput } from './styled'
+/* eslint-disable consistent-return */
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react'
 import { isEmail, isNull, isPassword, onlyLetters, passwordConfirm, rangeLength } from '../../../../utils'
+import { BoxInput, Input, LabelInput } from './styled'
 
 export const InputHook = props => {
-  const { name, value, onChange, label, error,
+  const {
+    name, value, onChange, label, error,
     required,
     numeric,
     letters,
@@ -11,7 +14,8 @@ export const InputHook = props => {
     email,
     pass,
     type,
-    passConfirm } = props
+    passConfirm
+  } = props
   const [errors, setError] = useState(error)
   const [message, setMessage] = useState('El campo no debe estar vacío')
   // Función para activar el error
@@ -52,7 +56,7 @@ export const InputHook = props => {
         return errorFunc(
           e,
           true,
-          `El rango de carácteres es de ${ range.min } a ${ range.max }`
+          `El rango de carácteres es de ${range.min} a ${range.max}`
         )
       }
       errorFunc(e, false, '')

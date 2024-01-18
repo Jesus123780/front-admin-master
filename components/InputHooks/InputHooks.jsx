@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable consistent-return */
+/* eslint-disable no-empty */
 /* eslint-disable react/prop-types */
 /* eslint no-console: "error" */
 /* eslint no-console: ["error", { allow: ["warn"] }] */
@@ -9,7 +12,6 @@ import {
   useState
 } from 'react'
 import { SFVColor } from '../../public/colors'
-import { IconNoShow, IconShowEye } from '../../public/icons'
 import {
   isEmail,
   isNull,
@@ -21,7 +23,7 @@ import {
 import {
   BoxInput,
   InputV,
-  LabelInput, List, Listbox, ShowPass, TextAreaInput, Tooltip
+  LabelInput, List, Listbox, TextAreaInput, Tooltip
 } from './styled'
 const InputHooks = ({
   TypeTextarea,
@@ -36,7 +38,7 @@ const InputHooks = ({
   name,
   required,
   numeric,
-  minWidth ,
+  minWidth,
   reference,
   border,
   checked,
@@ -59,7 +61,7 @@ const InputHooks = ({
   // STATE
   const [errors, setError] = useState(error)
   // const [valueInput, setValue] = useState(value)
-  const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [isPasswordShown] = useState(false)
   const [message, setMessage] = useState('El campo no debe estar vacío')
   // HM
   const errorFunc = (e, v, m) => {
@@ -100,10 +102,10 @@ const InputHooks = ({
     if (emailDomain !== undefined) {
       if (emailDomain === '') {
         suggestionList = topLevelEmailDomainList?.map(
-          domain => {return emailUsername + '@' + domain}
+          domain => { return emailUsername + '@' + domain }
         )
       } else {
-        suggestionList = otherLevelEmailDomainList.filter(domain => {return domain.startsWith(emailDomain)}).map(domain => {return emailUsername + '@' + domain})
+        suggestionList = otherLevelEmailDomainList.filter(domain => { return domain.startsWith(emailDomain) }).map(domain => { return emailUsername + '@' + domain })
       }
     }
     return suggestionList
@@ -120,6 +122,7 @@ const InputHooks = ({
       } else {
         const errorMessage = simpleVerifyEmail(email)
         if (errorMessage) {
+
         }
       }
     }
@@ -272,23 +275,25 @@ const InputHooks = ({
           {(email && !!showSuggestions) && (
             <div>
               <Listbox role='listbox' >
-                {suggestionList.map((suggestion, index) => {return (
-                  <List
-                    aria-pressed={index === state.selectedIndex}
-                    key={index}
-                    onClick={() => { dispatch({ type: 'select', payload: index }); handleSuggestionOnClick(suggestion) }}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter') {
-                        dispatch({ type: 'select', payload: index })
-                        e.target.blur()
-                      }
-                    }}
-                    style={{ cursor: 'pointer', backgroundColor: index === state.selectedIndex ? `${SFVColor}2e` : 'transparent' }}
-                    tabIndex={0}
-                  >
-                    {suggestion}
-                  </List>
-                )})}
+                {suggestionList.map((suggestion, index) => {
+                  return (
+                    <List
+                      aria-pressed={index === state.selectedIndex}
+                      key={index}
+                      onClick={() => { dispatch({ type: 'select', payload: index }); handleSuggestionOnClick(suggestion) }}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                          dispatch({ type: 'select', payload: index })
+                          e.target.blur()
+                        }
+                      }}
+                      style={{ cursor: 'pointer', backgroundColor: index === state.selectedIndex ? `${SFVColor}2e` : 'transparent' }}
+                      tabIndex={0}
+                    >
+                      {suggestion}
+                    </List>
+                  )
+                })}
               </Listbox>
             </div>
           )}

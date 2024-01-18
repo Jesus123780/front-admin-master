@@ -13,7 +13,7 @@ export const PQR = () => {
   }
   return (
     <Container>
-             
+
       <ContentButton>
         <RippleButton
           active={active === 1}
@@ -21,7 +21,7 @@ export const PQR = () => {
           color='red'
           label='See Store'
           margin='0px 5px'
-          onClick={() => {return active !== 1 && handleClick(1)}}
+          onClick={() => { return active !== 1 && handleClick(1) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
@@ -31,7 +31,7 @@ export const PQR = () => {
           color='red'
           label='Update'
           margin='0px 5px'
-          onClick={() => {return active !== 2 && handleClick(2)}}
+          onClick={() => { return active !== 2 && handleClick(2) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
@@ -41,14 +41,15 @@ export const PQR = () => {
           color='red'
           label='Update'
           margin='0px 5px'
-          onClick={() => {return active !== 3 && handleClick(3)}}
+          onClick={() => { return active !== 3 && handleClick(3) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
       </ContentButton>
       {
-        active === 1 ?
-          <ContainerAnimation><StorePqr /></ContainerAnimation> : active === 2 ? <ContainerAnimationTow><Questions /></ContainerAnimationTow> : active === 2 ? <ContainerAnimationThree>Holsdafsdfasa</ContainerAnimationThree> : null
+        active === 1
+          ? <ContainerAnimation><StorePqr /></ContainerAnimation>
+          : active === 2 ? <ContainerAnimationTow><Questions /></ContainerAnimationTow> : active === 2 ? <ContainerAnimationThree>Holsdafsdfasa</ContainerAnimationThree> : null
       }
     </Container>
   )
@@ -75,15 +76,15 @@ export const AnimationLeft = keyframes`
 }
 `
 const ContainerAnimation = styled.div`
-${ props=> {return props.active === 1 && css`animation: ${ AnimationRight } 200ms;`} }
+${props => { return props.active === 1 && css`animation: ${AnimationRight} 200ms;` }}
 
 `
 const ContainerAnimationTow = styled.div`
-${ props=> {return props.active === 2 && css`animation: ${ AnimationLeft } 200ms;`} }
+${props => { return props.active === 2 && css`animation: ${AnimationLeft} 200ms;` }}
 
 `
 const ContainerAnimationThree = styled.div`
-${ props=> {return props.active === 3 && css`animation: ${ AnimationLeft } 200ms;`} }
+${props => { return props.active === 3 && css`animation: ${AnimationLeft} 200ms;` }}
 
 `
 const ContentButton = styled.div`

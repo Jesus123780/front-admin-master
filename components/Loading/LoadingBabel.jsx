@@ -1,6 +1,6 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+/* eslint-disable no-tabs */
 import PropTypes from 'prop-types'
+import styled, { keyframes } from 'styled-components'
 
 const animation = keyframes`
 	0% {
@@ -36,11 +36,11 @@ const borderRadiusContainerSize = {
 }
 
 const Container = styled.div`
-    height: ${ props => {return sizeContainer[props.size] || sizeContainer['default']} };
-    width: ${ props => {return sizeContainer[props.size]|| sizeContainer['default']} };
-    border-radius:${ props => {return borderRadiusContainerSize[props.size] || borderRadiusContainerSize['default']} };
-    background:  ${ props => {return props.color || '#00adb5'} };
-    animation: ${ animation }  ${ props => {return props.speed || 2} }s linear infinite;
+    height: ${props => { return sizeContainer[props.size] || sizeContainer.default }};
+    width: ${props => { return sizeContainer[props.size] || sizeContainer.default }};
+    border-radius:${props => { return borderRadiusContainerSize[props.size] || borderRadiusContainerSize.default }};
+    background:  ${props => { return props.color || '#00adb5' }};
+    animation: ${animation}  ${props => { return props.speed || 2 }}s linear infinite;
     `
 export const LoadingBabel = ({ style = commonStyle, speed, color, size = 'default' }) => {
   return (

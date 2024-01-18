@@ -1,5 +1,5 @@
 import NewSelect from 'components/NewSelectHooks/NewSelect'
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 import { BGColor } from '../../../../public/colors'
 import { LoadEllipsis } from '../../../LoadingButton'
 import { ButtonSubmit, Content } from './styled'

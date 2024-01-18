@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
@@ -10,7 +9,9 @@ export const Column = ({ children, ...props }) => {
   )
 }
 
-Column.propTypes = {}
+Column.propTypes = {
+  children: PropTypes.any
+}
 
 
 export const View = styled.div`

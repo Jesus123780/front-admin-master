@@ -7,12 +7,29 @@ const Update = () => {
   const { listRoutes } = useContext(Context)
 
   return (
-    <Row flexWrap='wrap' margin='auto' justifyContent={'center'}>
-        {listRoutes ? listRoutes.map((route, i) => (
-          <Column width={'20%'} display={'flex'} height='100px' border='1px solid' margin='10px' key={i + 1} activeClassName="active" href={`/update/${route.name}` || '/'}>
-            <div><IconHome size='15px' />{route.name} </div>
-          </Column>
-        )) : <div></div>}
+    <Row
+      flexWrap='wrap'
+      justifyContent={'center'}
+      margin='auto'
+    >
+      {listRoutes
+        ? listRoutes.map((route, i) => {
+          return (
+            <Column
+              activeClassName='active'
+              border='1px solid'
+              display={'flex'}
+              height='100px'
+              href={`/update/${route.name}` || '/'}
+              key={i + 1}
+              margin='10px'
+              width={'20%'}
+            >
+              <div><IconHome size='15px' />{route.name} </div>
+            </Column>
+          )
+        })
+        : <div></div>}
     </Row>
   )
 }

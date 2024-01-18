@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { useOnScreen } from '../../../hooks/useIntersection'
@@ -22,5 +24,5 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    ${ props => {return props.isVisible ? css`background-color: #009aff; ` : css`background-color: blue; `} }
+    ${props => { return props.isVisible ? css`background-color: #009aff; ` : css`background-color: blue; ` }}
 `

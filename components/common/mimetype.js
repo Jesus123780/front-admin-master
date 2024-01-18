@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconArrowLeft, IconCSS, IconExcel, IconHTML, IconImg, IconJS, IconPDF, IconSvg, IconTar, IconWord, IconZIP } from '../../public/icons'
 
 export const icons = [

@@ -14,7 +14,7 @@ export const Location = () => {
   const handleClick = index => {
     setActive(index === active ? true : index)
   }
-  const tabWidth = 100 / 5; // Cambia 5 al número total de botones
+  const tabWidth = 100 / 5 // Cambia 5 al número total de botones
 
   return (
     <Container>
@@ -25,7 +25,7 @@ export const Location = () => {
           color='red'
           label='País'
           margin='0px 5px'
-          onClick={() => {return active !== 1 && handleClick(1)}}
+          onClick={() => { return active !== 1 && handleClick(1) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
@@ -35,7 +35,7 @@ export const Location = () => {
           color='red'
           label='Departamentos'
           margin='0px 5px'
-          onClick={() => {return active !== 2 && handleClick(2)}}
+          onClick={() => { return active !== 2 && handleClick(2) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
@@ -45,7 +45,7 @@ export const Location = () => {
           color='red'
           label='Ciudades'
           margin='0px 5px'
-          onClick={() => {return active !== 3 && handleClick(3)}}
+          onClick={() => { return active !== 3 && handleClick(3) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
@@ -55,7 +55,7 @@ export const Location = () => {
           color='red'
           label='tipo de via'
           margin='0px 5px'
-          onClick={() => {return active !== 4 && handleClick(4)}}
+          onClick={() => { return active !== 4 && handleClick(4) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
@@ -65,20 +65,21 @@ export const Location = () => {
           color='red'
           label='Todo'
           margin='0px 5px'
-          onClick={() => {return active !== 5 && handleClick(5)}}
+          onClick={() => { return active !== 5 && handleClick(5) }}
           padding='10px'
           style={{ borderRadius: '0px' }}
         />
       </ContentButton>
       <span
-          style={{
-            left: `${active * tabWidth}%`,
-            width: `${tabWidth}%`,
-          }}
-        />
+        style={{
+          left: `${active * tabWidth}%`,
+          width: `${tabWidth}%`
+        }}
+      />
       {
-        active === 1 ?
-          <ContainerAnimation><Countries /></ContainerAnimation> : active === 2 ? <ContainerAnimationTow><Departments /></ContainerAnimationTow> : active === 3 ? <ContainerAnimationThree><Municipalities /></ContainerAnimationThree>: active === 4 ?<ContainerAnimationFour><TypeRoad /></ContainerAnimationFour> : active === 5 ? <ContainerAnimationFive><LocationAll /></ContainerAnimationFive> : <h1>Donde te sentaste amigo???</h1>
+        active === 1
+          ? <ContainerAnimation><Countries /></ContainerAnimation>
+          : active === 2 ? <ContainerAnimationTow><Departments /></ContainerAnimationTow> : active === 3 ? <ContainerAnimationThree><Municipalities /></ContainerAnimationThree> : active === 4 ? <ContainerAnimationFour><TypeRoad /></ContainerAnimationFour> : active === 5 ? <ContainerAnimationFive><LocationAll /></ContainerAnimationFive> : <h1>Donde te sentaste amigo???</h1>
       }
     </Container>
   )
@@ -105,23 +106,23 @@ export const AnimationLeft = keyframes`
 }
 `
 const ContainerAnimation = styled.div`
-${ props=> {return props.active === 1 && css`animation: ${ AnimationRight } 200ms;`} }
+${props => { return props.active === 1 && css`animation: ${AnimationRight} 200ms;` }}
 
 `
 const ContainerAnimationTow = styled.div`
-${ props=> {return props.active === 2 && css`animation: ${ AnimationLeft } 200ms;`} }
+${props => { return props.active === 2 && css`animation: ${AnimationLeft} 200ms;` }}
 
 `
 const ContainerAnimationThree = styled.div`
-${ props=> {return props.active === 2 && css`animation: ${ AnimationLeft } 200ms;`} }
+${props => { return props.active === 2 && css`animation: ${AnimationLeft} 200ms;` }}
 
 `
 const ContainerAnimationFour = styled.div`
-${ props=> {return props.active === 4 && css`animation: ${ AnimationLeft } 200ms;`} }
+${props => { return props.active === 4 && css`animation: ${AnimationLeft} 200ms;` }}
 
 `
 const ContainerAnimationFive = styled.div`
-${ props=> {return props.active === 5 && css`animation: ${ AnimationLeft } 200ms;`} }
+${props => { return props.active === 5 && css`animation: ${AnimationLeft} 200ms;` }}
 
 `
 const ContentButton = styled.div`

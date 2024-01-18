@@ -4,10 +4,10 @@ import { BGColor, PLColor, PLVColor, SFAColor } from 'public/colors'
 // Ventana con sombra (tarjetas)
 export const ShadowCardContainer = styled.div`
     flex: 0 0 33.33333%;
-    box-shadow: ${ props => {return props.noneShadow ? 'none' : '0px 0px 14px #00000017'} };
-    background-color: ${ BGColor };
-    width: ${ ({ width }) => {return width ? width : '96%'} };
-    margin: ${ ({ margin }) => {return margin ? margin : ' 2% auto'} };
+    box-shadow: ${props => { return props.noneShadow ? 'none' : '0px 0px 14px #00000017' }};
+    background-color: ${BGColor};
+    width: ${({ width }) => { return width || '96%' }};
+    margin: ${({ margin }) => { return margin || ' 2% auto' }};
     border-radius: 8px;
     padding: 2px 10px;
     position: relative;
@@ -15,7 +15,7 @@ export const ShadowCardContainer = styled.div`
     @media(min-width: 768px){
         width: 100%;
         padding: 15px 10px;
-    ${ ({ maxWidth }) => {return maxWidth && css`max-width: ${ maxWidth };`} }
+    ${({ maxWidth }) => { return maxWidth && css`max-width: ${maxWidth};` }}
 
         /* border-radius: 0; */
     }
@@ -29,19 +29,19 @@ export const ItemText = styled.span`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: ${ props => {return props.color || SFAColor} };
+    color: ${props => { return props.color || SFAColor }};
     padding: 0 8px;
     font-family: PFont-Regular;
     font-size: 12px;
     text-transform: lowercase;
     padding: 5px 0;
-    border-top: 1px solid ${ PLVColor };
+    border-top: 1px solid ${PLVColor};
     margin-top: 5px;
     cursor: pointer;
     
     @media(min-width: 768px) {
         font-size: 14px;
-        border-top: 1px solid ${ PLColor };
+        border-top: 1px solid ${PLColor};
         padding-top: 10px;
         margin-top: 15px;
     }

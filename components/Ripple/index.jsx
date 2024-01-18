@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+/* eslint-disable react/prop-types */
+import { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
-import { BGColor, PColor } from '../../public/colors'
+import { BGColor } from '../../public/colors'
 
 export const RippleButton = props => {
   const { label, onClick, style, family, standard, active, type, widthButton, disabled } = props
@@ -20,7 +21,7 @@ export const RippleButton = props => {
       ripple.className = 'ripple'
       button.current.appendChild(ripple)
 
-      setTimeout(() => {return mounted && button?.current?.removeChild(ripple)}, 1000)
+      setTimeout(() => { return mounted && button?.current?.removeChild(ripple) }, 1000)
     })
 
     return () => {
@@ -53,8 +54,10 @@ export const RippleButton = props => {
   )
 }
 const ContainButton = styled.div`
-${({ widthButton }) => {return widthButton && css`
-    width: ${widthButton};`}
+${({ widthButton }) => {
+    return widthButton && css`
+    width: ${widthButton};`
+  }
 }
     justify-content: center;
     display: flex;
@@ -102,25 +105,31 @@ ${({ widthButton }) => {return widthButton && css`
 
 `
 const Button = styled.button`
- padding: ${({ padding }) => {return padding ? padding : '1em'}};
- background-color: ${({ bgColor }) => {return bgColor ? bgColor : 'red'}};
- color: ${({ color }) => {return color ? color : BGColor}};
- font-family: ${({ family }) => {return family ? family : 'PFont-Light'}};
- ${({ margin }) => {return !!margin && css`margin: ${margin};`}}
- ${({ standard }) => {return standard && css`
+ padding: ${({ padding }) => { return padding || '1em' }};
+ background-color: ${({ bgColor }) => { return bgColor || 'red' }};
+ color: ${({ color }) => { return color || BGColor }};
+ font-family: ${({ family }) => { return family || 'PFont-Light' }};
+ ${({ margin }) => { return !!margin && css`margin: ${margin};` }}
+ ${({ standard }) => {
+    return standard && css`
     display: flex;
     justify-content: space-between;
     background-color: transparent;
     color: #000;
     width: 100%;
     font-size: 11px !important;
-    font-family: PFont-Light !important;`}
+    font-family: PFont-Light !important;`
+  }
 }
- ${({ widthButton }) => {return widthButton && css`
-    width: ${widthButton};`}
+ ${({ widthButton }) => {
+    return widthButton && css`
+    width: ${widthButton};`
+  }
 }
-${props => {return props.active && css`
+${props => {
+    return props.active && css`
     border-radius: 0;
-border-bottom: 3px solid red; `} }
+border-bottom: 3px solid red; `
+  }}
 
 `

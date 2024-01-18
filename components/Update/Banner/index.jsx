@@ -1,17 +1,19 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useSetState } from '../../hooks/useState'
 
-import { Container } from './styled'
-import Component from './landing'
-import useHover from '../../hooks/useHover'
-import { useScrollRotate } from '../../hooks/useScroll'
-import { ReactComponent as Logo } from '../../../assets/img/logo.svg'
-import { TextAnimation } from '../../animations/TextAnimation'
-import { AnimatedText } from '../../animations/MouseHover'
-import { usePosition } from '../../hooks/usePosition'
-import styled from 'styled-components'
-import { useRef, useState } from 'react'
-import Square from '../../common/square'
 import { BColor } from 'public/colors'
+import { useRef, useState } from 'react'
+import styled from 'styled-components'
+import { ReactComponent as Logo } from '../../../assets/img/logo.svg'
+import { AnimatedText } from '../../animations/MouseHover'
+import { TextAnimation } from '../../animations/TextAnimation'
+import Square from '../../common/square'
+import useHover from '../../hooks/useHover'
+import { usePosition } from '../../hooks/usePosition'
+import { useScrollRotate } from '../../hooks/useScroll'
+import Component from './landing'
+import { Container } from './styled'
 
 export const Banner = ({ watch, settings }) => {
   const { state, increase, decrease, reset, changeState } = useSetState(0)
@@ -26,13 +28,16 @@ export const Banner = ({ watch, settings }) => {
     error
   } = usePosition(watch, settings)
   const loader =
-    !latitude && !error ? (
-      <>
-        <div>Trying to fetch location...</div>
-        <br />
-      </>
-    ) : null
+    !latitude && !error
+      ? (
+        <>
+          <div>Trying to fetch location...</div>
+          <br />
+        </>
+      )
+      : null
   const fileInputRef = useRef(null)
+  // eslint-disable-next-line no-unused-vars
   const [images, setImages] = useState([])
   const [previewImg, setPreviewImg] = useState(false)
   const onFileInputChange = event => {
@@ -129,7 +134,7 @@ export const ButtonStatus = styled.button`
     margin-bottom: 10px;
     padding:10px 15px;
     font-weight: 600;
-    font-size: ${({ fSize }) => {return fSize ? fSize : '13px'}};
+    font-size: ${({ fSize }) => { return fSize || '13px' }};
     min-width: 120px;
     width: 150px;
     border-radius: 50px;

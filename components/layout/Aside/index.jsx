@@ -38,11 +38,9 @@ const Aside = () => {
       .catch(() => {
         return {}
       })
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client])
   const [menu, setMenu] = useState(null)
-  const handleClick = index => {return setMenu(index === menu ? false : index)}
+  const handleClick = index => { return setMenu(index === menu ? false : index) }
   const data = [
     {
       mId: 1,
@@ -160,7 +158,7 @@ const Aside = () => {
       <ContainerAside>
         <Card>
           <Info>
-            <ButtonGlobalCreate onClick={() => {return setShow(!show)}}>
+            <ButtonGlobalCreate onClick={() => { return setShow(!show) }}>
               Add new
             </ButtonGlobalCreate>
             <LeftNav show={show}>
@@ -209,26 +207,30 @@ const Aside = () => {
             </LeftNav>
           </Info>
           <Router>
-            {data?.map((m, i) => {return (
-              <Options
-                active={menu === i}
-                handleClick={() => {return handleClick(i)}}
-                index={i}
-                key={m.mId}
-                label={m.mName}
-                path={m.mPath}
-              >
-                {!!m.subModules && m.subModules.map(sm => {return <ActiveLink
-                  href={`/${m.mPath}/${sm.smPath}`}
-                  key={sm.smId}
-                  onClick={e => {return e.stopPropagation()}}
+            {data?.map((m, i) => {
+              return (
+                <Options
+                  active={menu === i}
+                  handleClick={() => { return handleClick(i) }}
+                  index={i}
+                  key={m.mId}
+                  label={m.mName}
+                  path={m.mPath}
                 >
-                  <AnchorRouter><IconShopping size='15px' />{sm.smName}</AnchorRouter>
+                  {!!m.subModules && m.subModules.map(sm => {
+                    return <ActiveLink
+                      href={`/${m.mPath}/${sm.smPath}`}
+                      key={sm.smId}
+                      onClick={e => { return e.stopPropagation() }}
+                    >
+                      <AnchorRouter><IconShopping size='15px' />{sm.smName}</AnchorRouter>
 
-                </ActiveLink>})}
-              </Options>
+                    </ActiveLink>
+                  })}
+                </Options>
 
-            )})}
+              )
+            })}
             <OptionButton>
               <ButtonOption onClick={onClickLogout} space>
                 <IconLogout color={PColor} size='20px' />
@@ -241,7 +243,7 @@ const Aside = () => {
   )
 }
 export default React.memo(Aside, (prevProps, props) => {
-  props.active !== prevProps.active
+  return props.active !== prevProps.active
 })
 
 Aside.propTypes = {

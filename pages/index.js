@@ -1,9 +1,9 @@
+/* eslint-disable no-console */
+import axios from 'axios'
 import { Login } from 'container/login'
 import Head from 'next/head'
-import axios from 'axios'
 import { EmptyLayout } from './_app'
-export default function Home() {
-
+export default function Home () {
   const onChange = async (formData) => {
     const config = {
       headers: { 'content-type': 'multipart/form-data' },

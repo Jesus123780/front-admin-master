@@ -1,15 +1,16 @@
-import React from 'react'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
   static async getInitialProps (ctx) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
     try {
-      ctx.renderPage = () => {return originalRenderPage({
-        enhanceApp: App => {return props => {return sheet.collectStyles(<App {...props} />)}}
-      })}
+      ctx.renderPage = () => {
+        return originalRenderPage({
+          enhanceApp: App => { return props => { return sheet.collectStyles(<App {...props} />) } }
+        })
+      }
       const initialProps = await Document.getInitialProps(ctx)
       return {
         ...initialProps,

@@ -4,12 +4,12 @@ import { BGColor } from 'public/colors'
 export const LabelInput = styled.span`
     position: absolute;
     text-align: left;
-    font-size: ${ ({ value }) => {return value ? '16px' : '16px'} };
-    top: ${ ({ value }) => {return value ? '5px' : '10px'} };
+    font-size: ${({ value }) => { return value ? '16px' : '16px' }};
+    top: ${({ value }) => { return value ? '5px' : '10px' }};
     left: 15px;;
-    left: ${ ({ left }) => {return left ? left : '17px'} };
+    left: ${({ left }) => { return left || '17px' }};
     transition: .2s;
-    background-color: ${ BGColor };
+    background-color: ${BGColor};
     color:  #CCC;
     pointer-events: none;
     font-family: PFont-Light;
@@ -25,14 +25,14 @@ export const Input = styled.input`
     width: 100%;
     border-radius: 5px;
     font-family: PFont-Light;  
-    &:focus ~ ${ LabelInput } {
+    &:focus ~ ${LabelInput} {
         font-size: 16px;
         color: #CCC;
         padding: 0px 5px ;
     }  
     &::selection{
         background-color: red;
-        color: ${ BGColor }
+        color: ${BGColor}
     }
     &:disabled{
         color: #808080;
@@ -40,6 +40,6 @@ export const Input = styled.input`
 `
 export const BoxInput = styled.div`
     position: relative;
-    padding: ${ ({ padding }) => {return padding ? padding : '10px 5px'} };
-    width: ${ ({ width }) => {return width ? width : '100%'} };
+    padding: ${({ padding }) => { return padding || '10px 5px' }};
+    width: ${({ width }) => { return width || '100%' }};
 `

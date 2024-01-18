@@ -57,19 +57,21 @@ export const SwitchOption = styled.div`
         right: 0;
         margin: auto;
     }
-    ${({ show }) => {return show
-    ? css`
+    ${({ show }) => {
+    return show
+      ? css`
             visibility: visible;
             opacity: 1;
             transform: translateY(0);
                 `
-    : css`
+      : css`
                 
             margin: 0;
             visibility: hidden;
             opacity: 0;
             transform: translateY(-50px);
-    `}}
+    `
+  }}
 `
 export const ButtonGlobalCreate = styled.button`
     border-radius: 20px;

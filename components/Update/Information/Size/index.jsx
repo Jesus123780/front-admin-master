@@ -1,13 +1,13 @@
+/* eslint-disable no-console */
 import { useMutation, useQuery } from '@apollo/client'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { PColor } from '../../../../assets/colors'
 import { IconDelete, IconDost, IconEdit } from '../../../../assets/icons/icons'
-import { Context } from '../../../../context/Context'
 import { GET_ALL_SIZE, UPDATE_SIZE } from '../../../../gql/information/Size/size'
 import { validationSubmitHooks } from '../../../../utils'
 import InputHooks from '../../../InputHooks/InputHooks'
 import { RippleButton } from '../../../Ripple'
-import { Container, Form, ContainerTask, OptionsFunction, Button, ListTask, ContainerList } from './styled'
+import { Button, Container, ContainerList, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const Size = () => {
   const [values, setValues] = useState({})
@@ -35,19 +35,22 @@ export const Size = () => {
     }
     setErrors({ ...errorForm })
     if (errorSubmit) {
-      setAlertBox({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
+      console.log({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
     }
     if (!errorSubmit) {
       // const cDatCre = moment().format('HH:mm A')
-      createSize({ variables: { input : { sizeName: values.sizeName } }, update(cache) {
-        cache.modify({
-          fields: {
-            getSizes(dataOld=[]){
-              return cache.writeQuery({ query: GET_ALL_SIZE, data: dataOld })
+      createSize({
+        variables: { input: { sizeName: values.sizeName } },
+        update (cache) {
+          cache.modify({
+            fields: {
+              getSizes (dataOld = []) {
+                return cache.writeQuery({ query: GET_ALL_SIZE, data: dataOld })
+              }
             }
-          }
-        })
-      } }).catch(err=> {return setAlertBox({ message: `${ err }`, duration: 7000 })})
+          })
+        }
+      }).catch(err => { return console.log({ message: `${err}`, duration: 7000 }) })
     }
   }
   return (<>
@@ -66,19 +69,21 @@ export const Size = () => {
         <RippleButton label='Subir' type={'submit'} />
       </Form>
       <ContainerList>
-        {data?.getSizes?.map(x => {return (<div key={x?.sizeId}>
-          <ContainerTask show={show === x}>
-            <OptionsFunction show={show === x}>
-              <Button><IconDelete color={PColor} size={30} /></Button>
-              <Button><IconEdit size={30} /></Button>
-            </OptionsFunction>
-            <ListTask show={show === x}>
-              {x.sizeName}
-            </ListTask>
-            <div style={{ display: 'contents' }}><Button onClick={() => {return setShow(x === show ? false : x)}}><IconDost color={show === x ? PColor : '#CCC'} size={30} /></Button></div>
-          </ContainerTask>
+        {data?.getSizes?.map(x => {
+          return (<div key={x?.sizeId}>
+            <ContainerTask show={show === x}>
+              <OptionsFunction show={show === x}>
+                <Button><IconDelete color={PColor} size={30} /></Button>
+                <Button><IconEdit size={30} /></Button>
+              </OptionsFunction>
+              <ListTask show={show === x}>
+                {x.sizeName}
+              </ListTask>
+              <div style={{ display: 'contents' }}><Button onClick={() => { return setShow(x === show ? false : x) }}><IconDost color={show === x ? PColor : '#CCC'} size={30} /></Button></div>
+            </ContainerTask>
 
-        </div>)})}
+          </div>)
+        })}
 
       </ContainerList>
     </Container>

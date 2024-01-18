@@ -1,21 +1,20 @@
-import { useContext, useState } from 'react'
-import ReactDOM from 'react-dom'
 import { useMutation, useQuery } from '@apollo/client'
+import { useContext, useState } from 'react'
 import { PColor } from '../../../../assets/colors'
-import { Context } from '../../../../context/Context'
 import { IconDelete, IconDost, IconEdit } from '../../../../assets/icons/icons'
+import { Context } from '../../../../context/Context'
 import { GET_ALL_COLOR, UPDATE_COLOR } from '../../../../gql/information/Color'
 import { validationSubmitHooks } from '../../../../utils'
 import InputHooks from '../../../InputHooks/InputHooks'
 import { RippleButton } from '../../../Ripple'
-import { Container,
-  Form,
-  ContainerTask,
-  OptionsFunction,
-  Button, ListTask,
+import {
+  Button,
+  Container,
   ContainerList,
-  ContentModal,
-  AwesomeModal
+  ContainerTask,
+  Form,
+  ListTask,
+  OptionsFunction
 } from './styled'
 
 export const Colors = () => {
@@ -47,18 +46,20 @@ export const Colors = () => {
       setAlertBox({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
     }
     if (!errorSubmit) {
-      createColor({ variables: { input : { colorName: values.colorName, colorId } }, update(cache) {
-        cache.modify({
-          fields: {
-            getAllColor(dataOld=[]){
-              return cache.writeQuery({ query: GET_ALL_COLOR, data: dataOld })
+      createColor({
+        variables: { input: { colorName: values.colorName, colorId } },
+        update (cache) {
+          cache.modify({
+            fields: {
+              getAllColor (dataOld = []) {
+                return cache.writeQuery({ query: GET_ALL_COLOR, data: dataOld })
+              }
             }
-          }
-        })
-      } }).catch(err=> {return setAlertBox({ message: `${ err }`, duration: 7000 })})
+          })
+        }
+      }).catch(err => { return setAlertBox({ message: `${err}`, duration: 7000 }) })
     }
   }
-  const { modal, setModal } = useContext(Context)
 
   return (<>
     <Container>
@@ -74,30 +75,24 @@ export const Colors = () => {
         <RippleButton label='color' type={'submit'} />
       </Form>
       <ContainerList>
-        {data?.getAllColor?.map(x => {return (<div key={x?.colorId}>
-          <ContainerTask show={show === x}>
-            <OptionsFunction show={show === x}>
-              <Button><IconDelete color={PColor} size={30} /></Button>
-              <Button><IconEdit size={30} /></Button>
-            </OptionsFunction>
-            <ListTask show={show === x}>
-              {x.colorName}
-            </ListTask>
-            <div style={{ display: 'contents' }}><Button onClick={() => {return setShow(x === show ? false : x)}}><IconDost color={show === x ? PColor : '#CCC'} size={30} /></Button></div>
-          </ContainerTask>
+        {data?.getAllColor?.map(x => {
+          return (<div key={x?.colorId}>
+            <ContainerTask show={show === x}>
+              <OptionsFunction show={show === x}>
+                <Button><IconDelete color={PColor} size={30} /></Button>
+                <Button><IconEdit size={30} /></Button>
+              </OptionsFunction>
+              <ListTask show={show === x}>
+                {x.colorName}
+              </ListTask>
+              <div style={{ display: 'contents' }}><Button onClick={() => { return setShow(x === show ? false : x) }}><IconDost color={show === x ? PColor : '#CCC'} size={30} /></Button></div>
+            </ContainerTask>
 
-        </div>)})}
+          </div>)
+        })}
 
       </ContainerList>
     </Container>
-    {/* {ReactDOM.createPortal(<>
-            <ContentModal onClick={e => e.stopPropagation()} modal={modal} onClick={() => setModal(!modal)}>
-                <AwesomeModal onClick={e => e.stopPropagation()} modal={modal}>
-                    Hola
-                </AwesomeModal>
-            </ContentModal>
-        </>, document.getElementById('root')
-        )} */}
   </>
   )
 }

@@ -1,29 +1,30 @@
-import { useState } from 'react'
-import { InputHook } from './Input'
+import PropTypes from 'prop-types'
 import { APColor, PColor, PVColor } from 'public/colors'
+import { IconArrowRight, IconDelete, IconEdit, IconLove } from 'public/icons'
+import { useState } from 'react'
+import { Loading } from '../../Loading'
 import { RippleButton } from '../../Ripple'
 import { TextAreaHooks } from '../../TextTareaHook'
-import { Loading } from '../../Loading'
+import { InputHook } from './Input'
 import {
-  Container,
-  FormProducts,
-  Card,
-  Button,
-  CardOne,
-  ContainerCardProduct,
-  CardProduct,
-  Img,
-  ContentImg,
-  Title,
-  Text,
-  ContentInfo,
-  ContentIconFav,
-  ButtonCard,
   ActionName,
+  Button,
+  ButtonCard,
+  Card,
+  CardOne,
+  CardProduct,
+  Container,
+  ContainerCardProduct,
+  ContentIconFav,
+  ContentImg,
+  ContentInfo,
+  ContentProducts,
+  FormProducts,
+  Img,
   ReadMore,
-  ContentProducts
+  Text,
+  Title
 } from './styled'
-import { IconArrowRight, IconDelete, IconEdit, IconLove } from 'public/icons'
 
 export const Categories = ({
   search,
@@ -68,7 +69,7 @@ export const Categories = ({
             widthButton='100%'
           >Subir</RippleButton>
         </FormProducts>
-                
+
       </CardOne>
       <i style={{ position: 'relative' }}>
         <Button onClick={handleClick}><IconArrowRight color='blue' size='20px' /></Button>
@@ -85,31 +86,53 @@ export const Categories = ({
           />
           <Text size='30px'>Lista de categorías registrados</Text>
           <ContainerCardProduct>
-            {!data?.length ? <>No hay Datos</> : data?.map(product => {return (
-              <CardProduct key={product.caId} >
-                <ButtonCard onClick={() => {return handleDelete(product?.caId)}}>
-                  <IconDelete color={PColor} size={20} />
-                  <ActionName > Eliminarais</ActionName>
-                </ButtonCard>
-                <ButtonCard delay='.1s' top={'80px'}>
-                  <IconEdit color={PColor} size={20} /> <ActionName> Editar</ActionName>
-                </ButtonCard>
-                <ContentImg>
-                  {!product.ProImage ? <i>Cargando</i> : <Img alt={product.ProImage} src={product.ProImage} />}
-                </ContentImg>
-                <ContentInfo>
-                  <ContentIconFav>
-                    <IconLove color={PVColor} size={20} />
-                  </ContentIconFav>
-                  <Title>{product.cpName}</Title>
-                </ContentInfo>
-              </CardProduct>
-            )})}
+            {!data?.length
+              ? <>No hay Datos</>
+              : data?.map(product => {
+                return (
+                  <CardProduct key={product.caId} >
+                    <ButtonCard onClick={() => { return handleDelete(product?.caId) }}>
+                      <IconDelete color={PColor} size={20} />
+                      <ActionName > Eliminarais</ActionName>
+                    </ButtonCard>
+                    <ButtonCard delay='.1s' top={'80px'}>
+                      <IconEdit color={PColor} size={20} /> <ActionName> Editar</ActionName>
+                    </ButtonCard>
+                    <ContentImg>
+                      {!product.ProImage ? <i>Cargando</i> : <Img alt={product.ProImage} src={product.ProImage} />}
+                    </ContentImg>
+                    <ContentInfo>
+                      <ContentIconFav>
+                        <IconLove color={PVColor} size={20} />
+                      </ContentIconFav>
+                      <Title>{product.cpName}</Title>
+                    </ContentInfo>
+                  </CardProduct>
+                )
+              })}
           </ContainerCardProduct>
-          <ReadMore onClick={() => {return setShowMore(s => {return s + 5})}}>CARGAR MÁS </ReadMore>
+          <ReadMore onClick={() => { return setShowMore(s => { return s + 5 }) }}>CARGAR MÁS </ReadMore>
         </ContentProducts>
       </Card>
     </Container>
   </div>
   )
+}
+
+Categories.propTypes = {
+  data: PropTypes.shape({
+    length: PropTypes.any,
+    map: PropTypes.func
+  }),
+  handleChange: PropTypes.any,
+  handleChangeFilter: PropTypes.any,
+  handleDelete: PropTypes.func,
+  handleRegister: PropTypes.any,
+  loading: PropTypes.any,
+  search: PropTypes.any,
+  setShowMore: PropTypes.func,
+  values: PropTypes.shape({
+    Metadata: PropTypes.any,
+    cpName: PropTypes.any
+  })
 }

@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client'
-import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { GET_TYPE_PQR } from '../queries'
-import { Container } from './styled'
-import { IconArrowRight } from '../../../../assets/icons/icons'
 import { SFColor, SFVColor } from '../../../../assets/colors'
+import { IconArrowRight } from '../../../../assets/icons/icons'
+import { GET_TYPE_PQR } from '../queries'
 import { icons } from './codeIcon'
+import { Container } from './styled'
 export const StorePqr = () => {
   const { data, loading, error: errorC } = useQuery(GET_TYPE_PQR)
 
@@ -40,6 +40,12 @@ const QuestionsList = ({ icon, title, iconArrow }) => {
       </AndesListItem>
     </ContainerQuestion>
   )
+}
+
+QuestionsList.propTypes = {
+  icon: PropTypes.any,
+  iconArrow: PropTypes.any,
+  title: PropTypes.any
 }
 // Questions List
 const ContainerQuestion = styled.div`
@@ -92,18 +98,18 @@ const CardWrapper = styled.div`
 `
 export const LabelInput = styled.span`
     position: absolute;
-    font-size: ${ ({ value }) => {return value ? '11px' : '13px'} };
-    top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
-    left: ${ ({ left }) => {return left ? left : '10px'} };
-    color: ${ ({ value }) => {return value ? SFColor : SFVColor} };
+    font-size: ${({ value }) => { return value ? '11px' : '13px' }};
+    top: ${({ value }) => { return value ? '-17px' : '10px' }};
+    left: ${({ left }) => { return left || '10px' }};
+    color: ${({ value }) => { return value ? SFColor : SFVColor }};
     transition: .3s;
     pointer-events: none;
-    font-weight: ${ ({ value }) => {return value ? 600 : 400} };
+    font-weight: ${({ value }) => { return value ? 600 : 400 }};
 `
 
 export const TextArea = styled.textarea`
     width: 100%;
-    height: ${ ({ height }) => {return height ? height : '0'} };
+    height: ${({ height }) => { return height || '0' }};
     font-size: 15px;
     padding: 15px;
     outline: none;
@@ -111,12 +117,12 @@ export const TextArea = styled.textarea`
     min-width: 99%;
     min-height: 200px;
     border: 1px solid #cccccc42;
-    &:focus ~ ${ LabelInput } {
+    &:focus ~ ${LabelInput} {
         top: -17px;
         font-size: 15px;
     }
-    & ~ ${ LabelInput } {
-        top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
+    & ~ ${LabelInput} {
+        top: ${({ value }) => { return value ? '-17px' : '10px' }};
         font-size: 13px;
     }
 `

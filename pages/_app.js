@@ -6,10 +6,10 @@ import { GlobalStyle } from 'public/styles/GlobalStyle'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import { useApollo } from '../apollo/apolloClient'
-import '../styles/globals.css'
 import '../public/styles/tokens.css'
+import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps)
   const Layout = Component.Layout ? Component.Layout : MainLayout
 
@@ -23,6 +23,13 @@ function MyApp({ Component, pageProps }) {
       </ApolloProvider>
     </Context>
   )
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.shape({
+    Layout: PropTypes.any
+  }),
+  pageProps: PropTypes.any
 }
 
 

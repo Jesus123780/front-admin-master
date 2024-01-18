@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client'
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { RippleButton } from '../../../Ripple'
 import { EDIT_COUNTRIES } from './queries'
-import { Input, ContainInput } from './styled'
+import { ContainInput, Input } from './styled'
 
-export function EditForm(props) {
+export function EditForm (props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '')
   const inputRef = useRef(null)
   //  const { setAlertBox } = useContext(Context)
@@ -26,16 +27,15 @@ export function EditForm(props) {
     })
     setInput('')
     try {
-      const results = await editCountries({
+      await editCountries({
         variables: {
           input: {
             cName, cId
           }
         }
       })
-      if (results) setAlertBox({ message: `País  actualizado con éxito ${ cName }`, duration: 5000, color: 'success' })
     } catch (error) {
-      setAlertBox({ message: `${ error }`, duration: 7000 })
+
     }
   }
   return (

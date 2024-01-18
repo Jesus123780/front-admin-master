@@ -14,7 +14,7 @@ import {
   Button,
   Row,
   PColor,
-  motion, 
+  motion,
   AnimatePresence,
   IconDelete
 } from 'pkg-components'
@@ -24,101 +24,104 @@ export const CategoriesStoreComponent = ({
   errors = {},
   loading = false,
   values = {},
-  handleChange = () => { return },
-  handleDelete = () => { return },
-  handleRegister = () => { return },
-  handleToggle = () => { return }
+  handleChange = () => { },
+  handleDelete = () => { },
+  handleRegister = () => { },
+  handleToggle = () => { }
 }) => {
   return (<div>
     <Container>
       <CardOne>
         <FormProducts onSubmit={handleRegister}>
           <InputHooks
+            error={errors.cName}
             name='cName'
             onChange={handleChange}
             range={{ min: 0, max: 180 }}
             required
             title='Nombre'
-            error={errors.cName}
             type='text'
             value={values.cName}
           />
           <InputHooks
+            error={errors.csDescription}
             name='csDescription'
             onChange={handleChange}
             range={{ min: 0, max: 180 }}
             required
-            error={errors.csDescription}
             title='Description'
             value={values.csDescription}
           />
           <Button
             borderRadius='5px'
-            primary
-            width='100%'
             loading={loading}
             margin='20px auto'
+            primary
             type='submit'
+            width='100%'
           >
             Subir
           </Button>
         </FormProducts>
       </CardOne>
       <ColumnCard>
-      <AnimatePresence>
+        <AnimatePresence>
           {data.map(x => {
             const { csDescription, cName } = x || {}
             return (
               <motion.div
-              key={x.catStore}
-              positionTransition={{
-                type: 'spring',
-                stiffness: 500,
-                damping: 30,
-              }}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 0, x: -50 }}
+                key={x.catStore}
+                positionTransition={{
+                  type: 'spring',
+                  stiffness: 500,
+                  damping: 30
+                }}
+                transition={{ duration: 0.5 }}
               >
                 <Card height='200px'>
                   <>
                     <Column className='card_wraper_text'>
                       <Column>
-                        <Text 
-                          className='ellipsis-text' 
-                          color={'#272323'} 
+                        <Text
+                          className='ellipsis-text'
+                          color={'#272323'}
                           fontSize='18px'
                         >
                           {cName}
                         </Text>
                       </Column>
                     </Column>
-                      <Column>
-                        <Text className='ellipsis-text'>
-                          {csDescription}
-                        </Text>
-                      </Column>
+                    <Column>
+                      <Text className='ellipsis-text'>
+                        {csDescription}
+                      </Text>
+                    </Column>
                   </>
                   <Row justifyContent='space-between'>
                     <Checkbox
+                      checked={x?.cState === 1}
                       id={x?.catStore}
                       name={`__id_${x?.catStore}`}
                       onChange={e => { return handleToggle(e, x?.catStore) }}
                       state={x?.cState === 1}
-                      checked={x?.cState === 1}
                     />
-                    <button onClick={() => {
-                      return handleDelete(x)
-                    }} style={{ backgroundColor: 'transparent', cursor: 'pointer' }}>
-                      <IconDelete size={30} color={PColor} />
+                    <button
+                      onClick={() => {
+                        return handleDelete(x)
+                      }}
+                      style={{ backgroundColor: 'transparent', cursor: 'pointer' }}
+                    >
+                      <IconDelete color={PColor} size={30} />
                     </button>
                   </Row>
                 </Card>
               </motion.div>
             )
           })}
-      </AnimatePresence>
+        </AnimatePresence>
       </ColumnCard>
     </Container>
   </div>

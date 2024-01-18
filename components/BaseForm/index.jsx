@@ -68,7 +68,6 @@ export const useFormTools = () => {
           setAlertBox({ message: msgSuccess || 'Operación exitosa', color: 'success' })
           !!actionAfterSuccess && actionAfterSuccess()
         }
-
       }).catch(e => { return setAlertBox({ message: msgError || e?.message || 'Ha ocurrido un error', color: 'error' }) })
     }
 

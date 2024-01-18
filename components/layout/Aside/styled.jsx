@@ -38,13 +38,15 @@ export const ContainerAside = styled.div`
         height: 100%;
         width: 80%;
         position: absolute;
-        ${ ({ collapsed }) => {return collapsed
-    ? css`
+        ${({ collapsed }) => {
+    return collapsed
+      ? css`
             transform: translate(0px, 0px);
             `
-    : css`
+      : css`
             transform: translate(-800px, 0px);
-              `} }
+              `
+  }}
     }
 `
 export const LeftNav = styled.div`
@@ -76,19 +78,21 @@ export const LeftNav = styled.div`
         right: 0;
         margin: auto;
     }
-    ${({ show }) => {return show
-    ? css`
+    ${({ show }) => {
+    return show
+      ? css`
             visibility: visible;
             opacity: 1;
             transform: translateY(0);
                 `
-    : css`
+      : css`
                 
             margin: 0;
             visibility: hidden;
             opacity: 0;
             transform: translateY(-50px);
-    `}}
+    `
+  }}
 `
 export const ButtonGlobalCreate = styled.button`
     border-radius: 20px;
@@ -269,7 +273,8 @@ export const ButtonOption = styled.button`
     cursor: pointer;
     z-index: 999;
     background-color:  transparent;
-    ${ props => {return props.space &&css`
+    ${props => {
+    return props.space && css`
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -277,9 +282,10 @@ export const ButtonOption = styled.button`
         & > span {
             font-family: PFont-Light;
             font-size: 14px;
-            color: ${ ({ theme }) => {return `${ theme.PColor }`} };
+            color: ${({ theme }) => { return `${theme.PColor}` }};
         }
-    `} }
+    `
+  }}
     @media only screen and (min-width: 960px){
     }
 `

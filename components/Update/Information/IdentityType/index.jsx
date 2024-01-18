@@ -1,13 +1,13 @@
+/* eslint-disable no-console */
 import { useMutation, useQuery } from '@apollo/client'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { PColor } from '../../../../assets/colors'
 import { IconDelete, IconDost, IconEdit } from '../../../../assets/icons/icons'
-import { Context } from '../../../../context/Context'
 import { GET_IDENTITY, UPDATE_IDENTITY } from '../../../../gql/information/IdentityType'
 import { validationSubmitHooks } from '../../../../utils'
 import InputHooks from '../../../InputHooks/InputHooks'
 import { RippleButton } from '../../../Ripple'
-import { Container, Form, ContainerTask, OptionsFunction, Button, ListTask } from './styled'
+import { Button, Container, ContainerTask, Form, ListTask, OptionsFunction } from './styled'
 
 export const IdentityType = () => {
   //  const { setAlertBox } = useContext(Context)
@@ -35,18 +35,21 @@ export const IdentityType = () => {
     }
     setErrors({ ...errorForm })
     if (errorSubmit) {
-      setAlertBox({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
+      console.log({ message: 'Por favor, verifique que los Campos estén correctos', duration: 5000 })
     }
     if (!errorSubmit) {
-      createTypeIdentity({ variables: { input : { tiName: values.tiName } }, update(cache) {
-        cache.modify({
-          fields: {
-            typeIdentities(dataOld=[]){
-              return cache.writeQuery({ query: GET_IDENTITY, data: dataOld })
+      createTypeIdentity({
+        variables: { input: { tiName: values.tiName } },
+        update (cache) {
+          cache.modify({
+            fields: {
+              typeIdentities (dataOld = []) {
+                return cache.writeQuery({ query: GET_IDENTITY, data: dataOld })
+              }
             }
-          }
-        })
-      } }).catch(err=> {return setAlertBox({ message: `${ err }`, duration: 7000 })})
+          })
+        }
+      }).catch(err => { return console.log({ message: `${err}`, duration: 7000 }) })
     }
   }
   const [show, setShow] = useState(false)
@@ -64,19 +67,21 @@ export const IdentityType = () => {
         <RippleButton label='Tipo de identidad' type={'submit'} />
       </Form>
       <div>
-        {data?.typeIdentities?.map(x => {return (<div key={x?.tiId}>
-          <ContainerTask show={show === x}>
-            <OptionsFunction show={show === x}>
-              <Button><IconDelete color={PColor} size={30} /></Button>
-              <Button><IconEdit size={30} /></Button>
-            </OptionsFunction>
-            <ListTask show={show === x}>
-              {x.tiName}
-            </ListTask>
-            <div style={{ display: 'contents' }}><Button onClick={() => {return setShow(x === show ? false : x)}}><IconDost color={show === x ? PColor : '#CCC'} size={30} /></Button></div>
-          </ContainerTask>
+        {data?.typeIdentities?.map(x => {
+          return (<div key={x?.tiId}>
+            <ContainerTask show={show === x}>
+              <OptionsFunction show={show === x}>
+                <Button><IconDelete color={PColor} size={30} /></Button>
+                <Button><IconEdit size={30} /></Button>
+              </OptionsFunction>
+              <ListTask show={show === x}>
+                {x.tiName}
+              </ListTask>
+              <div style={{ display: 'contents' }}><Button onClick={() => { return setShow(x === show ? false : x) }}><IconDost color={show === x ? PColor : '#CCC'} size={30} /></Button></div>
+            </ContainerTask>
 
-        </div>)})}
+          </div>)
+        })}
 
       </div>
     </Container>

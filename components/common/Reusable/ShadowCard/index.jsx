@@ -1,10 +1,10 @@
 import { TextH2Main } from 'components/common/h2'
-import React from 'react'
-import { HeadCard, ShadowCardContainer } from './styles'
+import PropTypes from 'prop-types'
+import { ShadowCardContainer } from './styles'
 
 export const MainCard = ({ children, title, noneShadow, display, width }) => {
   return (
-    <div style={{ display: display, width: width }}>
+    <div style={{ display, width }}>
       <TextH2Main text={title} />
       {/* <HeadCard>{title}</HeadCard> */}
       <ShadowCardContainer noneShadow={noneShadow}>
@@ -14,4 +14,12 @@ export const MainCard = ({ children, title, noneShadow, display, width }) => {
       </ShadowCardContainer>
     </div>
   )
+}
+
+MainCard.propTypes = {
+  children: PropTypes.any,
+  display: PropTypes.any,
+  noneShadow: PropTypes.any,
+  title: PropTypes.any,
+  width: PropTypes.any
 }

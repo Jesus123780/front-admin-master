@@ -17,12 +17,14 @@ export const Content = styled.div`
 export const Form = styled.form`
 `
 export const Iconos = styled.div`
-    color: ${ ({ color, theme }) => {return (color ? color : theme.PLColor)} };
-    margin: ${ ({ margin }) => {return (margin ? margin : '0px 7px')} };
-    ${ ({ size }) => {return size &&
+    color: ${({ color, theme }) => { return (color || theme.PLColor) }};
+    margin: ${({ margin }) => { return (margin || '0px 7px') }};
+    ${({ size }) => {
+    return size &&
         css`
-            font-size: ${ size };
-        `} }
+            font-size: ${size};
+        `
+  }}
 `
 export const ButtonSubmit = styled.button`
     background-color: red;
@@ -35,20 +37,22 @@ export const ButtonSubmit = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: ${ ({ size }) => {return (size ? size : '1rem')} };
-    color: ${ ({ colorFont }) => {return (colorFont ? colorFont : `${ BGColor }`)} };
+    font-size: ${({ size }) => { return (size || '1rem') }};
+    color: ${({ colorFont }) => { return (colorFont || `${BGColor}`) }};
     line-height: 1.5;
     border-radius: 0.3rem;
     text-align: center;
     width: 100%;
     margin: 10px 7px;
-    ${ props => {return props.hoverColor &&
+    ${props => {
+    return props.hoverColor &&
         css`
             &:hover {
-                color: ${ BGColor };
-                background-color:${ PColor };
+                color: ${BGColor};
+                background-color:${PColor};
             }
-        `} };
+        `
+  }};
 `
 export const Card = styled.div`
     right: 0;

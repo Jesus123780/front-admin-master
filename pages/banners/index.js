@@ -1,6 +1,6 @@
 import { Banners } from 'container/update/Banners'
 import Head from 'next/head'
-export default function Home() {
+export default function Home () {
   return (
     <div >
       <Head>

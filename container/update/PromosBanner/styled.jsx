@@ -69,12 +69,11 @@ export const Text = styled.span`
 `
 export const CardPromo = styled.div`
     position: relative;
-    border-radius: 5px;
- 
     border-radius: 6px;
     display: block;
+    margin-top: 45px;
+    padding: 45px;
     height: ${({ height }) => height || '250px'};
-    overflow: hidden;
     position: relative;
     text-align: center;
     @media (max-width: 960px){
@@ -82,15 +81,15 @@ export const CardPromo = styled.div`
 
     }
     .btn-delete-master-banner {
-        position: absolute;
-        transition: .5s ease;
         left: 0;
-        right: 0;
         margin: auto;
-        top: 10px;
-        z-index: -1;
         padding: 10px;
+        position: absolute;
+        right: 0;
+        top: 10px;
+        transition: .5s ease;
         width: min-content;
+        z-index: -999;
     }
     .btn {
         cursor: pointer;

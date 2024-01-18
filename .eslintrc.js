@@ -1,53 +1,53 @@
 module.exports = {
-  'env': {
-    'browser': true,
-    'es2021': true,
-    'node': true
+  env: {
+    browser: true,
+    es2021: true,
+    node: true
   },
-  'extends': [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'eslint:recommended', 'next'
-
+  extends: [
+    'standard',
+    'plugin:react/recommended'
   ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaFeatures': {
-      'jsx': true
-    },
-    'ecmaVersion': 12,
-    'sourceType': 'module'
-  },
-  'plugins': [
-    'react',
-    'react-hooks',
-    '@typescript-eslint'
-  ],
-  'settings': {
-    'react': {
-      'version': 'detect'
+  overrides: [
+    {
+      env: {
+        node: true
+      },
+      files: [
+        '.eslintrc.{js,cjs}'
+      ],
+      parserOptions: {
+        sourceType: 'script'
+      }
     }
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
-
-  'rules': {
+  plugins: [
+    'react'
+  ],
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
     'import/no-anonymous-default-export': ['error', {
-      'allowArray': false,
-      'allowArrowFunction': false,
-      'allowAnonymousClass': false,
-      'allowAnonymousFunction': false,
-      'allowCallExpression': true, // The true value here is for backward compatibility
-      'allowLiteral': false,
-      'allowObject': true // anonymous-default-export
+      allowArray: false,
+      allowArrowFunction: false,
+      allowAnonymousClass: false,
+      allowAnonymousFunction: false,
+      allowCallExpression: true, // The true value here is for backward compatibility
+      allowLiteral: false,
+      allowObject: true // anonymous-default-export
     }],
     // react hooks validations
-    'react-hooks/exhaustive-deps': 'warn',
-    'react-hooks/rules-of-hooks': 'error',
+    // 'react-hooks/exhaustive-deps': 'warn',
+    // 'react-hooks/rules-of-hooks': 'error',
     // allow jsx syntax in js files (for next.js project)
     'react/jsx-filename-extension': [
       1,
       {
-        'extensions': [
+        extensions: [
           '.js',
           '.jsx',
           '.ts',
@@ -55,24 +55,24 @@ module.exports = {
         ]
       }
     ],
-    'quotes': [
+    quotes: [
       2,
       'single',
       {
-        'avoidEscape': true,
-        'allowTemplateLiterals': true
+        avoidEscape: true,
+        allowTemplateLiterals: true
       }
     ],
     'consistent-return': 2,
-    'indent': [
+    indent: [
       2,
       2,
       {
-        'SwitchCase': 1
+        SwitchCase: 1
       }
     ],
     'no-else-return': 1,
-    'semi': [
+    semi: [
       1,
       'never'
     ],
@@ -80,11 +80,11 @@ module.exports = {
     'comma-dangle': [
       'error',
       {
-        'arrays': 'never',
-        'objects': 'never',
-        'imports': 'never',
-        'exports': 'never',
-        'functions': 'never'
+        arrays: 'never',
+        objects: 'never',
+        imports: 'never',
+        exports: 'never',
+        functions: 'never'
       }
     ],
     'one-var': [
@@ -100,16 +100,16 @@ module.exports = {
     'no-multi-spaces': [
       'error',
       {
-        'exceptions': {
-          'BinaryExpression': true
+        exceptions: {
+          BinaryExpression: true
         }
       }
     ],
     'no-multiple-empty-lines': [
       'error',
       {
-        'max': 2,
-        'maxBOF': 2
+        max: 2,
+        maxBOF: 2
       }
     ],
     'jsx-quotes': [
@@ -119,7 +119,7 @@ module.exports = {
     'react/jsx-sort-props': [
       'error',
       {
-        'noSortAlphabetically': false
+        noSortAlphabetically: false
       }
     ],
     'react/jsx-first-prop-new-line': [
@@ -129,9 +129,9 @@ module.exports = {
     'react/jsx-max-props-per-line': [
       'error',
       {
-        'maximum': {
-          'single': 2,
-          'multi': 1
+        maximum: {
+          single: 2,
+          multi: 1
         }
       }
     ],

@@ -33,7 +33,7 @@ export default function Login ({ ...args }) {
     <div>
       <Head>
         <title>{process.env.NEXT_NAME_APP || ''}</title>
-        <meta name='description' content='' />
+        <meta content='' name='description' />
       </Head>
       {name && name.length > 0 && rutesUpdate[name[0]]}
     </div>

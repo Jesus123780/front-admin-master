@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client'
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { RippleButton } from '../../../Ripple'
 import { EDIT_DEPARTMENT } from './queries'
-import { Input, ContainInput } from './styled'
+import { ContainInput, Input } from './styled'
 
-export function EditForm(props) {
+export function EditForm (props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '')
   const inputRef = useRef(null)
   //  const { setAlertBox } = useContext(Context)
@@ -38,9 +39,10 @@ export function EditForm(props) {
         }
       })
       // eslint-disable-next-line
-            if (results) setAlertBox({ message: ` Departamento actualizado a  ${ dName }`, duration: 5000 })
+      if (results) setAlertBox({ message: ` Departamento actualizado a  ${ dName }`, duration: 5000 })
     } catch (err) {
-      setAlertBox({ message: `${ err }`, duration: 7000 })
+      // eslint-disable-next-line
+      console.log({ message: `${err}`, duration: 7000 })
     }
   }
   if (error) return <div>Ocurrió un error</div>

@@ -1,15 +1,16 @@
 import { useQuery } from '@apollo/client'
-import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { SFColor, SFVColor } from '../../../../assets/colors'
+import { IconArrowRight } from '../../../../assets/icons/icons'
+import { validationSubmitHooks } from '../../../../utils'
+import InputHooks from '../../../InputHooks/InputHooks'
+import NewSelect from '../../../NewSelectHooks/NewSelect'
+import { RippleButton } from '../../../Ripple'
+import { icons } from '../StorePqr/codeIcon'
 import { GET_TYPE_PQR } from '../queries'
 import { Container } from './styled'
-import InputHooks from '../../../InputHooks/InputHooks'
-import { RippleButton } from '../../../Ripple'
-import { IconArrowRight } from '../../../../assets/icons/icons'
-import { SFColor, SFVColor } from '../../../../assets/colors'
-import NewSelect from '../../../NewSelectHooks/NewSelect'
-import { validationSubmitHooks } from '../../../../utils'
-import { icons } from '../StorePqr/codeIcon'
 export const Questions = () => {
   const { data, loading, error: errorC } = useQuery(GET_TYPE_PQR)
 
@@ -19,6 +20,7 @@ export const Questions = () => {
     setValues({ ...values, [e.target.name]: e.target.value })
     setErrors({ ...errors, [e.target.name]: error })
   }
+  // eslint-disable-next-line consistent-return
   const handleRegister = async e => {
     e.preventDefault()
     // Declarando variables
@@ -35,25 +37,14 @@ export const Questions = () => {
     if (errorSubmit) {
       return alert('Por favor, verifique que los Campos estén correctos.')
     }
-    const { username, name, email, password, ConfirmPassword } = values
+    const { password, ConfirmPassword } = values
     if (ConfirmPassword !== password) {
       alert('Las contraseñas no coinciden')
     }
     try {
       if (!errorSubmit) {
-        const results = await null({
-          variables: {
-            input: {
-              username,
-              email,
-              password,
-              name
-            }
-          }
-
-        })
         setValues({})
-        setErrors({} || [])
+        setErrors({})
       }
     } catch (error) {
     }
@@ -64,45 +55,45 @@ export const Questions = () => {
     <Container>
       <Content>
         {!loading &&
-                    <CardWrapper>
-                      <Form onSubmit={handleRegister}>
-                        <NewSelect
-                          disabled={!data?.typopqr}
-                          id='thpId'
-                          margin='10px'
-                          name='thpId'
-                          onChange={handleChange}
-                          optionName='thpName'
-                          options={data?.typopqr?.filter(x => {return x?.thpName === x?.thpName}) || []}
-                          search
-                          title='Categoría Pregunta'
-                          value={values?.thpId || ''}
-                        />
-                        <InputHooks
-                          errors={values?.hpqrQuestion}
-                          name='hpqrQuestion'
-                          onChange={handleChange}
-                          required
-                          title='Pregunta'
-                          type='text'
-                          value={values?.hpqrQuestion}
-                        />
-                        <div style={{ position: 'relative' }}>
-                          <TextArea
-                            name='hpqrAnswer'
-                            onChange={handleChange}
-                            type='text'
-                          />
-                          <LabelInput>Escribe tu respuesta</LabelInput>
-                        </div>
-                        <RippleButton bgColor='#ebebeb' label='Publicar' />
-                      </Form>
-                    </CardWrapper>
+          <CardWrapper>
+            <Form onSubmit={handleRegister}>
+              <NewSelect
+                disabled={!data?.typopqr}
+                id='thpId'
+                margin='10px'
+                name='thpId'
+                onChange={handleChange}
+                optionName='thpName'
+                options={data?.typopqr || []}
+                search
+                title='Categoría Pregunta'
+                value={values?.thpId || ''}
+              />
+              <InputHooks
+                errors={values?.hpqrQuestion}
+                name='hpqrQuestion'
+                onChange={handleChange}
+                required
+                title='Pregunta'
+                type='text'
+                value={values?.hpqrQuestion}
+              />
+              <div style={{ position: 'relative' }}>
+                <TextArea
+                  name='hpqrAnswer'
+                  onChange={handleChange}
+                  type='text'
+                />
+                <LabelInput>Escribe tu respuesta</LabelInput>
+              </div>
+              <RippleButton bgColor='#ebebeb' label='Publicar' />
+            </Form>
+          </CardWrapper>
         }
         <CardWrapper>
           <div style={{ position: 'relative', display: 'flex', flexDirection: 'column ', boxShadow: '0 1px 2px 0 rgb(0 0 0 / 12%)' }}>
             {/* eslint-disable-next-line */}
-                        {!!data?.typopqr && data.typopqr.map(x => <QuestionsList title={x.thpName} icon={icons.find(j => j.index == x.thpIcon)?.icon} iconArrow={<IconArrowRight color='red' size='10px' />} />)}
+            {!!data?.typopqr && data.typopqr.map(x => <QuestionsList key={x.thpId} title={x.thpName} icon={icons.find(j => j.index == x.thpIcon)?.icon} iconArrow={<IconArrowRight color='red' size='10px' />} />)}
           </div>
         </CardWrapper>
 
@@ -123,6 +114,12 @@ const QuestionsList = ({ icon, title, iconArrow }) => {
       </AndesListItem>
     </ContainerQuestion>
   )
+}
+
+QuestionsList.propTypes = {
+  icon: PropTypes.any,
+  iconArrow: PropTypes.any,
+  title: PropTypes.any
 }
 // Questions List
 const ContainerQuestion = styled.div`
@@ -164,33 +161,6 @@ const Content = styled.div`
     height: 100%;
 
 `
-// const AnimationPulse = keyframes`
-// 	0% {
-// 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-// 	}
-
-// 	70% {
-// 		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-// 	}
-
-// 	100% {
-// 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-// 	}
-// `
-// const DataLength = styled.span`
-//     position: absolute;
-//     right: 0;
-//     margin: auto;
-//     top: -35px;
-//     font-family: PFont-Regular;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     border-radius: 100%;
-//     height: 30px;
-//     width: 30px;
-//     animation: 2s ease infinite ${ AnimationPulse } ;
-// `
 const CardWrapper = styled.div`
     width: 40%;
     display: flex;
@@ -214,18 +184,18 @@ const Form = styled.form`
 `
 export const LabelInput = styled.span`
     position: absolute;
-    font-size: ${ ({ value }) => {return value ? '11px' : '13px'} };
-    top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
-    left: ${ ({ left }) => {return left ? left : '10px'} };
-    color: ${ ({ value }) => {return value ? SFColor : SFVColor} };
+    font-size: ${({ value }) => { return value ? '11px' : '13px' }};
+    top: ${({ value }) => { return value ? '-17px' : '10px' }};
+    left: ${({ left }) => { return left || '10px' }};
+    color: ${({ value }) => { return value ? SFColor : SFVColor }};
     transition: .3s;
     pointer-events: none;
-    font-weight: ${ ({ value }) => {return value ? 600 : 400} };
+    font-weight: ${({ value }) => { return value ? 600 : 400 }};
 `
 
 export const TextArea = styled.textarea`
     width: 100%;
-    height: ${ ({ height }) => {return height ? height : '0'} };
+    height: ${({ height }) => { return height || '0' }};
     font-size: 15px;
     padding: 15px;
     outline: none;
@@ -233,12 +203,12 @@ export const TextArea = styled.textarea`
     min-width: 99%;
     min-height: 200px;
     border: 1px solid #cccccc42;
-    &:focus ~ ${ LabelInput } {
+    &:focus ~ ${LabelInput} {
         top: -17px;
         font-size: 15px;
     }
-    & ~ ${ LabelInput } {
-        top: ${ ({ value }) => {return value ? '-17px' : '10px'} };
+    & ~ ${LabelInput} {
+        top: ${({ value }) => { return value ? '-17px' : '10px' }};
         font-size: 13px;
     }
 `

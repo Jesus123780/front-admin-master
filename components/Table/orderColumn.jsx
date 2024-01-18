@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 // Funcion para hacer el filtro de las respectivas columnas
 export const orderColumn = (prev, post, currentColumn = { key: '' }) => {
   const { key } = currentColumn

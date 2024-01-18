@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useApolloClient, useLazyQuery, useQuery } from '@apollo/client'
 import { Context } from 'context/Context'
 import { GET_ALL_CITIES, GET_ALL_COUNTRIES, GET_ALL_DEPARTMENTS, GET_ONE_COUNTRY } from 'gql/Location'
@@ -44,7 +45,6 @@ export const Header = () => {
           color: 'error'
         })
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client])
   const [values, setValues] = useState({})
   const [dataStoreReport] = useStoreAdmin()
@@ -64,7 +64,7 @@ export const Header = () => {
   }
   const [show, setShow] = useState(false)
   const departments = dataDepartments?.departments || []
-  const countries = useMemo(() => {return dataCountries?.countries}, [dataCountries?.countries])
+  const countries = useMemo(() => { return dataCountries?.countries }, [dataCountries?.countries])
   const cities = dataCities?.cities || []
   useEffect(() => {
     if (show === true) {
@@ -76,11 +76,11 @@ export const Header = () => {
   return (
     <header>
       <ContainerHeader>
-        <Button onClick={() => {return Router.back()}}>
+        <Button onClick={() => { return Router.back() }}>
           <IconArrowLeft color={BColor} size='30px' />
                     Volver
         </Button>
-        <ButtonGlobalCreate onClick={() => {return setShow(!show)}}>
+        <ButtonGlobalCreate onClick={() => { return setShow(!show) }}>
                     Filtro por {cName}
         </ButtonGlobalCreate>
         <CtnSwitch>
@@ -91,7 +91,7 @@ export const Header = () => {
                 id='cId'
                 name='countryId'
                 onChange={handleChangeSearch}
-                onClick={() => {return console.log('first')}}
+                onClick={() => { return console.log('first') }}
                 optionName={['cCalCod', 'cName']}
                 options={countries}
                 value={values?.countryId || Location.countryId}
@@ -102,7 +102,7 @@ export const Header = () => {
                 id='dId'
                 name='dId'
                 onChange={handleChangeSearch}
-                onClick={() => {return console.log('first')}}
+                onClick={() => { return console.log('first') }}
                 optionName='dName'
                 options={departments}
                 value={values?.dId || Location.department}
@@ -113,7 +113,7 @@ export const Header = () => {
                 id='ctId'
                 name='ctId'
                 onChange={handleChangeSearch}
-                onClick={() => {return console.log('first')}}
+                onClick={() => { return console.log('first') }}
                 optionName='cName'
                 options={cities}
                 value={values?.ctId || Location.city}
@@ -126,7 +126,7 @@ export const Header = () => {
         <IconLogo color={PColor} size='50px' />
         <ActionContent></ActionContent>
         <ActionContent>
-          <Button onClick={() => {return onClickLogout()}}>
+          <Button onClick={() => { return onClickLogout() }}>
             <IconLogout color={PColor} size='20px' />
           </Button>
         </ActionContent>

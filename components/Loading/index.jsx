@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import { BGColor, PColor } from 'public/colors'
-import React from 'react'
 import styled, { keyframes } from 'styled-components'
-// import './style.css'
+
 export const Loading = () => {
   return (
     <Container>
@@ -13,7 +12,7 @@ export const Loading = () => {
     </Container>
   )
 }
-export function LoadingClosed({ error }) {
+export function LoadingClosed ({ error }) {
   return (
     <Container>
       <Modal>

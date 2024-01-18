@@ -1,7 +1,7 @@
 import { useLazyQuery, useQuery } from '@apollo/client'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { GET_ALL_CITIES, GET_ALL_COUNTRIES, GET_ALL_DEPARTMENTS, GET_ALL_ROAD } from '../../../../gql/Location'
 import { Location as LocationContainer } from './index'
-import { GET_ALL_COUNTRIES, GET_ALL_DEPARTMENTS, GET_ALL_CITIES, GET_ALL_ROAD } from '../../../../gql/Location'
 export const Location = () => {
   // Herramientas de formulario
   const { data: dataCountries, loading: loadCountries } = useQuery(GET_ALL_COUNTRIES)

@@ -1,7 +1,7 @@
 import { Activity } from 'container/Activity'
 import { LocationName } from 'hooks/useLocationName'
 import Head from 'next/head'
-export default function Home() {
+export default function Home () {
   return (
     <div >
       <Head>
