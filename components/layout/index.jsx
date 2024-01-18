@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
 import { AlertBox } from 'components/AlertBox'
 import { Context } from 'context/Context'
 import { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import Aside from './Aside'
